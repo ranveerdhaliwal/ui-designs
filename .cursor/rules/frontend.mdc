@@ -1,0 +1,15 @@
+---
+description: React frontend structure and composition. Apply when editing web UI.
+globs: apps/web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Frontend (React)
+
+Full detail: fresno-events `.cursor/rules/frontend-architecture.mdc` and dev-space `AGENT_RULES.md` §8.
+
+- `components/` — reusable UI; `features/` — domain modules; `pages/` — route shells
+- `api/` or `services/` — HTTP only; components never call `fetch` directly
+- Dependency direction: pages → features → components (never reverse)
+- No boolean prop variants — use explicit variant components
+- Pure logic in `Feature.utils.ts` with unit tests

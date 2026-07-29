@@ -1,0 +1,60 @@
+{
+  "body": {
+    "backgroundColor": "rgb(248, 244, 240)",
+    "color": "rgb(0, 0, 0)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "h1": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 254, 251)",
+    "fontFamily": "\"Tiempos Headline Light\", \"Tiempos Headline Light Placeholder\", sans-serif",
+    "fontSize": "148px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "button": {
+    "backgroundColor": "rgb(255, 254, 251)",
+    "color": "rgb(32, 21, 21)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "8px 12px",
+    "borderRadius": "4px"
+  },
+  "nav": {
+    "backgroundColor": "rgba(255, 249, 237, 0)",
+    "color": "rgb(0, 0, 0)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "0px 16px",
+    "borderRadius": "0px"
+  },
+  "palette": {
+    "colors": [
+      "rgb(0, 0, 0)",
+      "rgb(188, 178, 177)",
+      "rgb(255, 249, 238)",
+      "rgb(0, 0, 238)",
+      "rgb(32, 21, 21)",
+      "rgb(255, 254, 251)",
+      "rgb(255, 255, 255)",
+      "rgb(255, 253, 249)",
+      "rgb(147, 144, 132)",
+      "rgb(54, 52, 46)"
+    ],
+    "bgColors": [
+      "rgb(248, 244, 240)",
+      "rgb(32, 21, 21)",
+      "rgb(255, 79, 0)",
+      "rgba(255, 249, 237, 0)",
+      "rgba(255, 254, 251, 0)",
+      "rgba(255, 13, 13, 0.26)",
+      "rgba(255, 0, 0, 0.35)",
+      "rgba(247, 244, 240, 0)",
+      "rgb(255, 254, 251)",
+      "rgb(255, 179, 133)"
+    ]
+  }
+}

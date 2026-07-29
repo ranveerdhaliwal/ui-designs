@@ -1,0 +1,219 @@
+.container {
+  --e-bg: #000000;
+  --e-card: #242424;
+  --e-text: #f6f6f6;
+  --e-text-muted: #7c888f;
+  --e-border: #2e2e2e;
+  
+  --e-font-sans: 'Inter', sans-serif;
+  --e-font-serif: 'IBM Plex Serif', serif;
+  --e-font-mono: 'Fragment Mono', monospace;
+
+  background-color: var(--e-bg);
+  color: var(--e-text);
+  font-family: var(--e-font-sans);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--e-border);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: var(--e-font-mono);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  font-size: 1.125rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLinks a {
+  color: var(--e-text-muted);
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.navLinks a:hover {
+  color: var(--e-text);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLogin {
+  font-size: 0.875rem;
+  color: var(--e-text-muted);
+}
+
+.navLogin:hover {
+  color: var(--e-text);
+}
+
+.btnPrimary, .btnPrimaryLg {
+  background: var(--e-text);
+  color: var(--e-bg);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnPrimary {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btnPrimaryLg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btnPrimary:hover, .btnPrimaryLg:hover {
+  opacity: 0.9;
+}
+
+.btnSecondaryLg {
+  background: transparent;
+  color: var(--e-text);
+  border: 1px solid var(--e-border);
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnSecondaryLg:hover {
+  background: var(--e-card);
+}
+
+/* Hero */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  border: 1px solid var(--e-border);
+  font-size: 0.75rem;
+  font-family: var(--e-font-mono);
+  color: var(--e-text-muted);
+  margin-bottom: 2rem;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--e-text);
+}
+
+.headline {
+  font-family: var(--e-font-serif);
+  font-size: 5rem;
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subheadline {
+  font-size: 1.25rem;
+  color: var(--e-text-muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.heroActions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Features */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.featureCard {
+  background: var(--e-card);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--e-border);
+}
+
+.featureIcon {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--e-text-muted);
+}
+
+.featureCard h3 {
+  font-family: var(--e-font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+.featureCard p {
+  color: var(--e-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Back Button */
+.backButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: var(--e-card);
+  color: var(--e-text);
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  border: 1px solid var(--e-border);
+  transition: transform 0.2s, background 0.2s;
+  z-index: 100;
+}
+
+.backButton:hover {
+  background: #333;
+  transform: translateY(-2px);
+}

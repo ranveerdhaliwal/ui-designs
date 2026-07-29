@@ -1,0 +1,231 @@
+.container {
+  min-height: 200vh; /* Long scrollable page */
+  background-color: #63618E;
+  color: #E6D9A1;
+  font-family: "ObviouslyVariable", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Make sure body scrolling is handled via global or we just assume standard scroll */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.giantTextContainer {
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.giantText {
+  font-size: clamp(4rem, 15vw, 15rem);
+  font-weight: 800;
+  line-height: 0.8;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.navBlock {
+  background: #111;
+  color: white;
+  padding: 0.5rem 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-family: monospace;
+  font-weight: bold;
+  pointer-events: auto;
+}
+
+.ghostCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 200px;
+  height: 150px;
+  /* Basic representation of the ghost */
+  background: white;
+  border-radius: 50% 50% 20% 20%;
+  border: 4px solid #111;
+  box-shadow: inset 0 -15px 0 rgba(0,0,0,0.1);
+}
+
+.eye {
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  background: #111;
+  border-radius: 50%;
+  top: 40px;
+}
+
+.eye:nth-child(1) {
+  left: 50px;
+  transform: rotate(15deg);
+}
+
+.eye:nth-child(2) {
+  right: 50px;
+  transform: rotate(-15deg);
+}
+
+/* Background color is now handled by Framer Motion inline */
+.mustardBg { align-items: flex-start; justify-content: flex-start; padding-top: 10rem; }
+
+.productsRow {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 4rem;
+  z-index: 10;
+}
+
+.productCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productCharPlaceholder {
+  width: 100px;
+  height: 150px;
+  background: white;
+  border: 4px solid #111;
+  border-radius: 20px;
+  position: relative;
+}
+
+.productLabel {
+  background: #111;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.splitLayout {
+  display: flex;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: 2rem;
+  position: relative;
+}
+
+.leftCol {
+  flex: 1;
+  position: relative;
+}
+
+.rightCol {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sleepingGhost {
+  width: 400px;
+  height: 200px;
+  background: white;
+  border: 4px solid #111;
+  border-radius: 40px;
+  margin-top: -5rem;
+  position: relative;
+  z-index: 10;
+  margin-left: 20%;
+}
+
+.shopPanel {
+  background: #B650A1;
+  border: 4px solid #111;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+}
+
+.shopGrid {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.shopItem {
+  border: 4px solid #111;
+  background: transparent;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.shopItem h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #E8CCBE;
+}
+
+.shopImg {
+  width: 120px;
+  height: 120px;
+  background: white;
+  border: 4px solid #111;
+}
+
+.shopItem a {
+  color: white;
+  text-decoration: underline;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.shopAllBtn {
+  background: #998335;
+  color: white;
+  border: 4px solid #111;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #111;
+}
+
+.drinkGhost {
+  width: 250px;
+  height: 200px;
+  background: white;
+  border: 4px solid #111;
+  border-radius: 100px 100px 40px 40px;
+  margin-top: -10rem;
+  z-index: 10;
+}

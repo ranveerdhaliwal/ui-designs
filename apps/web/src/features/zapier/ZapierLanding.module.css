@@ -1,0 +1,187 @@
+.container {
+  --zap-bg: #F8F4F0;
+  --zap-text: #000000;
+  --zap-orange: #FF4F00;
+  --zap-orange-hover: #E04600;
+  --zap-surface: #FFFFFF;
+  --zap-border: #E8E2DA;
+
+  --zap-font-sans: 'Inter', sans-serif;
+  --zap-font-serif: 'Lora', serif;
+
+  background-color: var(--zap-bg);
+  color: var(--zap-text);
+  font-family: var(--zap-font-sans);
+  min-height: 100vh;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  background: var(--zap-bg);
+  border-bottom: 1px solid var(--zap-border);
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.logo {
+  font-family: var(--zap-font-sans);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  color: var(--zap-orange);
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLinks a, .navLogin {
+  color: var(--zap-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navLinks a:hover, .navLogin:hover {
+  text-decoration: underline;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btnPrimary {
+  background: var(--zap-orange);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnPrimary:hover {
+  background: var(--zap-orange-hover);
+}
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.headline {
+  font-family: var(--zap-font-serif);
+  font-size: 5.5rem;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.subheadline {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  color: #333;
+}
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btnPrimaryLg, .btnSecondaryLg {
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnPrimaryLg {
+  background: var(--zap-orange);
+  color: #fff;
+  border: none;
+  transition: background 0.2s;
+}
+
+.btnPrimaryLg:hover {
+  background: var(--zap-orange-hover);
+}
+
+.btnSecondaryLg {
+  background: transparent;
+  color: var(--zap-text);
+  border: 1px solid var(--zap-text);
+}
+
+.btnSecondaryLg:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.integrations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.card {
+  background: var(--zap-surface);
+  padding: 3rem;
+  border-radius: 8px;
+  border: 1px solid var(--zap-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.card h3 {
+  font-family: var(--zap-font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.backButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: var(--zap-surface);
+  color: var(--zap-text);
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--zap-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+}

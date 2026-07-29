@@ -1,0 +1,46 @@
+{
+  "body": {
+    "backgroundColor": "rgb(15, 31, 16)",
+    "color": "rgb(0, 0, 0)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "h1": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(245, 244, 242)",
+    "fontFamily": "\"Geist Medium\", \"Geist Medium Placeholder\", sans-serif",
+    "fontSize": "72px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "button": null,
+  "nav": null,
+  "palette": {
+    "colors": [
+      "rgb(0, 0, 0)",
+      "rgb(0, 0, 238)",
+      "rgb(255, 255, 255)",
+      "rgb(245, 244, 242)",
+      "rgb(15, 31, 16)",
+      "rgba(255, 255, 255, 0.4)",
+      "rgb(243, 243, 243)",
+      "rgba(15, 31, 16, 0.6)",
+      "rgb(213, 238, 188)",
+      "rgb(198, 241, 157)"
+    ],
+    "bgColors": [
+      "rgb(15, 31, 16)",
+      "rgb(255, 255, 255)",
+      "rgb(15, 15, 15)",
+      "rgb(245, 244, 242)",
+      "rgb(166, 0, 94)",
+      "rgb(204, 131, 67)",
+      "rgb(159, 207, 105)",
+      "rgb(153, 238, 255)",
+      "rgb(232, 171, 65)",
+      "rgb(27, 105, 207)"
+    ]
+  }
+}

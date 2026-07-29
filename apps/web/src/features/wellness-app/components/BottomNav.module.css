@@ -1,0 +1,40 @@
+.bottomNav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0.75rem 0 1.5rem 0; /* Extra padding at bottom for rounded corner space */
+  border-top: 1px solid #f0f0f0;
+  z-index: 100;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a0a0a0;
+  transition: color 0.2s;
+  padding: 0.5rem;
+  flex: 1;
+}
+
+.navItem:hover {
+  color: #666;
+}
+
+.navItem.active {
+  color: #D36C59; /* Burnt orange from screenshot active states */
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.navItem span {
+  font-size: 0.7rem;
+  font-weight: 500;
+}

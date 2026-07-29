@@ -1,0 +1,139 @@
+.container {
+  --a-bg: #0F1F10;
+  --a-surface: rgba(255,255,255,0.03);
+  --a-text: #F5F4F2;
+  --a-text-muted: rgba(245, 244, 242, 0.6);
+  --a-accent: #D5EEBC;
+  --a-border: rgba(213, 238, 188, 0.15);
+
+  --a-font: 'Space Grotesk', 'Inter', sans-serif;
+
+  background-color: var(--a-bg);
+  color: var(--a-text);
+  font-family: var(--a-font);
+  min-height: 100vh;
+  position: relative;
+  background-image: radial-gradient(circle at 50% -20%, rgba(213, 238, 188, 0.08) 0%, transparent 70%);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--a-accent);
+  letter-spacing: -0.02em;
+}
+
+.navLinks {
+  display: flex;
+  gap: 3rem;
+}
+
+.navLinks a {
+  color: var(--a-text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navLinks a:hover {
+  color: var(--a-text);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.hero {
+  max-width: 900px;
+}
+
+.eyebrow {
+  color: var(--a-accent);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--a-accent);
+}
+
+.headline {
+  font-size: 6rem;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+.subheadline {
+  font-size: 1.5rem;
+  color: var(--a-text-muted);
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+.visualData {
+  display: flex;
+  gap: 2rem;
+  margin-top: 6rem;
+}
+
+.dataCard {
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: 16px;
+  padding: 3rem;
+  flex: 1;
+  backdrop-filter: blur(10px);
+}
+
+.dataMetric {
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--a-accent);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.dataLabel {
+  color: var(--a-text-muted);
+  font-size: 1.1rem;
+}
+
+.backButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  color: var(--a-text);
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  border: 1px solid var(--a-border);
+  transition: background 0.2s;
+}
+
+.backButton:hover {
+  background: rgba(255,255,255,0.2);
+}

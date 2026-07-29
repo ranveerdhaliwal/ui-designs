@@ -1,0 +1,110 @@
+.container {
+  min-height: 100vh;
+  background-color: #F4F1EA;
+  color: #1A1A1A;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+}
+.logoIcon {
+  font-family: serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 3rem;
+  font-size: 0.9rem;
+}
+
+.cart {
+  font-size: 0.9rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem 4rem 4rem;
+  min-height: calc(100vh - 100px);
+}
+
+.textContent {
+  padding-top: 8rem;
+  max-width: 600px;
+  position: relative;
+  z-index: 10;
+}
+
+.kicker {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #555;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.title {
+  font-size: 6rem;
+  margin-bottom: 2rem;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 450px;
+}
+
+.button {
+  background: #1A1A1A;
+  color: #FFF;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.imageContent {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.heroImageWrapper {
+  width: 120%; /* Bleed off the right edge */
+  max-width: 900px;
+  position: absolute;
+  right: -10%;
+  bottom: 0;
+  transform-origin: bottom right;
+}

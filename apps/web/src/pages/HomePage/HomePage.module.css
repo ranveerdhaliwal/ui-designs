@@ -1,0 +1,98 @@
+.container {
+  min-height: 100vh;
+  background-color: #050505;
+  color: #FFFFFF;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.header {
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: 0;
+  background: linear-gradient(to right, #FFF, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 1.125rem;
+  margin-top: 1rem;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.categoryTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: #FFF;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+.categoryDesc {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s, border-color 0.2s;
+  display: block;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #444;
+}
+
+.cardImage {
+  height: 160px;
+  background-color: #1a1a1a;
+  background-position: center;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #FFF;
+  margin: 1.25rem 1.25rem 0.5rem;
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  color: #888;
+  margin: 0 1.25rem 1.25rem;
+  line-height: 1.5;
+}

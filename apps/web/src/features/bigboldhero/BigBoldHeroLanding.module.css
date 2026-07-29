@@ -1,0 +1,834 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.backButton {
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 1000;
+  color: #000;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.backButton:hover {
+  background: #FFF;
+}
+
+.themeWrapper {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Backgrounds */
+.oasis {
+  background-image: url('/assets/oasis_bg.png');
+}
+.haven {
+  background-image: url('/assets/haven_bg.png');
+}
+.harmoniq {
+  background-image: url('/assets/harmoniq_bg.png');
+}
+.arive {
+  background-image: url('/assets/arive_bg.png');
+}
+.ostra {
+  background-image: url('/assets/ostra_bg.png');
+}
+.lumen {
+  background-image: url('/assets/lumen_bg.png');
+}
+.vanta {
+  background-image: url('/assets/vanta_bg.png');
+}
+
+/* Header Styles */
+.headerOasis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+
+.logoOasis {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #111;
+}
+.logoHarmoniq {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.harmoniqIcon {
+  font-size: 1.75rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+.navLinks span {
+  cursor: pointer;
+}
+
+.btnOasisDark {
+  background: #1A202C;
+  color: #FFF;
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.btnOasisDark:hover {
+  transform: translateY(-2px);
+}
+
+/* Floating Center Header (Haven & Arive) */
+.headerFloatingCenter {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.floatingNavContainer {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  background: #FFF;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border-radius: 99px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+.logoHaven {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.havenIcon {
+  color: #F97316;
+}
+.navLinksCenter {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+}
+.btnHavenDark {
+  background: #111;
+  color: #FFF;
+  border: none;
+  border-radius: 99px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.floatingNavDark {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(20px);
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.logoArive {
+  color: #FFF;
+  font-size: 1.25rem;
+}
+.navLinksCenterDark {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #E2E8F0;
+}
+.btnAriveBlue {
+  background: #3B82F6;
+  color: #FFF;
+  border: none;
+  border-radius: 99px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Oasis Hero */
+.heroOasis {
+  padding: 6rem 4rem;
+  max-width: 800px;
+}
+.titleSerifOasis {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 5rem;
+  line-height: 1.1;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+.subtitleOasis {
+  font-size: 1.25rem;
+  color: #555;
+  margin: 0 0 2rem;
+  line-height: 1.5;
+}
+.btnOasisLight {
+  background: #FFF;
+  color: #111;
+  padding: 1rem 2rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+.btnOasisLight:hover { transform: translateY(-2px); }
+
+.bottomScroll {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  color: #FFF;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* Haven Hero */
+.heroCenter {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 5rem;
+}
+.pillBadge {
+  background: rgba(255,255,255,0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.pillBadgeLight {
+  background: #FFF;
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  color: #555;
+}
+.titleSansLarge {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 1rem;
+  letter-spacing: -0.04em;
+}
+.subtitleCenter {
+  font-size: 1.25rem;
+  color: #444;
+  margin: 0 0 2.5rem;
+  line-height: 1.6;
+}
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.btnHavenLight {
+  background: #FFF;
+  color: #111;
+  padding: 1rem 2rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.textLink {
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+}
+.bottomScrollPill {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  color: #FFF;
+  padding: 0.5rem 1.5rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+/* Harmoniq */
+.heroCenterTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 4rem;
+}
+.titleSerifElegant {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 5.5rem;
+  line-height: 1.05;
+  font-weight: 400;
+  color: #111;
+  margin: 0 0 1.5rem;
+}
+.subtitleHarmoniq {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0 0 2.5rem;
+  line-height: 1.6;
+  max-width: 600px;
+}
+.actionRowCenter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btnPlay {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #FFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+/* Arive */
+.heroArive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 6rem;
+  height: 100%;
+}
+.titleArive {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 2rem;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.actionRowArive {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+.btnAriveWhite {
+  background: #FFF;
+  color: #0F172A;
+  padding: 1rem 2.5rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.textLinkArive {
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+}
+.logosRow {
+  display: flex;
+  gap: 3rem;
+  font-weight: 700;
+  color: #0F172A;
+  opacity: 0.6;
+  font-size: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.glassDashboard {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  width: 1000px;
+  height: 400px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  display: flex;
+  text-align: left;
+}
+.dashSidebar {
+  width: 250px;
+  border-right: 1px solid rgba(0,0,0,0.1);
+  padding: 1.5rem;
+}
+.dashLogo {
+  font-weight: 800;
+  color: #E11D48;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+.dashMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-weight: 600;
+  color: #64748B;
+}
+.dashActive {
+  color: #0F172A;
+}
+.dashMain {
+  flex: 1;
+  padding: 1.5rem 2rem;
+}
+.dashHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: #94A3B8;
+  font-size: 0.9rem;
+}
+.dashTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+}
+.dashWidgets {
+  display: flex;
+  gap: 1rem;
+}
+.widgetGreen, .widgetPurple, .widgetOrange {
+  flex: 1;
+  height: 120px;
+  border-radius: 16px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+.widgetGreen { background: #ECFDF5; }
+.widgetPurple { background: #F3E8FF; }
+.widgetOrange { background: #FFF7ED; }
+
+/* ------------------- OSTRA ------------------- */
+.headerOstra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.logoOstra {
+  color: #FFF;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ostraIcon { color: #3B82F6; }
+.navLinksOstra {
+  display: flex;
+  gap: 2.5rem;
+  color: #E2E8F0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.btnOstraOutline {
+  background: transparent;
+  color: #FFF;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.btnOstraOutline:hover { background: rgba(255,255,255,0.1); }
+.heroOstra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 5rem;
+  color: #FFF;
+}
+.badgeOstra {
+  background: rgba(255,255,255,0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.badgeOstraNew {
+  background: #3B82F6;
+  color: #FFF;
+  padding: 0.2rem 0.5rem;
+  border-radius: 99px;
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+.titleOstra {
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+.subtitleOstra {
+  font-size: 1.25rem;
+  color: #94A3B8;
+  margin: 0 0 3rem;
+  line-height: 1.6;
+}
+.actionRowOstra {
+  display: flex;
+  gap: 1rem;
+}
+.btnOstraPrimary {
+  background: #3B82F6;
+  color: #FFF;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btnOstraSecondary {
+  background: rgba(255,255,255,0.1);
+  color: #FFF;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ------------------- LUMEN GATE ------------------- */
+.headerLumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+.logoLumen {
+  color: #FFF;
+  font-weight: 400;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lumenIcon { font-size: 2rem; font-weight: 200; }
+.navLinksLumen {
+  display: flex;
+  gap: 3rem;
+  color: #F8FAFC;
+  font-size: 0.95rem;
+}
+.btnLumenLight {
+  background: #FFF;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.heroLumen {
+  padding: 6rem 4rem;
+  max-width: 800px;
+  color: #FFF;
+}
+.titleLumen {
+  font-size: 5rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 2rem;
+  letter-spacing: -0.03em;
+}
+.subtitleLumen {
+  font-size: 1.2rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin: 0 0 3rem;
+}
+.actionRowLumen {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+.btnLumenLightLg {
+  background: #FFF;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 99px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btnLumenOutline {
+  background: transparent;
+  color: #FFF;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 1rem 2rem;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.lumenLogosBox { margin-top: 2rem; }
+.lumenLogosLabel {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin-bottom: 1rem;
+}
+.lumenLogos {
+  display: flex;
+  gap: 2rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ------------------- VANTA ------------------- */
+.headerVanta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  color: #FFF;
+}
+.vantaBracketNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.vantaBracketNavRight {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.vantaBracket {
+  font-family: monospace;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.4);
+}
+.vantaBracketSm {
+  font-family: monospace;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.4);
+}
+.navLinksVanta {
+  display: flex;
+  gap: 2rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.logoVanta {
+  font-weight: 800;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.vantaIcon { color: #FFF; }
+.btnVantaOutline {
+  background: transparent;
+  color: #FFF;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+.heroVanta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 5rem;
+  color: #FFF;
+}
+.vantaBracketBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+}
+.titleVanta {
+  line-height: 1.1;
+  margin: 0 0 2rem;
+}
+.vantaSans {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.vantaSerif {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 4.5rem;
+  font-weight: 400;
+  font-style: italic;
+}
+.subtitleVanta {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin: 0 0 3rem;
+}
+.actionRowVanta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+.vantaBracketBtnBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  transition: background 0.2s;
+}
+.vantaBracketBtnBox:hover {
+  background: rgba(255,255,255,0.05);
+}
+.btnVantaDark {
+  background: transparent;
+  color: #FFF;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btnVantaGhost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.vantaTrusted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.vantaTrustedLabel {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+.vantaBracketLogos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.vantaLogosInner {
+  display: flex;
+  gap: 2rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.8);
+}
+
+
+/* Theme Switcher */
+.themeControls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #FFF;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+.controlsLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.controlsRow {
+  display: flex;
+  gap: 0.5rem;
+}
+.controlsRow button {
+  background: #F1F5F9;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.controlsRow button:hover {
+  background: #E2E8F0;
+}
+.controlsRow .btnActive {
+  background: #0F172A;
+  color: #FFF;
+}

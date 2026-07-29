@@ -1,0 +1,32 @@
+---
+description: Cross-repo workflow, testing, and safety — applies to all work in this repo.
+alwaysApply: true
+---
+
+# General agent rules
+
+Full playbook: `/home/ranveer/app/dev-space/docs/AGENT_RULES.md`
+
+New project bootstrap: `/home/ranveer/app/dev-space/docs/NEW_PROJECT.md`
+
+## Workflow
+
+Understand → check what exists → confirm intent → plan → implement → verify.
+
+State assumptions before acting. Ask once, batched, when the answer changes design or scope.
+
+## Always confirm first
+
+Deleting data, schema migrations, prod config, auth/security/trading execution, commits/pushes — unless the user asked in this turn.
+
+## Testing
+
+Add or update tests when behavior changes. Run typecheck/lint/affected tests and report real results.
+
+## Implement narrowly
+
+Reuse existing patterns. Smallest diff. No drive-by refactors.
+
+## Git
+
+Commit only when the user explicitly asks.

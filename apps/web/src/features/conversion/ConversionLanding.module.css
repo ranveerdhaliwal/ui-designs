@@ -1,0 +1,141 @@
+.container {
+  min-height: 100vh;
+  background: #F9FAFB;
+  color: #111;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 8rem;
+}
+
+.backButton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 1000;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.backButton:hover {
+  color: #000;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 2rem 2rem;
+}
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 5rem;
+  margin-bottom: 4rem;
+}
+
+/* Orbs */
+.orbsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.orb {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Workflow Cards */
+.workflowSection {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 4rem 2rem;
+}
+
+.workflowCardWrapper {
+  padding: 24px;
+  border-radius: 32px;
+  width: 320px;
+  /* Grainy gradient handled by component */
+}
+
+.workflowCard {
+  background: #FFF;
+  border-radius: 20px;
+  padding: 1.5rem;
+  height: 400px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.workflowHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.workflowBadge {
+  background: #10B981;
+  color: #FFF;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+}
+
+.workflowStep {
+  border: 1px solid #E5E7EB;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.stepTitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem;
+}
+.stepDesc {
+  color: #6B7280;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* Stepped Footer */
+.steppedFooter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.footerStep {
+  height: 24px;
+  width: 100%;
+}

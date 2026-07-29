@@ -1,0 +1,53 @@
+{
+  "body": {
+    "backgroundColor": "rgb(26, 26, 26)",
+    "color": "rgb(0, 0, 0)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "h1": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(26, 26, 26)",
+    "fontFamily": "\"PP Neue Montreal Text Regular\", \"PP Neue Montreal Text Regular Placeholder\", sans-serif",
+    "fontSize": "24px",
+    "padding": "0px",
+    "borderRadius": "0px"
+  },
+  "button": null,
+  "nav": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "fontFamily": "sans-serif",
+    "fontSize": "12px",
+    "padding": "16px",
+    "borderRadius": "0px"
+  },
+  "palette": {
+    "colors": [
+      "rgb(0, 0, 0)",
+      "rgb(235, 235, 235)",
+      "rgb(26, 26, 26)",
+      "rgb(240, 231, 212)",
+      "rgb(37, 37, 37)",
+      "rgb(255, 64, 0)",
+      "rgb(67, 101, 255)",
+      "rgb(24, 188, 66)",
+      "rgb(0, 255, 64)",
+      "rgb(0, 0, 238)"
+    ],
+    "bgColors": [
+      "rgb(0, 0, 0)",
+      "rgb(26, 26, 26)",
+      "rgb(216, 47, 47)",
+      "rgba(26, 26, 26, 0.3)",
+      "rgb(223, 223, 223)",
+      "rgb(220, 60, 132)",
+      "rgb(255, 110, 62)",
+      "rgb(235, 226, 62)",
+      "rgb(24, 188, 66)",
+      "rgb(67, 101, 255)"
+    ]
+  }
+}

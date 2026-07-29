@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 1200px;
+  transform-style: preserve-3d;
+  animation: masterSpin 60s linear infinite;
+}
+
+@keyframes masterSpin {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+
+.ringText {
+  fill: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ring {
+  transform-origin: 500px 500px;
+}
+
+/* 
+  We create 8 rings. 
+  Each spins at a slightly different rate and direction to create the hypnotic effect.
+*/
+.ring0 { animation: spinCW 20s linear infinite; }
+.ring1 { animation: spinCCW 25s linear infinite; }
+.ring2 { animation: spinCW 30s linear infinite; }
+.ring3 { animation: spinCCW 35s linear infinite; }
+.ring4 { animation: spinCW 40s linear infinite; }
+.ring5 { animation: spinCCW 45s linear infinite; }
+.ring6 { animation: spinCW 50s linear infinite; }
+.ring7 { animation: spinCCW 55s linear infinite; }
+
+@keyframes spinCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}

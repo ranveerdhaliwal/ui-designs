@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.env.local
+temp_repos
+temp_*.html
+videos/
+*.webm
+.DS_Store

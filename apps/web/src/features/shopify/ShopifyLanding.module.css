@@ -1,0 +1,343 @@
+.container {
+  --sh-bg-dark: #000000;
+  --sh-bg-light: #F7F7EE;
+  --sh-text-primary: #FFFFFF;
+  --sh-text-inverse: #000000;
+  --sh-text-muted: #8C8C8C;
+  --sh-accent-purple: #8051FF;
+  --sh-border: rgba(255, 255, 255, 0.15);
+  
+  --sh-font: 'Manrope', 'Inter', sans-serif;
+
+  background-color: var(--sh-bg-dark);
+  color: var(--sh-text-primary);
+  font-family: var(--sh-font);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--sh-border);
+  z-index: 100;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.editionTag {
+  color: var(--sh-text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.navRight {
+  display: flex;
+  gap: 1rem;
+}
+
+.btnPrimary, .btnSecondary {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnPrimary {
+  background: var(--sh-text-primary);
+  color: var(--sh-text-inverse);
+}
+
+.btnPrimary:hover {
+  background: #E0E0E0;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--sh-text-primary);
+  border: 1px solid var(--sh-border);
+}
+
+.btnSecondary:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.main {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 0 2rem;
+}
+
+.heroSvgWrapper {
+  width: 100%;
+  max-width: 1400px;
+  margin-bottom: 2rem;
+}
+
+.heroSvg {
+  width: 100%;
+  height: auto;
+}
+
+.svgTitle {
+  font-family: var(--sh-font);
+  font-weight: 800;
+  font-size: 140px;
+  letter-spacing: -0.04em;
+}
+
+.heroSubtext {
+  font-size: 1.25rem;
+  color: var(--sh-text-muted);
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.gridContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--sh-border);
+  border: 1px solid var(--sh-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card {
+  background: var(--sh-bg-dark);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+
+.cardLarge {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cardFull {
+  grid-column: span 2;
+  background: var(--sh-bg-light);
+  color: var(--sh-text-inverse);
+}
+
+.cardContent {
+  padding: 3rem;
+  flex: 1;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardContent h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.cardContent p {
+  color: var(--sh-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.badge {
+  background: var(--sh-accent-purple);
+  color: #FFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cardVisual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.cardImageBgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.cardImageBgWrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.cardImageBg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.overlayContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.lightSection {
+  padding: 6rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.lightSection h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.btnInverted {
+  background: var(--sh-text-inverse);
+  color: var(--sh-bg-light);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnInverted:hover {
+  opacity: 0.8;
+}
+
+.backButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(255,255,255,0.1);
+  color: var(--sh-text-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--sh-border);
+  transition: background 0.2s;
+  z-index: 100;
+}
+
+.backButton:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Animations */
+.invisible {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.animateFadeUp {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animateScaleUp {
+  animation: scaleUp 1.2s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+    visibility: visible;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+    visibility: visible;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+  }
+}
