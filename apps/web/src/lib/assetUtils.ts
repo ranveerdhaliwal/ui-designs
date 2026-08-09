@@ -4,7 +4,8 @@
  */
 export function getAssetUrl(path: string): string {
   if (!path) return '';
-  const basePath = import.meta.env.BASE_URL || '/';
+  // @ts-ignore
+  const basePath = import.meta.env?.BASE_URL || '/';
   
   // If path is an absolute URL or data URI, return as-is
   if (path.startsWith('http') || path.startsWith('data:')) {
