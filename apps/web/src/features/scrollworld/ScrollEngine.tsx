@@ -13,5 +13,5 @@ export function ScrollWorldEngine({ config }: { config: any }) {
     };
   }, [config]);
 
-  return <div ref={containerRef} style={{ width: '100vw', height: '100vh' }} />;
+  return <div ref={containerRef} style={{ width: '100vw' }} />;
 }

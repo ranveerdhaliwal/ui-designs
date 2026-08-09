@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 import { MobileContainer, BottomNav } from '@/components/ui/Responsive';
 import { AgenticSerif, AgenticSans } from '@/components/ui/Typography';
 import styles from './ResponsiveLanding.module.css';
+import { getAssetUrl } from '@/lib/assetUtils';
 
 const ONBOARDING_DATA = [
   {
-    image: '/assets/time_onboarding_1.png',
+    image: getAssetUrl('/assets/time_onboarding_1.png'),
     title: 'Plan with clarity',
     description: 'Organize your day, capture priorities, and stay in control from morning to night.'
   },
   {
-    image: '/assets/time_onboarding_2.png',
+    image: getAssetUrl('/assets/time_onboarding_2.png'),
     title: 'Focus on what matters',
     description: 'Manage tasks, reduce distractions, and build a workflow that keeps you moving forward.'
   },
   {
-    image: '/assets/time_onboarding_3.png',
+    image: getAssetUrl('/assets/time_onboarding_3.png'),
     title: 'Grow every day',
     description: 'Track progress, celebrate small wins, and turn daily routines into meaningful results.'
   }

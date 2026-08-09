@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import styles from './PixelDreamsLanding.module.css';
+import { getAssetUrl } from '@/lib/assetUtils';
 
 const images = [
-  { src: '/assets/dither1.png', title: 'ANGEL GARDEN', desc: '16-bit RGB Error Diffusion' },
-  { src: '/assets/dither2.png', title: 'THE PILLAR', desc: 'Sierra Adventure Style' },
-  { src: '/assets/dither3.png', title: 'CASTLE REFLECTION', desc: 'Vaporwave Palette' },
-  { src: '/assets/dither4.png', title: 'MOUNTAIN TREE', desc: 'EGA Palette Mapping' },
+  { src: getAssetUrl('/assets/dither1.png'), title: 'ANGEL GARDEN', desc: '16-bit RGB Error Diffusion' },
+  { src: getAssetUrl('/assets/dither2.png'), title: 'THE PILLAR', desc: 'Sierra Adventure Style' },
+  { src: getAssetUrl('/assets/dither3.png'), title: 'CASTLE REFLECTION', desc: 'Vaporwave Palette' },
+  { src: getAssetUrl('/assets/dither4.png'), title: 'MOUNTAIN TREE', desc: 'EGA Palette Mapping' },
 ];
 
 export function PixelDreamsLanding() {

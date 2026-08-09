@@ -3,6 +3,7 @@ import { HalftoneEngine, HalftoneOptions, DotPattern } from './HalftoneEngine';
 import { DitherEngine, PALETTES } from './DitherEngine';
 import { RisoEngine } from './RisoEngine';
 import { drawImageToCanvas } from '@/lib/canvasUtils';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './ImageStudio.module.css';
 
 const PRESETS = [
@@ -16,7 +17,7 @@ const PRESETS = [
 
 export function ImageStudio() {
   const [activeEffect, setActiveEffect] = useState<'halftone' | 'dither' | 'riso'>('riso');
-  const [imageSrc, setImageSrc] = useState('/assets/david.jpg');
+  const [imageSrc, setImageSrc] = useState(getAssetUrl('/assets/david.jpg'));
   
   // Halftone state
   const [pattern, setPattern] = useState<DotPattern>('hex');

@@ -5,6 +5,7 @@ import { WaveArcs } from '@/components/origins/WaveArcs';
 import { LiquidDistortion } from '@/components/origins/LiquidDistortion';
 import { PrismGrid } from '@/components/origins/PrismGrid';
 import { ChromaticWaves } from '@/components/origins/ChromaticWaves';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './OriginsLabLanding.module.css';
 
 type ComponentKey = 'reactive-lines' | 'wave-arcs' | 'liquid-distortion' | 'prism-grid' | 'chromatic-waves';
@@ -29,7 +30,7 @@ export function OriginsLabLanding() {
       component: (
         <LiquidDistortion intensity={40} className={styles.componentWrapper || ''}>
           <img 
-            src="/assets/david.jpg" 
+            src={getAssetUrl("/assets/david.jpg")} 
             alt="Liquid" 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           />

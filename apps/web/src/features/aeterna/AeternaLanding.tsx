@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@tanstack/react-router';
 import { AgenticSerif, AgenticSans } from '@/components/ui/Typography';
 import { RisographImage, TornEdgeContainer } from '@/components/ui/VintageTexture';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './AeternaLanding.module.css';
 
 export function AeternaLanding() {
@@ -48,7 +49,7 @@ export function AeternaLanding() {
 
         <div className={styles.imageContent}>
           <TornEdgeContainer className={styles.heroImageWrapper}>
-            <RisographImage src="/assets/aeterna_hero.png" alt="Classical figures building a giant lightbulb" />
+            <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} alt="Classical figures building a giant lightbulb" />
           </TornEdgeContainer>
         </div>
       </main>

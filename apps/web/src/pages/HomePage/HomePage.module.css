@@ -11,18 +11,18 @@
 }
 
 .title {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 3.5rem;
+  font-weight: 800;
   letter-spacing: -0.04em;
   margin: 0;
-  background: linear-gradient(to right, #FFF, #888);
+  background: linear-gradient(to right, #FFFFFF, #B0B0B0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  color: #888;
-  font-size: 1.125rem;
+  color: #CCCCCC;
+  font-size: 1.25rem;
   margin-top: 1rem;
 }
 

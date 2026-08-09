@@ -1,6 +1,7 @@
 import React from 'react';
 import { AgenticSerif, AgenticSans } from '@/components/ui/Typography';
 import { RisographImage } from '@/components/ui/VintageTexture';
+import { getAssetUrl } from '@/lib/assetUtils';
 
 /* Imaginary Atlas Theme (Surrealist Risograph) */
 
@@ -21,7 +22,7 @@ export const AtlasSlides = [
       </div>
     </div>
     <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-      <RisographImage src="/assets/aeterna_hero.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
     </div>
   </div>,
 
@@ -38,7 +39,7 @@ export const AtlasSlides = [
     </div>
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', bottom: 0, right: 0, width: '50%', height: '40%', background: '#3155A3' }} />
-      <RisographImage src="/assets/aeterna_hero.png" style={{ width: '80%', height: '80%', objectFit: 'contain', position: 'absolute', top: '10%', left: '10%' }} />
+      <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} style={{ width: '80%', height: '80%', objectFit: 'contain', position: 'absolute', top: '10%', left: '10%' }} />
     </div>
   </div>,
 
@@ -53,7 +54,7 @@ export const AtlasSlides = [
     </div>
     <div style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: '30%', left: '30%', width: '200px', height: '200px', background: '#3155A3', borderRadius: '50%' }} />
-      <RisographImage src="/assets/aeterna_hero.png" style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', zIndex: 10, mixBlendMode: 'multiply' }} />
+      <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'relative', zIndex: 10, mixBlendMode: 'multiply' }} />
     </div>
   </div>
 ];

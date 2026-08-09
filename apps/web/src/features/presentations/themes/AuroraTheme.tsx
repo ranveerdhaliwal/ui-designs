@@ -1,6 +1,7 @@
 import React from 'react';
 import { AgenticSerif, AgenticSans } from '@/components/ui/Typography';
 import { RisographImage, TornEdgeContainer } from '@/components/ui/VintageTexture';
+import { getAssetUrl } from '@/lib/assetUtils';
 
 /* Aurora Studio Theme (Corporate Collage) */
 
@@ -18,7 +19,7 @@ export const AuroraSlides = [
       {/* Torn edge wrapper for the image */}
       <TornEdgeContainer style={{ position: 'absolute', top: '10%', right: '10%', width: '80%', height: '80%' }}>
          {/* Using one of our vintage risograph images to simulate the eye collage */}
-         <RisographImage src="/assets/aeterna_hero.png" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+         <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </TornEdgeContainer>
       <div style={{ position: 'absolute', bottom: '20%', left: '-10%', width: '200px', height: '200px', background: '#00A896', borderRadius: '50%', mixBlendMode: 'multiply' }} />
       <div style={{ position: 'absolute', top: '20%', right: '0', width: '150px', height: '300px', background: '#F2A65A', mixBlendMode: 'multiply' }} />
@@ -48,7 +49,7 @@ export const AuroraSlides = [
       <div style={{ marginTop: 'auto', position: 'relative' }}>
          {/* Vintage texture filler */}
          <div style={{ width: '150px', height: '150px', background: '#F2A65A', borderRadius: '50%', position: 'absolute', bottom: 0, left: 0, mixBlendMode: 'multiply' }} />
-         <RisographImage src="/assets/aeterna_hero.png" style={{ width: '200px', height: '200px', objectFit: 'cover', clipPath: 'circle(50% at 50% 50%)', position: 'relative', zIndex: 10 }} />
+         <RisographImage src={getAssetUrl("/assets/aeterna_hero.png")} style={{ width: '200px', height: '200px', objectFit: 'cover', clipPath: 'circle(50% at 50% 50%)', position: 'relative', zIndex: 10 }} />
       </div>
     </div>
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', gap: '2rem' }}>

@@ -1,15 +1,19 @@
 .container {
-  --e-bg: #000000;
-  --e-card: #242424;
-  --e-text: #f6f6f6;
-  --e-text-muted: #7c888f;
-  --e-border: #2e2e2e;
+  --e-bg: #050505;
+  --e-card: rgba(255, 255, 255, 0.03);
+  --e-text: #ffffff;
+  --e-text-muted: #a0a0a0;
+  --e-border: rgba(255, 255, 255, 0.1);
   
   --e-font-sans: 'Inter', sans-serif;
   --e-font-serif: 'IBM Plex Serif', serif;
   --e-font-mono: 'Fragment Mono', monospace;
 
   background-color: var(--e-bg);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
   color: var(--e-text);
   font-family: var(--e-font-sans);
   min-height: 100vh;

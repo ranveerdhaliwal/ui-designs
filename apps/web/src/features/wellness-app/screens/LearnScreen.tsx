@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './LearnScreen.module.css';
 
 export function LearnScreen() {
@@ -17,7 +18,7 @@ export function LearnScreen() {
       <div className={styles.featuredCard}>
         <div className={styles.featuredTag}>Featured</div>
         <div className={styles.featuredImageWrapper}>
-          <img src="/assets/wellness2.png" alt="Person reading" className={styles.featuredImage} />
+          <img src={getAssetUrl("/assets/wellness2.png")} alt="Person reading" className={styles.featuredImage} />
         </div>
         <div className={styles.featuredContent}>
           <div className={styles.startHereTag}>&#9679; START HERE</div>

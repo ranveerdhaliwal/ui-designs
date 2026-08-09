@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './ShopifyLanding.module.css';
 
 // A simple hook to detect if an element is in view
@@ -89,7 +90,7 @@ export function ShopifyLanding() {
                 <p>Autonomous systems that do the work for you.</p>
               </div>
               <div className={styles.cardVisual}>
-                <img src="/assets/agentic.png" alt="Agentic AI Core" className={styles.cardImage} />
+                <img src={getAssetUrl("/assets/agentic.png")} alt="Agentic AI Core" className={styles.cardImage} />
               </div>
             </div>
 
@@ -99,7 +100,7 @@ export function ShopifyLanding() {
               style={{ animationDelay: '0.2s' }}
             >
               <div className={styles.cardImageBgWrapper}>
-                <img src="/assets/sidekick.png" alt="Sidekick Interface" className={styles.cardImageBg} />
+                <img src={getAssetUrl("/assets/sidekick.png")} alt="Sidekick Interface" className={styles.cardImageBg} />
               </div>
               <div className={`${styles.cardContent} ${styles.overlayContent}`}>
                 <h3>Sidekick</h3>
@@ -113,7 +114,7 @@ export function ShopifyLanding() {
               style={{ animationDelay: '0.3s' }}
             >
               <div className={styles.cardImageBgWrapper}>
-                <img src="/assets/retail.png" alt="Retail Blocks" className={styles.cardImageBg} />
+                <img src={getAssetUrl("/assets/retail.png")} alt="Retail Blocks" className={styles.cardImageBg} />
               </div>
               <div className={`${styles.cardContent} ${styles.overlayContent}`}>
                 <h3>Retail</h3>

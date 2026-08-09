@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAssetUrl } from '@/lib/assetUtils';
 import styles from './HomeScreen.module.css';
 
 export function HomeScreen() {
@@ -11,7 +12,7 @@ export function HomeScreen() {
       </header>
 
       <div className={styles.heroImageWrapper}>
-        <img src="/assets/wellness1.png" alt="Zen stones by water" className={styles.heroImage} />
+        <img src={getAssetUrl("/assets/wellness1.png")} alt="Zen stones by water" className={styles.heroImage} />
       </div>
 
       <div className={styles.content}>

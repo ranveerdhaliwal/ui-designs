@@ -56,6 +56,31 @@ export function EragonLanding() {
             </div>
           </div>
         </section>
+
+        <section className={styles.hero} style={{ marginTop: '8rem', marginBottom: '4rem', textAlign: 'left', alignItems: 'flex-start' }}>
+          <div className={styles.badge}>
+            <span className={styles.badgeDot}></span>
+            Deep Dive
+          </div>
+          <h2 className={styles.headline} style={{ fontSize: '3.5rem' }}>
+            Built for scale.<br/>Designed for security.
+          </h2>
+          <p className={styles.subheadline}>
+            Eragon integrates directly with your existing data warehouses, providing an intelligence layer that is entirely within your VPC. No data leaves your network.
+          </p>
+          <div className={styles.featureGrid} style={{ marginTop: '2rem' }}>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>SOC2</div>
+              <h3>Enterprise Compliance</h3>
+              <p>Fully compliant with SOC2 Type II, HIPAA, and GDPR standards out of the box.</p>
+            </div>
+            <div className={styles.featureCard}>
+              <div className={styles.featureIcon}>VPC</div>
+              <h3>Private Deployment</h3>
+              <p>Deploy on AWS, GCP, or Azure within your own virtual private cloud.</p>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Floating back button to home */}
