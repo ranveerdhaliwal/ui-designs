@@ -151,6 +151,11 @@ export function HomePage() {
               <h3 className={styles.cardTitle}>Zapier</h3>
               <p className={styles.cardDesc}>Warm corporate automation.</p>
             </Link>
+            <Link to="/veloscope" className={styles.card}>
+              <div className={styles.cardImage} style={{backgroundImage: `url(${getAssetUrl('/assets/veloscope_hero_bg.png')})`, backgroundSize: 'cover', backgroundPosition: 'center'}}></div>
+              <h3 className={styles.cardTitle}>Veloscope</h3>
+              <p className={styles.cardDesc}>Studio Ghibli style high-converting SaaS landing page.</p>
+            </Link>
           </div>
         </section>
       </main>

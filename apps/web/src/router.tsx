@@ -20,6 +20,7 @@ import { FlyingPapersLanding } from "@/features/flying-papers/FlyingPapersLandin
 import { PixelDreamsLanding } from "@/features/pixel-dreams/PixelDreamsLanding";
 import { WellnessApp } from "@/features/wellness-app/WellnessApp";
 import { ContentArchitectureLanding } from "@/features/content-architecture/ContentArchitectureLanding";
+import { VeloscopeLanding } from "@/features/veloscope/VeloscopeLanding";
 
 const rootRoute = createRootRoute();
 
@@ -149,6 +150,12 @@ const contentArchitectureRoute = createRoute({
   component: ContentArchitectureLanding,
 });
 
+const veloscopeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/veloscope",
+  component: VeloscopeLanding,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute, 
   eragonRoute, 
@@ -166,7 +173,8 @@ const routeTree = rootRoute.addChildren([
   flyingPapersRoute,
   pixelDreamsRoute,
   wellnessAppRoute,
-  contentArchitectureRoute
+  contentArchitectureRoute,
+  veloscopeRoute
 ]);
 
 const hashHistory = createHashHistory();
