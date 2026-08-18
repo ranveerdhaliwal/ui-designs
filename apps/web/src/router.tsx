@@ -21,6 +21,7 @@ import { PixelDreamsLanding } from "@/features/pixel-dreams/PixelDreamsLanding";
 import { WellnessApp } from "@/features/wellness-app/WellnessApp";
 import { ContentArchitectureLanding } from "@/features/content-architecture/ContentArchitectureLanding";
 import { VeloscopeLanding } from "@/features/veloscope/VeloscopeLanding";
+import { KycApp } from "@/features/kyc/KycApp";
 
 const rootRoute = createRootRoute();
 
@@ -156,6 +157,12 @@ const veloscopeRoute = createRoute({
   component: VeloscopeLanding,
 });
 
+const kycRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/kyc",
+  component: KycApp,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute, 
   eragonRoute, 
@@ -174,7 +181,8 @@ const routeTree = rootRoute.addChildren([
   pixelDreamsRoute,
   wellnessAppRoute,
   contentArchitectureRoute,
-  veloscopeRoute
+  veloscopeRoute,
+  kycRoute
 ]);
 
 const hashHistory = createHashHistory();

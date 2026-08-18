@@ -139,6 +139,12 @@ export function HomePage() {
               <h3 className={styles.cardTitle}>Content Architecture</h3>
               <p className={styles.cardDesc}>1:1 clone featuring a hypnotic SVG text tunnel and ASCII scrambling.</p>
             </Link>
+            {/* @ts-ignore */}
+            <Link to="/kyc" className={styles.card}>
+              <div className={styles.cardImage} style={{background: 'radial-gradient(circle at center, #111, #000)'}}></div>
+              <h3 className={styles.cardTitle}>KYC Generator</h3>
+              <p className={styles.cardDesc}>A robust 3-column brutalist workspace with interactive WebGL rendering.</p>
+            </Link>
           </div>
         </section>
 
