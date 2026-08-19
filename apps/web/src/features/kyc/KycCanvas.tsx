@@ -87,7 +87,7 @@ const InkShaderMaterial = {
 };
 
 const HeadModel: React.FC<{ controls: KycControls; invert: boolean }> = ({ controls, invert }) => {
-  const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const materialRef = useRef<any>(null);
   
   useFrame(() => {
     if (materialRef.current) {

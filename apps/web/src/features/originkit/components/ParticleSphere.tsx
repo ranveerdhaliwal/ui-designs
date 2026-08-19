@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+// @ts-ignore
 import { Points, PointMaterial } from '@react-three/drei';
 // @ts-ignore
 import * as random from 'maath/random/dist/maath-random.esm';
@@ -9,7 +10,7 @@ function Particles() {
   // Create a sphere of 5000 particles
   const sphere = random.inSphere(new Float32Array(5000 * 3), { radius: 1.5 }) as Float32Array;
 
-  useFrame((state, delta) => {
+  useFrame((_state: any, delta: any) => {
     if (ref.current) {
       ref.current.rotation.x -= delta / 10;
       ref.current.rotation.y -= delta / 15;

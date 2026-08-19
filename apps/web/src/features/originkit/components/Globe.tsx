@@ -4,7 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 function WireframeGlobe() {
   const meshRef = useRef<any>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_state: any, delta: any) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.2;
     }
