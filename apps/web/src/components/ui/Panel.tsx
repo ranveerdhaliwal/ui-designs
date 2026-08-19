@@ -3,9 +3,9 @@ import styles from './Panel.module.css';
 
 export interface PanelProps {
   children: React.ReactNode;
-  side?: 'left' | 'right';
-  className?: string;
-  style?: React.CSSProperties;
+  side?: 'left' | 'right' | undefined;
+  className?: string | undefined;
+  style?: React.CSSProperties | undefined;
 }
 
 export const Panel: React.FC<PanelProps> = ({

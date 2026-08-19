@@ -3,9 +3,9 @@ import styles from './Accordion.module.css';
 
 export interface AccordionProps {
   title: string;
-  defaultOpen?: boolean;
+  defaultOpen?: boolean | undefined;
   children: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({

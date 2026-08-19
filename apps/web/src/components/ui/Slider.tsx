@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from './Slider.module.css';
 
-export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'className'> {
   label: string;
   value: number;
   min: number;
   max: number;
-  step?: number;
-  formatValue?: (val: number) => string;
+  step?: number | undefined;
+  formatValue?: ((val: number) => string) | undefined;
   onChange: (val: number) => void;
+  className?: string | undefined;
 }
 
 export const Slider: React.FC<SliderProps> = ({

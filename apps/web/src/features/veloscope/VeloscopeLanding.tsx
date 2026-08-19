@@ -1,11 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from '@tanstack/react-router';
 import { getAssetUrl } from '@/lib/assetUtils';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './VeloscopeLanding.module.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function VeloscopeLanding() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,37 +10,21 @@ export function VeloscopeLanding() {
   const benefitsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Basic GSAP reveal animations
-    const ctx = gsap.context(() => {
-      // Hero Intro
-      gsap.from('.hero-anim', {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        delay: 0.2
-      });
-
-      // Section Reveals
-      const sections = [solutionRef.current, benefitsRef.current];
-      sections.forEach(sec => {
-        if (!sec) return;
-        gsap.from(sec.querySelectorAll('.reveal-up'), {
-          scrollTrigger: {
-            trigger: sec,
-            start: 'top 80%',
-          },
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power2.out'
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+          }
         });
-      });
-    }, containerRef);
+      },
+      { threshold: 0.15 }
+    );
 
-    return () => ctx.revert();
+    const elements = document.querySelectorAll(`.${styles.revealUp}`);
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
