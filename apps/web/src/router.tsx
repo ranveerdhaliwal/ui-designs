@@ -22,6 +22,7 @@ import { WellnessApp } from "@/features/wellness-app/WellnessApp";
 import { ContentArchitectureLanding } from "@/features/content-architecture/ContentArchitectureLanding";
 import { VeloscopeLanding } from "@/features/veloscope/VeloscopeLanding";
 import { KycApp } from "@/features/kyc/KycApp";
+import { BotlabApp } from "@/features/botlab/BotlabApp";
 
 const rootRoute = createRootRoute();
 
@@ -163,6 +164,12 @@ const kycRoute = createRoute({
   component: KycApp,
 });
 
+const botlabRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/botlab",
+  component: BotlabApp,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute, 
   eragonRoute, 
@@ -182,7 +189,8 @@ const routeTree = rootRoute.addChildren([
   wellnessAppRoute,
   contentArchitectureRoute,
   veloscopeRoute,
-  kycRoute
+  kycRoute,
+  botlabRoute
 ]);
 
 const hashHistory = createHashHistory();

@@ -145,6 +145,12 @@ export function HomePage() {
               <h3 className={styles.cardTitle}>KYC Generator</h3>
               <p className={styles.cardDesc}>A robust 3-column brutalist workspace with interactive WebGL rendering.</p>
             </Link>
+            {/* @ts-ignore */}
+            <Link to="/botlab" className={styles.card}>
+              <div className={styles.cardImage} style={{background: 'linear-gradient(135deg, #111317 0%, #2a1b4e 50%, #00ffcc 100%)'}}></div>
+              <h3 className={styles.cardTitle}>BotLab Studio</h3>
+              <p className={styles.cardDesc}>8-bit robot mascot constructor, sprite maker & holographic sticker generator.</p>
+            </Link>
           </div>
         </section>
 
