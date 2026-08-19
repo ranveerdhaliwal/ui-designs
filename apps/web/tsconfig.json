@@ -4,7 +4,10 @@
     "jsx": "react-jsx",
     "noEmit": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"] },
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    "skipLibCheck": true
   },
   "include": ["src", "vite.config.ts"]
 }

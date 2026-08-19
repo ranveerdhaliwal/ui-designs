@@ -14,7 +14,7 @@ export function VeloscopeLanding() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
+            entry.target.classList.add(styles.visible || 'visible');
           }
         });
       },

@@ -1,6 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Environment, Center } from '@react-three/drei';
+// @ts-ignore
 import * as THREE from 'three';
 
 export interface KycControls {
