@@ -7,3 +7,4 @@ temp_*.html
 videos/
 *.webm
 .DS_Store
+docs/plans/
