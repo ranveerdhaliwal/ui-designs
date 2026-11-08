@@ -1,0 +1,3 @@
+[submodule "logo-generator-skill"]
+	path = .agents/skills/logo-generator-skill
+	url = https://github.com/op7418/logo-generator-skill.git
