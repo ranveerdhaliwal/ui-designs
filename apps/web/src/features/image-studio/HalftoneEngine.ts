@@ -1,3 +1,4 @@
+import { createOffscreenCanvas } from '@/lib/canvasUtils';
 export type DotPattern = 'square' | 'hex' | 'radial';
 
 export interface HalftoneOptions {
@@ -12,37 +13,40 @@ export interface HalftoneOptions {
 }
 
 export class HalftoneEngine {
-  private offscreenCanvas: HTMLCanvasElement;
-  private offscreenCtx: CanvasRenderingContext2D;
+  private offscreenCanvas: HTMLCanvasElement | OffscreenCanvas;
+  private offscreenCtx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 
   constructor() {
-    this.offscreenCanvas = document.createElement('canvas');
-    this.offscreenCtx = this.offscreenCanvas.getContext('2d', { willReadFrequently: true })!;
+    const { canvas, ctx } = createOffscreenCanvas(1, 1);
+    this.offscreenCanvas = canvas;
+    this.offscreenCtx = ctx;
   }
 
   public render(
-    canvas: HTMLCanvasElement,
-    image: HTMLImageElement,
-    options: HalftoneOptions
+    canvas: HTMLCanvasElement | OffscreenCanvas,
+    image: HTMLImageElement | ImageBitmap,
+    options: HalftoneOptions,
   ) {
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext('2d') as
+      CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+    if (!ctx) throw new Error('2D canvas unavailable');
     const width = canvas.width;
     const height = canvas.height;
 
     // 1. Draw source image to offscreen canvas to sample pixels
     this.offscreenCanvas.width = width;
     this.offscreenCanvas.height = height;
-    
+
     // Apply Brightness & Contrast via CSS filter
     // Brightness default is 1, Contrast default is 1. We map UI sliders to these values.
     // Assuming UI gives brightness around -1 to 1 (add to 1), and contrast around 0 to 2.
     // We will use standard CSS filters: brightness(x) contrast(y)
-    // Wait, the UI screenshot shows brightness 0.22, contrast 1.25. 
+    // Wait, the UI screenshot shows brightness 0.22, contrast 1.25.
     // We can map brightness: 0 -> 1, 0.22 -> 1.22
     const b = 1 + options.brightness;
     const c = options.contrast;
     this.offscreenCtx.filter = `brightness(${b}) contrast(${c})`;
-    
+
     // Draw image scaling to cover the canvas
     const imgRatio = image.width / image.height;
     const canvasRatio = width / height;
@@ -62,7 +66,7 @@ export class HalftoneEngine {
     }
 
     this.offscreenCtx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
-    
+
     // Get pixel data
     const imgData = this.offscreenCtx.getImageData(0, 0, width, height);
     const data = imgData.data;
@@ -87,7 +91,7 @@ export class HalftoneEngine {
     const angleRad = (options.screenAngle * Math.PI) / 180;
     const sinA = Math.sin(angleRad);
     const cosA = Math.cos(angleRad);
-    
+
     const spacing = options.dotSize;
     // Calculate bounding box for rotated grid
     const diag = Math.sqrt(width * width + height * height);
@@ -101,26 +105,25 @@ export class HalftoneEngine {
     const endY = halfDiag;
 
     ctx.save();
-    // We will draw dots manually without canvas rotation for performance, 
+    // We will draw dots manually without canvas rotation for performance,
     // or we can use ctx.translate and ctx.rotate. Actually translating is easier.
     ctx.translate(cx, cy);
     ctx.rotate(angleRad);
-    
+
     // We want the dots to be sharper or softer. We can use arc for circles.
     // Sharpness could just be a multiplier for the radius, or perhaps an alpha falloff.
     // The UI shows sharpness as a slider. We'll use it as a radius multiplier for now.
-    const maxRadius = (spacing * 1.414) / 2 * options.sharpness;
+    const maxRadius = ((spacing * 1.414) / 2) * options.sharpness;
 
     if (options.pattern === 'square' || options.pattern === 'hex') {
-      for (let y = startY; y < endY; y += spacing) {
+      const rowStep = options.pattern === 'hex' ? (spacing * Math.sqrt(3)) / 2 : spacing;
+      for (let y = startY, row = 0; y < endY; y += rowStep, row++) {
         let isHexRowStaggered = false;
-        let rowSpacing = spacing;
-        let yPos = y;
-        
+
+        const yPos = y;
+
         if (options.pattern === 'hex') {
-           rowSpacing = spacing * Math.sqrt(3) / 2;
-           yPos = Math.floor((y - startY) / spacing) * rowSpacing + startY;
-           isHexRowStaggered = Math.floor((y - startY) / spacing) % 2 === 1;
+          isHexRowStaggered = row % 2 === 1;
         }
 
         for (let x = startX; x < endX; x += spacing) {
@@ -133,13 +136,18 @@ export class HalftoneEngine {
           const screenX = cx + xPos * cosA - yPos * sinA;
           const screenY = cy + xPos * sinA + yPos * cosA;
 
-          if (screenX >= -spacing && screenX <= width + spacing && screenY >= -spacing && screenY <= height + spacing) {
+          if (
+            screenX >= -spacing &&
+            screenX <= width + spacing &&
+            screenY >= -spacing &&
+            screenY <= height + spacing
+          ) {
             const lum = getLuminance(screenX, screenY);
             // In a halftone, dark areas have large dots of the foreground color.
             // If background is paper (white) and foreground is ink (black).
             // So dot radius is proportional to (1 - lum).
             const r = maxRadius * Math.sqrt(1 - lum);
-            
+
             if (r > 0.5) {
               ctx.beginPath();
               ctx.arc(xPos, yPos, r, 0, Math.PI * 2);
@@ -155,19 +163,24 @@ export class HalftoneEngine {
         const circumference = 2 * Math.PI * r;
         const numDots = Math.max(1, Math.floor(circumference / spacing));
         const angleStep = (Math.PI * 2) / numDots;
-        
+
         for (let i = 0; i < numDots; i++) {
           const a = i * angleStep;
           const xPos = r * Math.cos(a);
           const yPos = r * Math.sin(a);
-          
+
           const screenX = cx + xPos * cosA - yPos * sinA;
           const screenY = cy + xPos * sinA + yPos * cosA;
 
-          if (screenX >= -spacing && screenX <= width + spacing && screenY >= -spacing && screenY <= height + spacing) {
+          if (
+            screenX >= -spacing &&
+            screenX <= width + spacing &&
+            screenY >= -spacing &&
+            screenY <= height + spacing
+          ) {
             const lum = getLuminance(screenX, screenY);
             const dotR = maxRadius * Math.sqrt(1 - lum);
-            
+
             if (dotR > 0.5) {
               ctx.beginPath();
               ctx.arc(xPos, yPos, dotR, 0, Math.PI * 2);
@@ -177,7 +190,7 @@ export class HalftoneEngine {
         }
       }
     }
-    
+
     ctx.restore();
   }
 }

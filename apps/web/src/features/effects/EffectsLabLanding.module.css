@@ -1,66 +1,168 @@
 .container {
-  min-height: 100vh;
-  background-color: #050505;
-  color: #FFF;
+  background: #101815;
+  color: #d6e5b9;
+  min-height: calc(100dvh - 48px);
+  font-family: monospace;
+  padding: 0 5%;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0;
+  border-bottom: 1px solid #344236;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.header p {
+  color: #7c8c76;
+  font-size: 10px;
+  letter-spacing: 0;
+}
+.preview {
+  min-height: 430px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 60px 0;
+}
+.previewLabel {
+  position: absolute;
+  top: 28px;
+  font-size: 9px;
+  color: #718667;
+  letter-spacing: 0.14em;
+}
+.preview h1 {
+  font-size: clamp(36px, 6vw, 86px);
+  line-height: 1.2;
+  letter-spacing: -0.06em;
+  font-weight: 400;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.preview[data-font='sans'] h1 {
+  font-family: Arial, sans-serif;
+}
+.baseline {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #43563c;
+}
+.counter {
+  position: absolute;
+  bottom: 36px;
+  color: #7c916e;
+  font-size: 10px;
+}
+.controls {
+  border-top: 1px solid #344236;
+  padding: 32px 0;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr auto;
+  gap: 40px;
+}
+.controls label {
+  font-size: 10px;
+  color: #96aa81;
+  display: block;
+  margin-bottom: 14px;
+}
+.controls input:not([type='range']) {
+  background: #18231c;
+  border: 1px solid #405038;
+  color: #d6e5b9;
+  padding: 14px;
+  width: 100%;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.presets {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.presets button {
+  background: none;
+  border: 0;
+  color: #8eaa75;
+  font-size: 9px;
+  padding: 4px 0;
+}
+.fonts {
+  display: flex;
+  gap: 8px;
+  margin-top: 30px;
+}
+.fonts button {
+  background: none;
+  border: 1px solid #405038;
+  color: #8fa17b;
+  font-size: 10px;
+  padding: 8px 12px;
+  border-radius: 3px;
+}
+.fonts button[aria-pressed='true'] {
+  background: #d1dfa8;
+  color: #24311e;
+}
+.actions {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+.actions button {
+  border: 1px solid #526745;
+  background: #21301f;
+  color: #d1dfa8;
+  padding: 12px 18px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  padding: 2rem;
+  gap: 12px;
+  font-size: 11px;
+  border-radius: 4px;
 }
-
-.scrambleText {
-  font-family: monospace;
-  font-size: 5rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #00FF41; /* Hacker Green */
-  margin-bottom: 4rem;
-  text-align: center;
-  text-transform: uppercase;
+.footer {
+  border-top: 1px solid #344236;
+  padding: 24px 0;
 }
-
-.inputWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  max-width: 400px;
+.footer code {
+  font-size: 11px;
+  color: #9cb686;
+  overflow-wrap: anywhere;
 }
-
-.label {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #888;
+.footer p {
+  margin-top: 20px;
+  color: #72866a;
+  font-size: 10px;
+  line-height: 1.7;
 }
-
-.input {
-  background: transparent;
-  border: 1px solid #333;
-  color: #FFF;
-  padding: 1rem;
-  font-size: 1.25rem;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s;
-  font-family: monospace;
-}
-.input:focus {
-  border-color: #00FF41;
-}
-
-.backLink {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  color: #888;
-  text-decoration: none;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-.backLink:hover {
-  color: #FFF;
+@media (max-width: 760px) {
+  .container {
+    padding: 0 24px;
+  }
+  .header p {
+    display: none;
+  }
+  .preview {
+    min-height: 340px;
+  }
+  .preview h1 {
+    font-size: 45px;
+  }
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .actions {
+    flex-direction: row;
+  }
+  .footer code {
+    font-size: 10px;
+  }
 }

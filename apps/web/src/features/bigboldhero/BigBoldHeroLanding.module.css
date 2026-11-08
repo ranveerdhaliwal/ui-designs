@@ -1,836 +1,273 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-
 .container {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  background: #f4f4ee;
+  color: #30352a;
+  min-height: calc(100dvh - 48px);
+  font-family: Arial, sans-serif;
+}
+.themeBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 32px;
+  background: #f4f4ee;
+  border-bottom: 1px solid #d9ddcf;
+  font-size: 11px;
+}
+.themeBar > span:last-child {
+  color: #8c9480;
+}
+.themeBar > div {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+}
+.themeBar button {
+  background: none;
+  border: 1px solid transparent;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #737c65;
+  white-space: nowrap;
+}
+.themeBar button[aria-pressed='true'] {
+  border-color: #abb79b;
+  color: #283822;
+  background: #e5eadc;
+}
+.world {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-.backButton {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 1000;
-  color: #000;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(10px);
-  padding: 0.5rem 1rem;
-  border-radius: 99px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: background 0.2s;
-}
-.backButton:hover {
-  background: #FFF;
-}
-
-.themeWrapper {
-  width: 100%;
-  height: 100%;
+  isolation: isolate;
+  min-height: calc(100dvh - 118px);
   background-size: cover;
   background-position: center;
-  position: relative;
+  color: var(--world-ink);
+  display: flex;
+  flex-direction: column;
+  animation: worldEnter 0.45s ease-out;
 }
-
-/* Backgrounds */
-.oasis {
-  background-image: url('/assets/oasis_bg.png');
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 20, 25, 0.65), transparent 85%);
+  z-index: -1;
 }
-.haven {
-  background-image: url('/assets/haven_bg.png');
+.world[data-light='true'] .scrim {
+  background: linear-gradient(90deg, rgba(244, 241, 221, 0.75), rgba(244, 241, 221, 0.05));
 }
-.harmoniq {
-  background-image: url('/assets/harmoniq_bg.png');
+.world[data-align='center'] .scrim {
+  background: linear-gradient(0deg, rgba(9, 15, 24, 0.1), rgba(9, 15, 24, 0.5));
 }
-.arive {
-  background-image: url('/assets/arive_bg.png');
+.world[data-align='center'][data-light='true'] .scrim {
+  background: linear-gradient(0deg, rgba(247, 245, 224, 0.05), rgba(247, 245, 224, 0.7));
 }
-.ostra {
-  background-image: url('/assets/ostra_bg.png');
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 5%;
 }
-.lumen {
-  background-image: url('/assets/lumen_bg.png');
+.brand {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
 }
-.vanta {
-  background-image: url('/assets/vanta_bg.png');
+.navLabel {
+  font-size: 11px;
 }
-
-/* Header Styles */
-.headerOasis {
+.navButton {
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 11px 16px;
+  font-size: 11px;
+}
+.hero {
+  padding: 56px 8% 72px;
+  flex: 1;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: var(--world-font);
+  font-size: clamp(52px, 6.7vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  font-weight: 400;
+  max-width: 1000px;
+}
+.description {
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 330px;
+  margin: 26px 0;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  background: #f3f4e9;
+  color: #273220;
+  border: 1px solid #ffffff50;
+  border-radius: 5px;
+  padding: 16px 22px;
+  font-size: 12px;
+}
+.world[data-light='true'] .cta {
+  background: #283529;
+  color: #f4f5eb;
+  border-color: transparent;
+}
+.world[data-align='center'] .hero {
+  text-align: center;
+}
+.world[data-align='center'] .hero h1,
+.world[data-align='center'] .description {
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 4rem;
+  padding: 26px 5%;
+  font-size: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--world-ink), transparent 80%);
 }
-
-.logoOasis {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #111;
-}
-.logoHarmoniq {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
+.footer button {
+  border: 0;
+  background: none;
+  color: inherit;
   display: flex;
+  gap: 16px;
   align-items: center;
-  gap: 0.5rem;
+  font-size: 11px;
 }
-.harmoniqIcon {
-  font-size: 1.75rem;
+@keyframes worldEnter {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
-
-.navLinks {
-  display: flex;
-  gap: 2rem;
-  font-size: 0.9rem;
-  color: #333;
-  font-weight: 500;
-}
-.navLinks span {
-  cursor: pointer;
-}
-
-.btnOasisDark {
-  background: #1A202C;
-  color: #FFF;
-  padding: 0.75rem 1.5rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-.btnOasisDark:hover {
-  transform: translateY(-2px);
-}
-
-/* Floating Center Header (Haven & Arive) */
-.headerFloatingCenter {
-  position: absolute;
-  top: 2rem;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.floatingNavContainer {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  background: #FFF;
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-  border-radius: 99px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-}
-.logoHaven {
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.havenIcon {
-  color: #F97316;
-}
-.navLinksCenter {
-  display: flex;
-  gap: 2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #444;
-}
-.btnHavenDark {
-  background: #111;
-  color: #FFF;
-  border: none;
-  border-radius: 99px;
-  padding: 0.6rem 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
+@media (max-width: 760px) {
+  .themeBar {
+    padding: 12px 20px;
+    display: block;
+  }
+  .themeBar > span {
+    display: none;
+  }
+  .themeBar > div {
+    gap: 4px;
+  }
+  .themeBar button {
+    padding: 9px 12px;
+  }
+  .nav {
+    padding: 24px;
+  }
+  .navLabel {
+    display: none;
+  }
+  .hero {
+    padding: 54px 24px 80px;
+  }
+  .hero h1 {
+    font-size: 57px;
+  }
+  .world[data-align='center'] .hero {
+    text-align: left;
+  }
+  .description {
+    font-size: 14px;
+  }
+  .world[data-align='center'] .description {
+    margin-left: 0;
+  }
+  .footer {
+    padding: 24px;
+    gap: 20px;
+  }
+  .footer > span {
+    max-width: 140px;
+    line-height: 1.6;
+  }
 }
 
-.floatingNavDark {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  background: rgba(17, 24, 39, 0.7);
-  backdrop-filter: blur(20px);
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-  border-radius: 99px;
-  border: 1px solid rgba(255,255,255,0.1);
+.identityNotes {
+  padding: 80px 7%;
+  background: #f5f3ed;
+  color: #344136;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
 }
-.logoArive {
-  color: #FFF;
-  font-size: 1.25rem;
-}
-.navLinksCenterDark {
-  display: flex;
-  gap: 2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #E2E8F0;
-}
-.btnAriveBlue {
-  background: #3B82F6;
-  color: #FFF;
-  border: none;
-  border-radius: 99px;
-  padding: 0.6rem 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-/* Oasis Hero */
-.heroOasis {
-  padding: 6rem 4rem;
-  max-width: 800px;
-}
-.titleSerifOasis {
-  font-family: 'Playfair Display', serif;
-  font-size: 5rem;
-  line-height: 1.1;
-  font-weight: 500;
-  color: #111;
-  margin: 0 0 1.5rem;
-  letter-spacing: -0.02em;
-}
-.subtitleOasis {
-  font-size: 1.25rem;
-  color: #555;
-  margin: 0 0 2rem;
-  line-height: 1.5;
-}
-.btnOasisLight {
-  background: #FFF;
-  color: #111;
-  padding: 1rem 2rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-.btnOasisLight:hover { transform: translateY(-2px); }
-
-.bottomScroll {
-  position: absolute;
-  bottom: 2rem;
-  right: 4rem;
-  color: #FFF;
-  font-size: 0.8rem;
+.identityNotes span {
+  font: 10px monospace;
   letter-spacing: 0.1em;
-  font-weight: 600;
-  opacity: 0.8;
+  color: #7e897f;
 }
-
-/* Haven Hero */
-.heroCenter {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-top: 5rem;
-}
-.pillBadge {
-  background: rgba(255,255,255,0.9);
-  padding: 0.5rem 1rem;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-.pillBadgeLight {
-  background: #FFF;
-  padding: 0.5rem 1rem;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  color: #555;
-}
-.titleSansLarge {
-  font-size: 5rem;
-  font-weight: 700;
-  color: #111;
-  margin: 0 0 1rem;
-  letter-spacing: -0.04em;
-}
-.subtitleCenter {
-  font-size: 1.25rem;
-  color: #444;
-  margin: 0 0 2.5rem;
-  line-height: 1.6;
-}
-.actionRow {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.btnHavenLight {
-  background: #FFF;
-  color: #111;
-  padding: 1rem 2rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-.textLink {
-  font-weight: 600;
-  color: #111;
-  cursor: pointer;
-}
-.bottomScrollPill {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-  color: #FFF;
-  padding: 0.5rem 1.5rem;
-  border-radius: 99px;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-}
-
-/* Harmoniq */
-.heroCenterTop {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-top: 4rem;
-}
-.titleSerifElegant {
-  font-family: 'Playfair Display', serif;
-  font-size: 5.5rem;
-  line-height: 1.05;
+.identityNotes h2 {
+  font-size: 42px;
   font-weight: 400;
-  color: #111;
-  margin: 0 0 1.5rem;
-}
-.subtitleHarmoniq {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0 0 2.5rem;
-  line-height: 1.6;
-  max-width: 600px;
-}
-.actionRowCenter {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.btnPlay {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #FFF;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  cursor: pointer;
-}
-
-/* Arive */
-.heroArive {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-top: 6rem;
-  height: 100%;
-}
-.titleArive {
-  font-size: 5rem;
-  font-weight: 800;
-  color: #0F172A;
-  margin: 0 0 2rem;
-  letter-spacing: -0.04em;
+  letter-spacing: -1.5px;
   line-height: 1.1;
+  max-width: 400px;
 }
-.actionRowArive {
+.identityNotes[data-serif='true'] h2,
+.identityNotes[data-serif='true'] blockquote {
+  font-family: Georgia, serif;
+}
+.identityNotes p {
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 350px;
+  color: #7a847a;
+}
+.specimens blockquote {
+  font-size: 25px;
+  margin: 20px 0 40px;
+  letter-spacing: -0.7px;
+}
+.specimens > div {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 4rem;
+  margin-top: 15px;
 }
-.btnAriveWhite {
-  background: #FFF;
-  color: #0F172A;
-  padding: 1rem 2.5rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-.textLinkArive {
-  font-weight: 600;
-  color: #0F172A;
-  cursor: pointer;
-}
-.logosRow {
-  display: flex;
-  gap: 3rem;
-  font-weight: 700;
-  color: #0F172A;
-  opacity: 0.6;
-  font-size: 1.25rem;
-  margin-bottom: 3rem;
-}
-
-.glassDashboard {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(20px);
-  width: 1000px;
-  height: 400px;
-  border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-  display: flex;
+.specimens button {
+  height: 90px;
+  flex: 1;
+  border: 0;
+  padding: 12px;
   text-align: left;
-}
-.dashSidebar {
-  width: 250px;
-  border-right: 1px solid rgba(0,0,0,0.1);
-  padding: 1.5rem;
-}
-.dashLogo {
-  font-weight: 800;
-  color: #E11D48;
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-}
-.dashMenu {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  font-weight: 600;
-  color: #64748B;
-}
-.dashActive {
-  color: #0F172A;
-}
-.dashMain {
-  flex: 1;
-  padding: 1.5rem 2rem;
-}
-.dashHeader {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  color: #94A3B8;
-  font-size: 0.9rem;
-}
-.dashTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 1.5rem;
-}
-.dashWidgets {
-  display: flex;
-  gap: 1rem;
-}
-.widgetGreen, .widgetPurple, .widgetOrange {
-  flex: 1;
-  height: 120px;
-  border-radius: 16px;
-  padding: 1rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0F172A;
-}
-.widgetGreen { background: #ECFDF5; }
-.widgetPurple { background: #F3E8FF; }
-.widgetOrange { background: #FFF7ED; }
-
-/* ------------------- OSTRA ------------------- */
-.headerOstra {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3rem;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.logoOstra {
-  color: #FFF;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.ostraIcon { color: #3B82F6; }
-.navLinksOstra {
-  display: flex;
-  gap: 2.5rem;
-  color: #E2E8F0;
-  font-size: 0.95rem;
-  font-weight: 500;
-}
-.btnOstraOutline {
-  background: transparent;
-  color: #FFF;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 0.6rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-.btnOstraOutline:hover { background: rgba(255,255,255,0.1); }
-.heroOstra {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-top: 5rem;
-  color: #FFF;
-}
-.badgeOstra {
-  background: rgba(255,255,255,0.1);
-  padding: 0.4rem 1rem;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  margin-bottom: 2rem;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.badgeOstraNew {
-  background: #3B82F6;
-  color: #FFF;
-  padding: 0.2rem 0.5rem;
-  border-radius: 99px;
-  margin-right: 0.5rem;
-  font-weight: 700;
-}
-.titleOstra {
-  font-size: 4.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0 0 1.5rem;
-  letter-spacing: -0.02em;
-}
-.subtitleOstra {
-  font-size: 1.25rem;
-  color: #94A3B8;
-  margin: 0 0 3rem;
-  line-height: 1.6;
-}
-.actionRowOstra {
-  display: flex;
-  gap: 1rem;
-}
-.btnOstraPrimary {
-  background: #3B82F6;
-  color: #FFF;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
+  align-items: flex-end;
+  font: 10px monospace;
   cursor: pointer;
 }
-.btnOstraSecondary {
-  background: rgba(255,255,255,0.1);
-  color: #FFF;
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
+.specimens small {
+  display: block;
+  margin-top: 14px;
+  font-size: 10px;
+  color: #79847b;
 }
-
-/* ------------------- LUMEN GATE ------------------- */
-.headerLumen {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 4rem;
-}
-.logoLumen {
-  color: #FFF;
-  font-weight: 400;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.lumenIcon { font-size: 2rem; font-weight: 200; }
-.navLinksLumen {
-  display: flex;
-  gap: 3rem;
-  color: #F8FAFC;
-  font-size: 0.95rem;
-}
-.btnLumenLight {
-  background: #FFF;
-  color: #000;
-  padding: 0.75rem 1.5rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-}
-.heroLumen {
-  padding: 6rem 4rem;
-  max-width: 800px;
-  color: #FFF;
-}
-.titleLumen {
-  font-size: 5rem;
-  font-weight: 500;
-  line-height: 1.1;
-  margin: 0 0 2rem;
-  letter-spacing: -0.03em;
-}
-.subtitleLumen {
-  font-size: 1.2rem;
-  color: #CBD5E1;
-  line-height: 1.6;
-  margin: 0 0 3rem;
-}
-.actionRowLumen {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 5rem;
-}
-.btnLumenLightLg {
-  background: #FFF;
-  color: #000;
-  padding: 1rem 2rem;
-  border-radius: 99px;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.btnLumenOutline {
-  background: transparent;
-  color: #FFF;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 1rem 2rem;
-  border-radius: 99px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.lumenLogosBox { margin-top: 2rem; }
-.lumenLogosLabel {
-  font-size: 0.9rem;
-  color: #94A3B8;
-  margin-bottom: 1rem;
-}
-.lumenLogos {
-  display: flex;
-  gap: 2rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: rgba(255,255,255,0.6);
-}
-
-/* ------------------- VANTA ------------------- */
-.headerVanta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 4rem;
-  color: #FFF;
-}
-.vantaBracketNav {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.vantaBracketNavRight {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.vantaBracket {
-  font-family: monospace;
-  font-size: 1.5rem;
-  color: rgba(255,255,255,0.4);
-}
-.vantaBracketSm {
-  font-family: monospace;
-  font-size: 1rem;
-  color: rgba(255,255,255,0.4);
-}
-.navLinksVanta {
-  display: flex;
-  gap: 2rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-.logoVanta {
-  font-weight: 800;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.vantaIcon { color: #FFF; }
-.btnVantaOutline {
-  background: transparent;
-  color: #FFF;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-}
-.heroVanta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-top: 5rem;
-  color: #FFF;
-}
-.vantaBracketBadge {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.25rem 0.5rem;
-}
-.titleVanta {
-  line-height: 1.1;
-  margin: 0 0 2rem;
-}
-.vantaSans {
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-.vantaSerif {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
-  font-weight: 400;
-  font-style: italic;
-}
-.subtitleVanta {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.6;
-  margin: 0 0 3rem;
-}
-.actionRowVanta {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 5rem;
-}
-.vantaBracketBtnBox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.25rem 0.5rem;
-  transition: background 0.2s;
-}
-.vantaBracketBtnBox:hover {
-  background: rgba(255,255,255,0.05);
-}
-.btnVantaDark {
-  background: transparent;
-  color: #FFF;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.btnVantaGhost {
-  background: transparent;
-  color: rgba(255,255,255,0.7);
-  border: none;
-  font-weight: 500;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.vantaTrusted {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-.vantaTrustedLabel {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.6);
-}
-.vantaBracketLogos {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.vantaLogosInner {
-  display: flex;
-  gap: 2rem;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.8);
-}
-
-
-/* Theme Switcher */
-.themeControls {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: #FFF;
-  padding: 1rem;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-.controlsLabel {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-.controlsRow {
-  display: flex;
-  gap: 0.5rem;
-}
-.controlsRow button {
-  background: #F1F5F9;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-  color: #64748B;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.controlsRow button:hover {
-  background: #E2E8F0;
-}
-.controlsRow .btnActive {
-  background: #0F172A;
-  color: #FFF;
+@media (max-width: 700px) {
+  .identityNotes {
+    grid-template-columns: 1fr;
+    padding: 45px 25px;
+    gap: 35px;
+  }
+  .identityNotes h2 {
+    font-size: 34px;
+  }
 }

@@ -1,8 +1,11 @@
 .container {
   min-height: 100vh;
   background-color: #050505;
-  color: #FFFFFF;
-  font-family: 'Inter', -apple-system, sans-serif;
+  color: #ffffff;
+  font-family:
+    'Inter',
+    -apple-system,
+    sans-serif;
 }
 
 .header {
@@ -15,13 +18,13 @@
   font-weight: 800;
   letter-spacing: -0.04em;
   margin: 0;
-  background: linear-gradient(to right, #FFFFFF, #B0B0B0);
+  background: linear-gradient(to right, #ffffff, #b0b0b0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  color: #CCCCCC;
+  color: #cccccc;
   font-size: 1.25rem;
   margin-top: 1rem;
 }
@@ -45,8 +48,8 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
-  color: #FFF;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
 }
 
@@ -68,7 +71,9 @@
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
-  transition: transform 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
   display: block;
 }
 
@@ -86,7 +91,7 @@
 .cardTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #FFF;
+  color: #fff;
   margin: 1.25rem 1.25rem 0.5rem;
 }
 

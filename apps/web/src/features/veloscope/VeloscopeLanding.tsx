@@ -1,173 +1,198 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from '@tanstack/react-router';
+import { DemoAction } from '@/components/ui/DemoAction';
+import { SectionLink } from '@/components/ui/SectionLink';
 import { getAssetUrl } from '@/lib/assetUtils';
+import { ArrowUpRight, Globe2, Route, ShieldCheck } from 'lucide-react';
+import { useState } from 'react';
 import styles from './VeloscopeLanding.module.css';
-
+const regions = [
+  {
+    name: 'Pacific',
+    nodes: ['San Francisco', 'Tokyo', 'Singapore'],
+    path: 'M80 210 Q240 30 420 130 T720 250',
+  },
+  {
+    name: 'Atlantic',
+    nodes: ['New York', 'London', 'Frankfurt'],
+    path: 'M80 260 Q260 40 420 180 T720 100',
+  },
+  {
+    name: 'Continental',
+    nodes: ['Portland', 'Denver', 'New York'],
+    path: 'M80 180 Q230 320 420 180 T720 180',
+  },
+];
 export function VeloscopeLanding() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-  const solutionRef = useRef<HTMLElement>(null);
-  const benefitsRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible || 'visible');
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const elements = document.querySelectorAll(`.${styles.revealUp}`);
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
+  const [region, setRegion] = useState(0);
+  const [node, setNode] = useState(0);
+  const active = regions[region];
   return (
-    <div className={styles.container} ref={containerRef}>
-      {/* Absolute Back Button */}
-      <Link 
-        to="/" 
-        style={{ 
-          position: 'fixed', 
-          top: '1.5rem', 
-          left: '1.5rem', 
-          zIndex: 9999, 
-          background: 'rgba(0,0,0,0.5)', 
-          backdropFilter: 'blur(10px)',
-          padding: '0.5rem 1rem', 
-          borderRadius: '99px',
-          textDecoration: 'none',
-          color: '#fff',
-          fontWeight: '500',
-          fontSize: '0.875rem'
-        }}
-      >
-        &larr; Back to Hub
-      </Link>
-
-      <section 
-        ref={heroRef}
-        className={styles.hero} 
+    <div className={styles.container}>
+      <section
+        className={styles.hero}
         style={{ backgroundImage: `url(${getAssetUrl('/assets/veloscope_hero_bg.png')})` }}
       >
         <header className={styles.nav}>
-          <div className={styles.logo}>VELOSCOPE</div>
-          <nav className={styles.navLinks}>
-            <a href="#">Platform</a>
-            <a href="#">Solutions</a>
-            <a href="#">Network</a>
-            <a href="#">Docs</a>
+          <strong>
+            VELOSCOPE<span>®</span>
+          </strong>
+          <nav>
+            <SectionLink target="network">The network</SectionLink>
+            <SectionLink target="principles">Our approach</SectionLink>
           </nav>
-          <div className={styles.navRight}>
-            <button className={`${styles.btnPrimary} ${styles.pill}`}>Access Console</button>
-          </div>
+          <DemoAction className={styles.button} title="Build your next connection">
+            Get in touch <ArrowUpRight size={16} />
+          </DemoAction>
         </header>
-
-        <div className={styles.heroContent}>
-          <h1 className={`${styles.heroTitle} hero-anim`}>
-            Encrypted edge routing for global organizations.
+        <div className={styles.heroCopy}>
+          <p>CONNECTED BY DESIGN / 001</p>
+          <h1>
+            A smaller world.
+            <br />A wider horizon.
           </h1>
-          <div className={`${styles.badges} hero-anim`}>
-            <div className={`${styles.pill} ${styles.glass}`}>ISO 27001 Certified</div>
-            <div className={`${styles.pill} ${styles.glass}`}>Zero-Trust Architecture</div>
-          </div>
-          <p className={`${styles.heroSub} hero-anim`}>
-            Secure data pipelines that execute locally across your infrastructure. 
-            Complete cryptographic isolation, unified access control, and automated billing.
-          </p>
-          <div className={`${styles.heroCtas} hero-anim`}>
-            <button className={`${styles.btnPrimary} ${styles.pill}`}>Request Access</button>
-            <button className={`${styles.btnSecondary} ${styles.pill}`}>Start a trial</button>
+          <div className={styles.heroBottom}>
+            <p>
+              Infrastructure should open possibilities. An exploration of networks that feel as
+              natural as the landscapes they cross.
+            </p>
+            <SectionLink target="network" className={styles.lightButton}>
+              Explore the network <ArrowUpRight size={18} />
+            </SectionLink>
           </div>
         </div>
+        <span className={styles.caption}>An independent network interface concept</span>
       </section>
-
-      <section ref={solutionRef} className={styles.solution}>
-        <div className={styles.solutionContainer}>
-          <span className={`${styles.sectionEyebrow} reveal-up`}>The Problem</span>
-          <h2 className={`${styles.solutionTitle} reveal-up`}>
-            Legacy networks bleed data.<br/>We sealed the pipes.
-          </h2>
-          <p className={`${styles.solutionDesc} reveal-up`}>
-            Traditional enterprise routing relies on centralized chokepoints and fragmented security policies. 
-            Veloscope introduces a decentralized mesh that encrypts traffic end-to-end, enforcing zero-trust 
-            policies at the very edge of your network. No backdoors. No compromises.
+      <section id="network" className={styles.network}>
+        <div className={styles.sectionTop}>
+          <div>
+            <p>01 / THE CONNECTIONS</p>
+            <h2>Distance is a detail.</h2>
+          </div>
+          <p>
+            Choose a region to trace its connections.
+            <br />
+            Illustrative routes, ready to explore.
           </p>
         </div>
-      </section>
-
-      <section ref={benefitsRef} className={styles.benefits}>
-        <div className={styles.bentoGrid}>
-          <div className={`${styles.bentoCard} ${styles.bentoLarge} reveal-up`}>
-            <div className={styles.bentoIcon}>🔒</div>
-            <h3 className={styles.bentoTitle}>Cryptographic Isolation</h3>
-            <p className={styles.bentoDesc}>
-              Every packet is wrapped in AES-256 encryption before it leaves the source. 
-              Our hardware-accelerated nodes route traffic without ever inspecting the payload, 
-              guaranteeing absolute data privacy across public and private links.
-            </p>
-          </div>
-          <div className={`${styles.bentoCard} ${styles.bentoSmall} reveal-up`}>
-            <div className={styles.bentoIcon}>🛡️</div>
-            <h3 className={styles.bentoTitle}>Unified Access Control</h3>
-            <p className={styles.bentoDesc}>
-              Manage identity and access policies from a single pane of glass. Instantly revoke 
-              sessions or restrict IP ranges globally within milliseconds.
-            </p>
-          </div>
-          <div className={`${styles.bentoCard} ${styles.bentoSmall} reveal-up`}>
-            <div className={styles.bentoIcon}>⚡</div>
-            <h3 className={styles.bentoTitle}>Automated Billing</h3>
-            <p className={styles.bentoDesc}>
-              Stop guessing your transit costs. Our edge nodes meter traffic down to the byte, 
-              providing real-time cost attribution by team, service, or geographic region.
-            </p>
-          </div>
-          <div className={`${styles.bentoCard} ${styles.bentoLarge} reveal-up`}>
-            <div className={styles.bentoIcon}>🌐</div>
-            <h3 className={styles.bentoTitle}>Global Edge Network</h3>
-            <p className={styles.bentoDesc}>
-              Deploy workloads across 150+ edge locations worldwide. Veloscope intelligently routes 
-              traffic through the path of least resistance, minimizing latency and avoiding congested 
-              internet exchanges automatically.
-            </p>
+        <div className={styles.tabs}>
+          {regions.map((r, i) => (
+            <button key={r.name} aria-pressed={region === i} onClick={() => setRegion(i)}>
+              {r.name}
+            </button>
+          ))}
+        </div>
+        <div className={styles.map}>
+          <svg
+            viewBox="0 0 800 360"
+            aria-label={`${active.name} illustrative network route`}
+            role="img"
+          >
+            <defs>
+              <pattern id="route-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="1" fill="#a4b4a5" />
+              </pattern>
+            </defs>
+            <rect width="800" height="360" fill="url(#route-grid)" />
+            <path
+              d={active.path}
+              fill="none"
+              stroke="#31583e"
+              strokeWidth="2"
+              strokeDasharray="6 5"
+            />
+            {[80, 420, 720].map((x, i) => (
+              <g key={x}>
+                <circle
+                  cx={x}
+                  cy={region === 0 ? [210, 130, 250][i] : region === 1 ? [260, 180, 100][i] : 180}
+                  r="9"
+                  fill="#31583e"
+                />
+                <text
+                  x={x}
+                  y={
+                    (region === 0 ? [210, 130, 250][i] : region === 1 ? [260, 180, 100][i] : 180) +
+                    32
+                  }
+                  textAnchor="middle"
+                  fill="#26382c"
+                  fontSize="14"
+                >
+                  {active.nodes[i]}
+                </text>
+              </g>
+            ))}
+          </svg>
+          <div className={styles.mapFooter}>
+            <span>REGION / {active.name.toUpperCase()}</span>
+            <span>3 NODES · 2 CONNECTIONS</span>
           </div>
         </div>
-      </section>
-
-      <section className={styles.metrics}>
-        <div className={styles.metricsGrid}>
-          <div className="reveal-up">
-            <div className={styles.metricValue}>99.999%</div>
-            <div className={styles.metricLabel}>Uptime SLA</div>
+        <div className={styles.nodeInspector}>
+          <div role="group" aria-label="Inspect network node">
+            {active.nodes.map((n, i) => (
+              <button key={n} aria-pressed={node === i} onClick={() => setNode(i)}>
+                {n}
+                <ArrowUpRight size={14} />
+              </button>
+            ))}
           </div>
-          <div className="reveal-up">
-            <div className={styles.metricValue}>12ms</div>
-            <div className={styles.metricLabel}>Global Avg Latency</div>
-          </div>
-          <div className="reveal-up">
-            <div className={styles.metricValue}>4Tbps</div>
-            <div className={styles.metricLabel}>Network Capacity</div>
-          </div>
+          <article>
+            <span>
+              NODE 0{node + 1} / {active.nodes[node]}
+            </span>
+            <h3>{['The point of departure.', 'A connected midpoint.', 'A new horizon.'][node]}</h3>
+            <p>
+              {
+                [
+                  'Traffic enters the regional route here. Keep the origin visible when tracing a connection.',
+                  'This relay joins the two route segments. Inspect both sides to understand the full path.',
+                  'The destination completes the route. Every connection should have a clear endpoint.',
+                ][node]
+              }
+            </p>
+            <small>Illustrative topology · No live network measurements</small>
+          </article>
         </div>
       </section>
-
-      <section 
-        className={styles.finalCta}
+      <section id="principles" className={styles.principles}>
+        {[
+          {
+            Icon: Globe2,
+            title: 'Think beyond borders',
+            text: 'A clear, shared view of how every location connects.',
+          },
+          {
+            Icon: Route,
+            title: 'Make the path visible',
+            text: 'Replace abstract configuration with routes you can understand.',
+          },
+          {
+            Icon: ShieldCheck,
+            title: 'Clarity builds trust',
+            text: 'Give each connection a name, a purpose, and a place.',
+          },
+        ].map(({ Icon, title, text }, i) => (
+          <article key={title}>
+            <span>0{i + 1}</span>
+            <Icon size={26} />
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </section>
+      <footer
+        className={styles.footer}
         style={{ backgroundImage: `url(${getAssetUrl('/assets/veloscope_footer_bg.png')})` }}
       >
-        <div className={styles.finalCtaContent}>
-          <h2 className={styles.finalCtaTitle}>
-            Engineering digital systems that outpace market shifts.
-          </h2>
-          <button className={`${styles.btnPrimary} ${styles.pill}`}>View Our Projects</button>
-        </div>
-      </section>
+        <h2>
+          The next horizon
+          <br />
+          starts with a connection.
+        </h2>
+        <SectionLink target="network" className={styles.lightButton}>
+          Find your route <ArrowUpRight size={18} />
+        </SectionLink>
+      </footer>
     </div>
   );
 }

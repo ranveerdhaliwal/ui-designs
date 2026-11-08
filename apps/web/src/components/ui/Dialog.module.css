@@ -1,0 +1,81 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  width: min(540px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  border: 1px solid var(--ui-line);
+  border-radius: 12px;
+  background: var(--ui-panel);
+  color: var(--ui-ink);
+  font-family: Arial, sans-serif;
+  box-shadow: 0 24px 100px #0003;
+  overscroll-behavior: contain;
+}
+.dialog::backdrop {
+  background: #11180fc0;
+  backdrop-filter: blur(5px);
+}
+.wide {
+  width: min(880px, calc(100% - 32px));
+}
+.header {
+  padding: 28px 28px 20px;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--ui-line);
+}
+.header h2 {
+  font-size: 25px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.header p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ui-muted);
+}
+.close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--ui-line);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.body {
+  padding: 24px 28px;
+  line-height: 1.65;
+  font-size: 14px;
+}
+.body img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.body p {
+  margin: 0 0 16px;
+}
+.body a {
+  color: var(--ui-accent);
+}
+@media (max-width: 500px) {
+  .header {
+    padding: 24px 20px 18px;
+  }
+  .body {
+    padding: 20px;
+  }
+  .header h2 {
+    font-size: 23px;
+  }
+}

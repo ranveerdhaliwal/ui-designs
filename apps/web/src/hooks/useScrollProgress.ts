@@ -1,18 +1,18 @@
-import { useState, useEffect, type RefObject } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 
 /**
  * Tracks scroll progress as a 0→1 value.
- * 
+ *
  * If a containerRef is provided, tracks progress within that scrollable element.
  * Otherwise, tracks the entire page scroll progress.
  *
  * Uses requestAnimationFrame throttling for smooth performance.
- * 
+ *
  * @example
  * ```tsx
  * // Full page scroll progress
  * const progress = useScrollProgress();
- * 
+ *
  * // Container-scoped scroll progress
  * const ref = useRef<HTMLDivElement>(null);
  * const progress = useScrollProgress(ref);
@@ -45,7 +45,7 @@ export function useScrollProgress(containerRef?: RefObject<HTMLElement | null>):
 
     const target = containerRef?.current ?? window;
     target.addEventListener('scroll', onScroll, { passive: true });
-    
+
     // Get initial value
     updateProgress();
 

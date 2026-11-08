@@ -1,0 +1,7 @@
+node_modules
+dist
+pnpm-lock.yaml
+.agents
+apps/web/public
+apps/web/src/features/wet-paint-flow/Engine.ts
+apps/web/src/features/scrollworld/scrubEngine.js

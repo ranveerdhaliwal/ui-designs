@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import { startAnimationLoop } from '@/lib/animation';
+import React, { useEffect, useRef } from 'react';
 
 export interface ReactiveLinesProps {
   color?: string;
@@ -21,17 +22,21 @@ export const ReactiveLines: React.FC<ReactiveLinesProps> = ({
 
     let width = canvas.width;
     let height = canvas.height;
-    let mouse = { x: width / 2, y: height / 2 };
-    let targetMouse = { x: width / 2, y: height / 2 };
+    const mouse = { x: width / 2, y: height / 2 };
+    const targetMouse = { x: width / 2, y: height / 2 };
 
+    let invalidate = () => {};
     const resize = () => {
       const parent = canvas.parentElement;
       if (parent) {
         width = parent.clientWidth;
         height = parent.clientHeight;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        canvas.width = width * Math.min(window.devicePixelRatio || 1, 2);
+        canvas.height = height * Math.min(window.devicePixelRatio || 1, 2);
+        ctx.scale(
+          Math.min(window.devicePixelRatio || 1, 2),
+          Math.min(window.devicePixelRatio || 1, 2),
+        );
       }
     };
     window.addEventListener('resize', resize);
@@ -43,12 +48,11 @@ export const ReactiveLines: React.FC<ReactiveLinesProps> = ({
       targetMouse.y = e.clientY - rect.top;
     };
     canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', () => {
+    const onMouseLeave = () => {
       targetMouse.x = width / 2;
       targetMouse.y = height / 2;
-    });
-
-    let animationId: number;
+    };
+    canvas.addEventListener('mouseleave', onMouseLeave);
 
     const render = () => {
       // Ease mouse
@@ -62,14 +66,14 @@ export const ReactiveLines: React.FC<ReactiveLinesProps> = ({
 
       for (let i = 0; i < lineCount; i++) {
         const xPos = (width / lineCount) * i;
-        
+
         ctx.beginPath();
         ctx.moveTo(xPos, 0);
 
         // Control point reacts to mouse
         const dist = Math.abs(xPos - mouse.x);
         const influence = Math.max(0, 300 - dist) / 300; // 300px radius
-        
+
         const cpX = xPos + (mouse.x - xPos) * influence * 1.5;
         const cpY = mouse.y;
 
@@ -80,29 +84,31 @@ export const ReactiveLines: React.FC<ReactiveLinesProps> = ({
       // Draw horizontal lines
       for (let i = 0; i < lineCount; i++) {
         const yPos = (height / lineCount) * i;
-        
+
         ctx.beginPath();
         ctx.moveTo(0, yPos);
 
         const dist = Math.abs(yPos - mouse.y);
         const influence = Math.max(0, 300 - dist) / 300;
-        
+
         const cpX = mouse.x;
         const cpY = yPos + (mouse.y - yPos) * influence * 1.5;
 
         ctx.quadraticCurveTo(cpX, cpY, width, yPos);
         ctx.stroke();
       }
-
-      animationId = requestAnimationFrame(render);
     };
 
-    render();
+    const animation = startAnimationLoop(render, { element: canvas });
+    invalidate = animation.invalidate;
+    window.addEventListener('resize', invalidate);
 
     return () => {
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animationId);
+      canvas.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('resize', invalidate);
+      animation.dispose();
     };
   }, [color, lineCount]);
 

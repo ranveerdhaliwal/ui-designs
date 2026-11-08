@@ -1,0 +1,269 @@
+/* VitraWaitlist.module.css — Self-contained, portable styles */
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 520px;
+  background-color: #f7f6f2;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 40px -15px rgba(0, 0, 0, 0.08),
+    0 0 1px rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.leftColumn {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.brandIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2e6b4e;
+}
+
+.contentWrapper {
+  max-width: 460px;
+  margin: auto 0;
+}
+
+.headline {
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: #18191a;
+  margin: 0 0 1.25rem 0;
+}
+
+.description {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: #55575a;
+  margin: 0 0 2rem 0;
+  font-weight: 400;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  background: #eae8e1;
+  padding: 0.35rem 0.4rem 0.35rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+  margin-bottom: 2rem;
+}
+
+.form:focus-within {
+  background: #ffffff;
+  border-color: #1b382b;
+  box-shadow: 0 0 0 3px rgba(27, 56, 43, 0.12);
+}
+
+.inputIcon {
+  color: #7b7f85;
+  margin-right: 0.65rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  font-family: inherit;
+  padding: 0.5rem 0;
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: #787c82;
+}
+
+.submitBtn {
+  background: #192a20;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.submitBtn:hover {
+  background: #111e16;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(25, 42, 32, 0.2);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.successBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #e3f5eb;
+  color: #1c6d3d;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.socialProof {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.avatarStack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #f7f6f2;
+  margin-left: -8px;
+  object-fit: cover;
+  background: #ddd;
+  transition: transform 0.2s ease;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+.avatar:hover {
+  transform: translateY(-2px) scale(1.1);
+  z-index: 2;
+}
+
+.socialProofText {
+  font-size: 0.875rem;
+  color: #4b4f54;
+  font-weight: 500;
+}
+
+.rightColumn {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  background: #f0ebe1;
+}
+
+.illustrationWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badgeOverlay {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 860px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+
+  .leftColumn {
+    padding: 2rem 1.5rem;
+  }
+
+  .rightColumn {
+    min-height: 280px;
+  }
+
+  .headline {
+    font-size: 2rem;
+  }
+}

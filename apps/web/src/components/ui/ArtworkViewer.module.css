@@ -1,0 +1,53 @@
+.viewer {
+  margin: 0;
+}
+.viewport {
+  max-height: 55vh;
+  overflow: auto;
+  background: #e9e7e2;
+  border-radius: 6px;
+}
+.viewport img {
+  display: block;
+  border-radius: 0 !important;
+  height: auto !important;
+}
+.viewer figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 14px 0;
+  color: #6c716c;
+  font-size: 11px;
+}
+.viewer label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.viewer input {
+  min-width: 0;
+  width: 110px;
+  accent-color: #405b48;
+}
+.viewer button {
+  background: transparent;
+  border: 1px solid #ccd1c9;
+  border-radius: 4px;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit;
+  min-height: 34px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+@media (max-width: 500px) {
+  .viewer input {
+    width: 70px;
+  }
+  .viewer figcaption {
+    gap: 8px;
+  }
+}

@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 type Cell = string | null;
 const N = 16;
 const PAD = 1;
 const G = N + 2 * PAD;
 
-const spriteAt = (grid: Cell[][], y: number, x: number): Cell =>
-  grid[y - PAD]?.[x - PAD] ?? null;
+const spriteAt = (grid: Cell[][], y: number, x: number): Cell => grid[y - PAD]?.[x - PAD] ?? null;
 
 const R_DEFAULT = 0.42;
 
@@ -19,16 +18,12 @@ export function stickerMask(grid: Cell[][]): boolean[][] {
       for (let dy = -PAD; dy <= PAD; dy++)
         for (let dx = -PAD; dx <= PAD; dx++) m[y + dy][x + dx] = true;
     }
-  const outside: boolean[][] = Array.from({ length: G }, () =>
-    Array(G).fill(false),
-  );
+  const outside: boolean[][] = Array.from({ length: G }, () => Array(G).fill(false));
   const stack: [number, number][] = [];
-  for (let i = 0; i < G; i++)
-    stack.push([0, i], [G - 1, i], [i, 0], [i, G - 1]);
+  for (let i = 0; i < G; i++) stack.push([0, i], [G - 1, i], [i, 0], [i, G - 1]);
   while (stack.length) {
     const [y, x] = stack.pop()!;
-    if (y < 0 || x < 0 || y >= G || x >= G || outside[y][x] || m[y][x])
-      continue;
+    if (y < 0 || x < 0 || y >= G || x >= G || outside[y][x] || m[y][x]) continue;
     outside[y][x] = true;
     stack.push([y + 1, x], [y - 1, x], [y, x + 1], [y, x - 1]);
   }
@@ -37,8 +32,7 @@ export function stickerMask(grid: Cell[][]): boolean[][] {
 
 /* mask silhouette as closed loops: emit each cell's exposed edges clockwise */
 export function outlinePath(m: boolean[][], R: number): string {
-  const at = (y: number, x: number) =>
-    y >= 0 && x >= 0 && y < G && x < G && m[y][x];
+  const at = (y: number, x: number) => y >= 0 && x >= 0 && y < G && x < G && m[y][x];
   const edges = new Map<string, [number, number][]>();
   const add = (x1: number, y1: number, x2: number, y2: number) => {
     const k = `${x1},${y1}`;
@@ -53,10 +47,10 @@ export function outlinePath(m: boolean[][], R: number): string {
       if (!at(y + 1, x)) add(x + 1, y + 1, x, y + 1);
       if (!at(y, x - 1)) add(x, y + 1, x, y);
     }
-  let d = "";
+  let d = '';
   for (const [start, ends] of edges) {
     while (ends.length) {
-      const [sx, sy] = start.split(",").map(Number);
+      const [sx, sy] = start.split(',').map(Number);
       const pts: [number, number][] = [];
       let cur: [number, number] = [sx, sy];
       for (let guard = 0; guard < G * G * 4; guard++) {
@@ -75,10 +69,10 @@ export function outlinePath(m: boolean[][], R: number): string {
       const n = simple.length;
       const f = (v: number) => +v.toFixed(2);
       if (R <= 0) {
-        d += "M" + simple.map(([x, y]) => `${x} ${y}`).join("L") + "Z";
+        d += 'M' + simple.map(([x, y]) => `${x} ${y}`).join('L') + 'Z';
         continue;
       }
-      let seg = "";
+      let seg = '';
       for (let i = 0; i < n; i++) {
         const a = simple[(i + n - 1) % n];
         const p = simple[i];
@@ -88,9 +82,9 @@ export function outlinePath(m: boolean[][], R: number): string {
         const p1 = [p[0] - din[0] * R, p[1] - din[1] * R];
         const p2 = [p[0] + dout[0] * R, p[1] + dout[1] * R];
         const sweep = din[0] * dout[1] - din[1] * dout[0] > 0 ? 1 : 0;
-        seg += `${i === 0 ? "M" : "L"}${f(p1[0])} ${f(p1[1])}A${R} ${R} 0 0 ${sweep} ${f(p2[0])} ${f(p2[1])}`;
+        seg += `${i === 0 ? 'M' : 'L'}${f(p1[0])} ${f(p1[1])}A${R} ${R} 0 0 ${sweep} ${f(p2[0])} ${f(p2[1])}`;
       }
-      d += seg + "Z";
+      d += seg + 'Z';
     }
   }
   return d;
@@ -104,9 +98,9 @@ export function stickerSvg(
 ): string {
   const fillAt = (y: number, x: number): string | null => {
     const ch = spriteAt(grid, y, x);
-    return ch ? colors[ch] : mask[y][x] ? "#ffffff" : null;
+    return ch ? colors[ch] : mask[y][x] ? '#ffffff' : null;
   };
-  let art = "";
+  let art = '';
   for (let y = 0; y < G; y++) {
     let x = 0;
     while (x < G) {
@@ -246,7 +240,7 @@ void main() {
 }`;
 
 function initGl(canvas: HTMLCanvasElement, tex: Uint8Array) {
-  const gl = canvas.getContext("webgl", { antialias: false });
+  const gl = canvas.getContext('webgl', { antialias: false });
   if (!gl) return null;
   const sh = (type: number, src: string) => {
     const s = gl.createShader(type)!;
@@ -255,19 +249,17 @@ function initGl(canvas: HTMLCanvasElement, tex: Uint8Array) {
     return s;
   };
   const prog = gl.createProgram()!;
-  gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT));
-  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+  const vertex = sh(gl.VERTEX_SHADER, VERT),
+    fragment = sh(gl.FRAGMENT_SHADER, FRAG);
+  gl.attachShader(prog, vertex);
+  gl.attachShader(prog, fragment);
   gl.linkProgram(prog);
   gl.useProgram(prog);
 
   const buf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-    gl.STATIC_DRAW,
-  );
-  const aPos = gl.getAttribLocation(prog, "aPos");
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'aPos');
   gl.enableVertexAttribArray(aPos);
   gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
@@ -277,26 +269,23 @@ function initGl(canvas: HTMLCanvasElement, tex: Uint8Array) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  gl.texImage2D(
-    gl.TEXTURE_2D,
-    0,
-    gl.RGBA,
-    G,
-    G,
-    0,
-    gl.RGBA,
-    gl.UNSIGNED_BYTE,
-    tex,
-  );
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, G, G, 0, gl.RGBA, gl.UNSIGNED_BYTE, tex);
 
-  const uTilt = gl.getUniformLocation(prog, "uTilt");
-  const uGrid = gl.getUniformLocation(prog, "uGrid");
-  const uRes = gl.getUniformLocation(prog, "uRes");
-  const uRadius = gl.getUniformLocation(prog, "uRadius");
+  const uTilt = gl.getUniformLocation(prog, 'uTilt');
+  const uGrid = gl.getUniformLocation(prog, 'uGrid');
+  const uRes = gl.getUniformLocation(prog, 'uRes');
+  const uRadius = gl.getUniformLocation(prog, 'uRadius');
   gl.uniform1f(uGrid, G);
   gl.uniform1f(uRadius, R_DEFAULT);
 
   return {
+    dispose() {
+      gl.deleteBuffer(buf);
+      gl.deleteTexture(texture);
+      gl.deleteProgram(prog);
+      gl.deleteShader(vertex);
+      gl.deleteShader(fragment);
+    },
     draw(tiltX: number, tiltY: number, w: number, h: number) {
       gl.viewport(0, 0, w, h);
       gl.uniform2f(uRes, w, h);
@@ -307,10 +296,15 @@ function initGl(canvas: HTMLCanvasElement, tex: Uint8Array) {
 }
 
 export function primeMotionPermission() {
-  if (typeof DeviceOrientationEvent !== "undefined" && "requestPermission" in DeviceOrientationEvent) {
+  if (
+    typeof DeviceOrientationEvent !== 'undefined' &&
+    'requestPermission' in DeviceOrientationEvent
+  ) {
     try {
-      // @ts-ignore
-      DeviceOrientationEvent.requestPermission();
+      const request = (
+        DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
+      ).requestPermission;
+      void request().catch(() => undefined);
     } catch {
       /* ignore */
     }
@@ -327,6 +321,12 @@ export function StickerOverlay({
   onClose: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const renderer = useRef<ReturnType<typeof initGl>>(null);
+  const [graphicsError, setGraphicsError] = useState(false);
+  useEffect(() => {
+    dialogRef.current?.showModal();
+  }, []);
   const mask = useMemo(() => stickerMask(grid), [grid]);
   const [tilt, setTilt] = useState({ x: 0.15, y: -0.1 });
   const [dragging, setDragging] = useState(false);
@@ -340,7 +340,7 @@ export function StickerOverlay({
         const ch = spriteAt(grid, y, x);
         const isMask = mask[y][x];
         if (ch) {
-          const hex = colors[ch] || "#ffffff";
+          const hex = colors[ch] || '#ffffff';
           bytes[idx] = parseInt(hex.slice(1, 3), 16);
           bytes[idx + 1] = parseInt(hex.slice(3, 5), 16);
           bytes[idx + 2] = parseInt(hex.slice(5, 7), 16);
@@ -360,16 +360,16 @@ export function StickerOverlay({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const glCtx = initGl(canvas, texData);
-    if (!glCtx) return;
-
-    let raf = 0;
-    const render = () => {
-      glCtx.draw(tilt.x, tilt.y, canvas.width, canvas.height);
-      raf = requestAnimationFrame(render);
+    renderer.current = initGl(canvas, texData);
+    setGraphicsError(!renderer.current);
+    return () => {
+      renderer.current?.dispose();
+      renderer.current = null;
     };
-    raf = requestAnimationFrame(render);
-    return () => cancelAnimationFrame(raf);
+  }, [texData]);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) renderer.current?.draw(tilt.x, tilt.y, canvas.width, canvas.height);
   }, [texData, tilt]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -396,29 +396,38 @@ export function StickerOverlay({
 
   const handleDownloadSvg = () => {
     const svgStr = stickerSvg(grid, colors, mask, R_DEFAULT);
-    const blob = new Blob([svgStr], { type: "image/svg+xml" });
+    const blob = new Blob([svgStr], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.download = `bot-sticker-cutcontour.svg`;
     a.href = url;
     a.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
-    <div
+    <dialog
+      ref={dialogRef}
+      aria-label="Holographic robot sticker"
+      onCancel={onClose}
       style={{
-        position: "fixed",
+        position: 'fixed',
         inset: 0,
+        width: '100vw',
+        height: '100dvh',
+        maxWidth: '100vw',
+        maxHeight: '100dvh',
+        border: 0,
+        margin: 0,
         zIndex: 9999,
-        background: "rgba(0, 0, 0, 0.85)",
-        backdropFilter: "blur(12px)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1.5rem",
-        color: "#fff",
+        background: 'rgba(0, 0, 0, 0.85)',
+        backdropFilter: 'blur(12px)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1.5rem',
+        color: '#fff',
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -426,32 +435,47 @@ export function StickerOverlay({
     >
       <div
         style={{
-          background: "#111",
-          border: "1px solid rgba(255, 255, 255, 0.15)",
-          borderRadius: "12px",
-          padding: "2rem",
-          maxWidth: "480px",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1.5rem",
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7)",
+          background: '#111',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          borderRadius: '12px',
+          padding: '2rem',
+          maxWidth: '480px',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1.5rem',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
         }}
       >
-        <div style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h2 style={{ fontSize: "1.1rem", fontWeight: 600, letterSpacing: "0.05em", margin: 0, textTransform: "lowercase" }}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <h2
+            style={{
+              fontSize: '1.1rem',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              margin: 0,
+              textTransform: 'lowercase',
+            }}
+          >
             holographic sticker
           </h2>
           <button
             onClick={onClose}
             style={{
-              background: "transparent",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#aaa",
-              padding: "0.25rem 0.6rem",
-              borderRadius: "4px",
-              cursor: "pointer",
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: '#aaa',
+              padding: '0.25rem 0.6rem',
+              borderRadius: '4px',
+              cursor: 'pointer',
             }}
           >
             ✕
@@ -460,11 +484,11 @@ export function StickerOverlay({
 
         <div
           style={{
-            width: "300px",
-            height: "300px",
-            position: "relative",
-            cursor: dragging ? "grabbing" : "grab",
-            touchAction: "none",
+            width: '300px',
+            height: '300px',
+            position: 'relative',
+            cursor: dragging ? 'grabbing' : 'grab',
+            touchAction: 'none',
           }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -476,30 +500,39 @@ export function StickerOverlay({
             width={600}
             height={600}
             style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: "8px",
+              width: '100%',
+              height: '100%',
+              borderRadius: '8px',
             }}
           />
         </div>
 
-        <p style={{ margin: 0, fontSize: "0.8rem", color: "rgba(255, 255, 255, 0.6)", textAlign: "center" }}>
-          drag sticker to tilt & catch holographic rainbow reflections and glitter glints
+        <p
+          style={{
+            margin: 0,
+            fontSize: '0.8rem',
+            color: 'rgba(255, 255, 255, 0.6)',
+            textAlign: 'center',
+          }}
+        >
+          {graphicsError
+            ? 'WebGL is unavailable. You can still download the vector sticker.'
+            : 'Drag the sticker to tilt and catch holographic reflections.'}
         </p>
 
-        <div style={{ display: "flex", gap: "0.75rem", width: "100%" }}>
+        <div style={{ display: 'flex', gap: '0.75rem', width: '100%' }}>
           <button
             onClick={handleDownloadSvg}
             style={{
               flex: 1,
-              background: "#fff",
-              color: "#000",
-              border: "none",
-              padding: "0.6rem 1rem",
-              borderRadius: "6px",
+              background: '#fff',
+              color: '#000',
+              border: 'none',
+              padding: '0.6rem 1rem',
+              borderRadius: '6px',
               fontWeight: 600,
-              cursor: "pointer",
-              fontSize: "0.85rem",
+              cursor: 'pointer',
+              fontSize: '0.85rem',
             }}
           >
             download svg (cutcontour)
@@ -507,19 +540,19 @@ export function StickerOverlay({
           <button
             onClick={onClose}
             style={{
-              background: "transparent",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#fff",
-              padding: "0.6rem 1rem",
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontSize: "0.85rem",
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: '#fff',
+              padding: '0.6rem 1rem',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
             }}
           >
             close
           </button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }

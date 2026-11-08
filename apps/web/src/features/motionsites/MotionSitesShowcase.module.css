@@ -1,0 +1,371 @@
+/* MotionSitesShowcase.module.css */
+.container {
+  min-height: 100vh;
+  background-color: #0f1013;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding: 2rem 2.5rem 5rem 2.5rem;
+  box-sizing: border-box;
+}
+
+/* Header & Navigation */
+.header {
+  max-width: 1360px;
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  margin: 0;
+  -webkit-background-clip: text;
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.45;
+}
+
+.sourceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sourceBadge:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Tabs */
+.tabsBar {
+  max-width: 1360px;
+  margin: 0 auto 2.5rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tabBtn {
+  border: 1px solid #27272f;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tabBtn:hover {
+  background: #23242c;
+  color: #ffffff;
+}
+
+.tabBtnActive {
+  font-weight: 600;
+}
+
+/* Main Display Canvas */
+.mainCanvas {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* Controls Bar */
+.controlsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #27272f;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.controlsLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.825rem;
+  color: #d1d5db;
+}
+
+.toggleBtn {
+  border: 1px solid #333540;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+  background: #2d2f3a;
+}
+
+.codeToggleBtn {
+  border: 1px solid #3b82f6;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.codeToggleBtn:hover {
+  background: #2b3956;
+}
+
+/* 2x2 Gallery Grid */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.galleryCardWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.25rem;
+}
+
+.cardLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+.cardExpandBtn {
+  background: transparent;
+  border: none;
+  font-size: 0.825rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.cardExpandBtn:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* Deep Dive View */
+.deepDiveView {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Code Snippet Drawer */
+.codeDrawer {
+  background: #14151a;
+  border: 1px solid #27272f;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.codeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  font-size: 0.825rem;
+  color: #8b8f98;
+}
+
+.copyCodeBtn {
+  background: #23242c;
+  border: 1px solid #333540;
+  color: #f1f1f1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.775rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.copyCodeBtn:hover {
+  background: #333540;
+}
+
+.preBlock {
+  margin: 0;
+  padding: 1rem;
+  background: #090a0d;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', Consolas, Menlo, Monaco, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #38bdf8;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem 3rem 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+}
+
+.container {
+  background: #eeede5;
+  color: #242921;
+  padding-top: 30px;
+}
+.header {
+  margin-bottom: 22px;
+  border-color: #d5d7ca;
+  padding-bottom: 20px;
+}
+.title {
+  background: none;
+  -webkit-text-fill-color: initial;
+  color: #242921;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -0.055em;
+}
+.subtitle {
+  color: #72786b;
+  font-size: 13px;
+}
+.sourceBadge {
+  background: transparent;
+  border-color: #cbd0bf;
+  color: #647057;
+  font-size: 11px;
+}
+.tabsBar {
+  margin-bottom: 22px;
+  gap: 8px;
+}
+.tabBtn {
+  background: transparent;
+  border-color: #cbd0bf;
+  color: #647057;
+  box-shadow: none;
+}
+.tabBtnActive {
+  background: #344a36;
+  color: #fff;
+  border-color: #344a36;
+  box-shadow: none;
+}
+.controlsBar {
+  background: #e4e6da;
+  color: #65715c;
+  border-color: #d1d6c4;
+  padding: 12px 18px;
+}
+.toggleBtn {
+  background: transparent;
+  color: #647057;
+  border-color: #c7ceba;
+}
+.toggleBtnActive {
+  background: #344a36;
+  color: white;
+  border-color: #344a36;
+}
+.codeToggleBtn {
+  color: #344a36;
+  border-color: #a8b498;
+  background: transparent;
+}
+.deepDiveView {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cardHeader {
+  background: #e4e6da;
+  color: #344a36;
+}
+.cardExpandBtn {
+  color: #344a36;
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 30px;
+  }
+  .tabsBar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+  .tabBtn {
+    white-space: nowrap;
+  }
+  .header {
+    gap: 12px;
+  }
+  .controlsBar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .controlGroup {
+    flex-wrap: wrap;
+  }
+}

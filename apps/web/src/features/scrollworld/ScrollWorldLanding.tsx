@@ -1,80 +1,116 @@
-import React from 'react';
-import { Link } from '@tanstack/react-router';
-import { ScrollWorldEngine } from './ScrollEngine';
-
-export function ScrollWorldLanding() {
-  const config = {
-    brand: { name: 'Veo World', href: '#' },
-    diveScroll: 1.5, // 1.5 viewport heights of scroll per clip
-    connScroll: 0,   // no connectors since we use Architecture A (forward take)
-    crossfade: 0.12, // seamless blending width
-    hint: 'SCROLL DOWN TO FLY IN',
-    sections: [
-      { 
-        id: 'scene1', 
-        label: 'The Journey Begins', 
-        // We use placeholder videos here. Once you generate your Veo videos,
-        // simply drop them into the `public/assets/` folder and update these paths!
-        clip: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-        scroll: 1.5, 
-        linger: 0.3,
-        accent: '#F97316', 
-        eyebrow: 'Chapter 1', 
-        title: 'Enter the Veo World', 
-        body: 'A buttery smooth scrolling experience. The camera gently glides forward. Once your Veo clips are ready, replace these placeholder MP4s.', 
-        tags: ['Seamless', 'Cinematic'] 
-      },
-      { 
-        id: 'scene2', 
-        label: 'The Middle', 
-        clip: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-        scroll: 1.5, 
-        linger: 0.3,
-        accent: '#3B82F6', 
-        eyebrow: 'Chapter 2', 
-        title: 'Deep in the Dream', 
-        body: 'Notice how the scroll position directly ties to the current time of the video. It stops exactly when you stop.', 
-        tags: ['Smooth Scrubbing'] 
-      },
-      { 
-        id: 'scene3', 
-        label: 'The Finale', 
-        clip: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-        scroll: 2.0, 
-        linger: 0.5,
-        accent: '#E11D48', 
-        eyebrow: 'Chapter 3', 
-        title: 'The Destination', 
-        body: 'By keeping a forward glide and matching the first and last frames, your Veo videos will transition without any cuts.', 
-        tags: ['Google Veo', 'Perfection'],
-        cta: { primary: { label: 'Go Back to Hub', href: '/' } }
-      }
-    ],
-    // Architecture A doesn't use connector clips! 
-    connectors: []
-  };
-
+import { SectionLink } from '@/components/ui/SectionLink';
+import { getAssetUrl } from '@/lib/assetUtils';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import styles from './ScrollWorldLanding.module.css';
+const scenes = [
+  {
+    id: 'arrival',
+    name: 'The quiet arrival',
+    title: (
+      <>
+        Somewhere
+        <br />
+        outside the ordinary.
+      </>
+    ),
+    text: 'Leave a little room for the unexpected.',
+    image: '/assets/oasis_bg.png',
+  },
+  {
+    id: 'passage',
+    name: 'An open horizon',
+    title: (
+      <>
+        Let your
+        <br />
+        perspective wander.
+      </>
+    ),
+    text: 'The best part of a journey is what you didn’t plan.',
+    image: '/assets/haven_bg.png',
+  },
+  {
+    id: 'beyond',
+    name: 'A different beginning',
+    title: (
+      <>
+        There is always
+        <br />
+        another way to see.
+      </>
+    ),
+    text: 'Take something of this place with you.',
+    image: '/assets/motionsites/floren_hd_landscape.jpg',
+  },
+];
+function Scene({ scene, index }: { scene: (typeof scenes)[number]; index: number }) {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.05, 1.15]);
   return (
-    <>
-      <Link 
-        to="/" 
-        style={{ 
-          position: 'fixed', 
-          top: '20px', 
-          left: '20px', 
-          zIndex: 9999, 
-          background: 'rgba(255,255,255,0.8)', 
-          padding: '10px 20px', 
-          borderRadius: '99px',
-          textDecoration: 'none',
-          color: '#000',
-          fontWeight: 'bold',
-          backdropFilter: 'blur(10px)'
-        }}
-      >
-        &larr; Back to Hub
-      </Link>
-      <ScrollWorldEngine config={config} />
-    </>
+    <section id={`world-${scene.id}`} ref={ref} className={styles.scene}>
+      <motion.img
+        src={getAssetUrl(scene.image)}
+        alt="An imagined landscape"
+        style={reduced ? {} : { y, scale }}
+      />
+      <div className={styles.shade} />
+      <div className={styles.sceneTop}>
+        <span>
+          {String(index + 1).padStart(2, '0')} / {scene.name}
+        </span>
+        <span>ELSEWHERE</span>
+      </div>
+      <div className={styles.copy}>
+        <h1>{scene.title}</h1>
+        <p>{scene.text}</p>
+        {index < 2 ? (
+          <SectionLink target={`world-${scenes[index + 1]!.id}`} className={styles.next}>
+            Continue the journey <ArrowDown size={17} />
+          </SectionLink>
+        ) : (
+          <SectionLink target="world-arrival" className={styles.next}>
+            Begin again <ArrowUpRight size={17} />
+          </SectionLink>
+        )}
+      </div>
+    </section>
+  );
+}
+export function ScrollWorldLanding() {
+  const [chapter, setChapter] = useState('arrival');
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries)
+          if (e.isIntersecting) setChapter(e.target.id.replace('world-', ''));
+      },
+      { rootMargin: '-40% 0px -40% 0px' },
+    );
+    document.querySelectorAll('[id^="world-"]').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <main className={styles.container}>
+      <nav className={styles.chapterNav} aria-label="Journey chapters">
+        {scenes.map((s, i) => (
+          <SectionLink
+            key={s.id}
+            target={`world-${s.id}`}
+            aria-current={chapter === s.id ? 'location' : undefined}
+          >
+            <span>0{i + 1}</span>
+            {s.name}
+          </SectionLink>
+        ))}
+      </nav>
+      {scenes.map((scene, index) => (
+        <Scene key={scene.id} scene={scene} index={index} />
+      ))}
+    </main>
   );
 }

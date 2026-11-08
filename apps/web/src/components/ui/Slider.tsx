@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useId } from 'react';
 import styles from './Slider.module.css';
 
-export interface SliderProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'className'> {
+export interface SliderProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'onChange' | 'className'
+> {
   label: string;
   value: number;
   min: number;
@@ -21,18 +24,23 @@ export const Slider: React.FC<SliderProps> = ({
   formatValue,
   onChange,
   className = '',
+  id: providedId,
   ...props
 }) => {
+  const generatedId = useId();
+  const id = providedId ?? generatedId;
   return (
-    <label className={`${styles.sliderContainer} ${className}`}>
+    <div className={`${styles.sliderContainer} ${className}`}>
       <div className={styles.header}>
-        <span className={styles.label}>{label}</span>
-        <output className={styles.value}>
-          {formatValue ? formatValue(value) : value}
-        </output>
+        <label className={styles.label} htmlFor={id}>
+          {label}
+        </label>
+        <output className={styles.value}>{formatValue ? formatValue(value) : value}</output>
       </div>
       <input
+        id={id}
         type="range"
+        aria-valuetext={formatValue?.(value)}
         className={styles.input}
         min={min}
         max={max}
@@ -41,6 +49,6 @@ export const Slider: React.FC<SliderProps> = ({
         onChange={(e) => onChange(parseFloat(e.target.value))}
         {...props}
       />
-    </label>
+    </div>
   );
 };

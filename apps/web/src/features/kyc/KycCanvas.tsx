@@ -1,9 +1,8 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Environment, Center } from '@react-three/drei';
-// @ts-ignore
+import { GraphicsBoundary } from '@/components/ui/GraphicsBoundary';
+import { OrbitControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
-
 export interface KycControls {
   headRotation: number;
   faceShape: number;
@@ -17,123 +16,76 @@ export interface KycControls {
   whiteSpace: number;
 }
 
-interface KycCanvasProps {
-  controls: KycControls;
-  invert: boolean;
-}
-
-// A custom shader material that fakes the ink/hatching effect based on lighting
-const InkShaderMaterial = {
-  uniforms: {
-    uLightDir: { value: new THREE.Vector3(1, 1, 1) },
-    uLineSpacing: { value: 20.0 },
-    uInkWeight: { value: 15.0 },
-    uInvert: { value: 0 },
-    uResolution: { value: new THREE.Vector2(1080, 1080) }
-  },
-  vertexShader: `
-    varying vec3 vNormal;
-    varying vec3 vViewPosition;
-    varying vec2 vUv;
-    
-    void main() {
-      vUv = uv;
-      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-      vViewPosition = -mvPosition.xyz;
-      vNormal = normalize(normalMatrix * normal);
-      gl_Position = projectionMatrix * mvPosition;
-    }
-  `,
-  fragmentShader: `
-    uniform vec3 uLightDir;
-    uniform float uLineSpacing;
-    uniform float uInkWeight;
-    uniform float uInvert;
-    uniform vec2 uResolution;
-    
-    varying vec3 vNormal;
-    varying vec3 vViewPosition;
-    varying vec2 vUv;
-    
-    void main() {
-      vec3 normal = normalize(vNormal);
-      vec3 lightDir = normalize(uLightDir);
-      
-      // Basic directional lighting
-      float diff = max(dot(normal, lightDir), 0.0);
-      
-      // Screen space hatching
-      vec2 screenCoord = gl_FragCoord.xy;
-      
-      float line1 = mod(screenCoord.x + screenCoord.y, uLineSpacing) < (uInkWeight * (1.0 - diff)) ? 1.0 : 0.0;
-      float line2 = mod(screenCoord.x - screenCoord.y, uLineSpacing) < (uInkWeight * (1.0 - diff) - (uLineSpacing * 0.3)) ? 1.0 : 0.0;
-      
-      float ink = max(line1, line2);
-      
-      // If diffuse is very high, no ink
-      if (diff > 0.8) ink = 0.0;
-      // If diffuse is very low, full ink
-      if (diff < 0.2) ink = 1.0;
-      
-      vec3 color = vec3(1.0 - ink);
-      
-      if (uInvert > 0.5) {
-        color = vec3(ink);
-      }
-      
-      gl_FragColor = vec4(color, 1.0);
-    }
-  `
-};
-
-const HeadModel: React.FC<{ controls: KycControls; invert: boolean }> = ({ controls, invert }) => {
-  const materialRef = useRef<any>(null);
-  
-  useFrame(() => {
-    if (materialRef.current) {
-      // Calculate light direction from elevation and direction degrees
-      const elRad = THREE.MathUtils.degToRad(controls.lightElevation);
-      const dirRad = THREE.MathUtils.degToRad(controls.lightDirection);
-      
-      const x = Math.cos(elRad) * Math.sin(dirRad);
-      const y = Math.sin(elRad);
-      const z = Math.cos(elRad) * Math.cos(dirRad);
-      
-      materialRef.current.uniforms.uLightDir.value.set(x, y, z);
-      materialRef.current.uniforms.uLineSpacing.value = controls.lineSpacing;
-      materialRef.current.uniforms.uInkWeight.value = (controls.inkWeight / 50) * controls.lineSpacing;
-      materialRef.current.uniforms.uInvert.value = invert ? 1.0 : 0.0;
-    }
-  });
-
+const vertexShader = `varying vec3 vNormal;varying vec3 vPosition;void main(){vNormal=normalize(normalMatrix*normal);vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`;
+const fragmentShader = `uniform vec3 lightDirection;uniform float spacing;uniform float weight;uniform float softness;uniform float variance;uniform float whiteSpace;uniform float invert;varying vec3 vNormal;varying vec3 vPosition;void main(){float light=dot(normalize(vNormal),normalize(lightDirection))*.5+.5;light=mix(light,smoothstep(.2,.85,light),1.0-softness);float grain=sin(vPosition.x*43.0)*sin(vPosition.y*37.0)*variance;float density=clamp((1.0-light)*weight+grain-whiteSpace,0.0,1.0);float line=step(fract((gl_FragCoord.x+gl_FragCoord.y)/spacing),density);float crossline=step(fract((gl_FragCoord.x-gl_FragCoord.y)/spacing),max(0.0,density-.35));float ink=max(line,crossline);vec3 paper=vec3(.94,.93,.87);vec3 pigment=vec3(.16,.19,.14);gl_FragColor=vec4(mix(paper,pigment,mix(ink,1.0-ink,invert)),1.0);}`;
+function Sculpture({ controls, invert }: { controls: KycControls; invert: boolean }) {
   const geometry = useMemo(() => {
-    // We use an Icosahedron as a stand-in for a complex shape since we don't have a head model.
-    return new THREE.IcosahedronGeometry(2, Math.max(1, Math.floor((controls.faceShape + 100) / 10)));
+    const g = new THREE.SphereGeometry(1.55, 64, 64);
+    const positions = g.attributes.position!;
+    for (let i = 0; i < positions.count; i++) {
+      let x = positions.getX(i),
+        z = positions.getZ(i);
+      const y = positions.getY(i);
+      const jaw = 1 - Math.max(0, -y) * 0.18;
+      const angular = controls.faceShape / 100;
+      x *= jaw * (1 - angular * 0.15);
+      if (z > 0) {
+        const nose = Math.exp(-x * x * 18 - (y - 0.05) * (y - 0.05) * 8) * 0.85;
+        const eyes =
+          (Math.exp(-(x - 0.52) * (x - 0.52) * 22 - (y - 0.35) * (y - 0.35) * 30) +
+            Math.exp(-(x + 0.52) * (x + 0.52) * 22 - (y - 0.35) * (y - 0.35) * 30)) *
+          0.26;
+        const mouth = Math.exp(-x * x * 9 - (y + 0.5) * (y + 0.5) * 80) * 0.15;
+        z += nose - eyes - mouth;
+      }
+      positions.setXYZ(i, x, y * 1.25, z * 0.72);
+    }
+    g.computeVertexNormals();
+    return g;
   }, [controls.faceShape]);
-
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  const uniforms = useMemo(() => {
+    const dir = THREE.MathUtils.degToRad(controls.lightDirection),
+      el = THREE.MathUtils.degToRad(controls.lightElevation);
+    return {
+      lightDirection: {
+        value: new THREE.Vector3(
+          Math.sin(dir) * Math.cos(el),
+          Math.sin(el),
+          Math.cos(dir) * Math.cos(el),
+        ),
+      },
+      spacing: { value: controls.lineSpacing },
+      weight: { value: controls.inkWeight / 20 },
+      softness: { value: controls.lightSoftness / 100 },
+      variance: { value: controls.inkVariance / 600 },
+      whiteSpace: { value: controls.whiteSpace / 180 },
+      invert: { value: invert ? 1 : 0 },
+    };
+  }, [controls, invert]);
   return (
-    <group rotation={[0, THREE.MathUtils.degToRad(controls.headRotation), 0]}>
-      <mesh geometry={geometry}>
-        <shaderMaterial
-          ref={materialRef}
-          args={[InkShaderMaterial]}
-        />
-      </mesh>
-    </group>
+    <mesh geometry={geometry} rotation={[0, THREE.MathUtils.degToRad(controls.headRotation), 0]}>
+      <shaderMaterial
+        uniforms={uniforms}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+      />
+    </mesh>
   );
-};
-
-export const KycCanvas: React.FC<KycCanvasProps> = ({ controls, invert }) => {
+}
+export function KycCanvas({ controls, invert }: { controls: KycControls; invert: boolean }) {
   return (
-    <Canvas
-      gl={{ preserveDrawingBuffer: true, antialias: true }}
-      camera={{ position: [0, 0, 5 + (100 - controls.perspective) * 0.05], fov: controls.perspective }}
-      style={{ background: invert ? '#000' : '#fff' }}
-    >
-      <Center>
-        <HeadModel controls={controls} invert={invert} />
-      </Center>
-      <OrbitControls enableZoom={false} enablePan={false} />
-    </Canvas>
+    <GraphicsBoundary>
+      <Canvas
+        dpr={[1, 2]}
+        frameloop="demand"
+        gl={{ preserveDrawingBuffer: true, antialias: true }}
+        camera={{ position: [0, 0, 7], fov: 35 + controls.perspective * 0.2 }}
+        style={{ background: invert ? '#283025' : '#eeeddf' }}
+      >
+        <Sculpture controls={controls} invert={invert} />
+        <OrbitControls enableZoom={false} enablePan={false} />
+      </Canvas>
+    </GraphicsBoundary>
   );
-};
+}

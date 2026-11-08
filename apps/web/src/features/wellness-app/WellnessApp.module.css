@@ -1,59 +1,161 @@
 .appWrapper {
-  min-height: 100vh;
-  background-color: #f5f5f5; /* Light gray background behind the "phone" */
+  background: #e9ede2;
+  color: #394934;
+  min-height: calc(100dvh - 48px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  gap: 10%;
+  padding: 48px 6%;
+  font-family: Arial, sans-serif;
 }
-
+.intro {
+  max-width: 360px;
+}
+.intro > span:first-child {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #7d8b6e;
+}
+.intro h1 {
+  font-family: Georgia, serif;
+  font-size: 54px;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  font-weight: 400;
+  margin: 28px 0;
+}
+.intro p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #809071;
+  max-width: 300px;
+}
+.localNote {
+  display: block;
+  margin: 28px 0;
+  font-size: 11px;
+  color: #788b68;
+}
 .deviceFrame {
-  width: 100%;
-  max-width: 414px; /* iPhone Max width approx */
-  height: 896px; /* iPhone Max height approx */
-  background-color: #fff;
-  border-radius: 40px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  position: relative;
-  overflow: hidden; /* Clips the bottom nav and scroll */
+  width: 400px;
+  height: 800px;
+  max-width: 100%;
+  flex-shrink: 0;
+  border: 1px solid #c1cdb2;
+  background: #f9faf5;
+  border-radius: 26px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-
 .screenContent {
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #FFFCF9; /* Off-white pastel background from screenshots */
-  position: relative;
-  /* Hide scrollbar for cleaner look */
-  scrollbar-width: none; 
-  -ms-overflow-style: none;
+  overflow: auto;
+  min-height: 0;
+  color: #394934;
 }
-
-.screenContent::-webkit-scrollbar {
-  display: none;
-}
-
-.screenInner {
-  min-height: 100%;
+.bottomNav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+  border-top: 1px solid #dfe5d6;
+  background: #f9faf5;
+  padding: 14px 8px;
 }
-
-.placeholderScreen {
-  flex: 1;
+.bottomNav button {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: #666;
+  gap: 6px;
+  flex-direction: column;
+  background: none;
+  border: 0;
+  color: #9aa68b;
+  font-size: 9px;
+  min-width: 56px;
+  padding: 4px;
+}
+.bottomNav button[aria-current='page'] {
+  color: #425d31;
+}
+.profile {
+  padding: 36px 28px;
+}
+.profile h2 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin: 24px 0 12px;
+}
+.profile p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #809071;
+}
+.profile label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 11px;
+  margin-top: 26px;
+}
+.profile input {
+  padding: 13px;
+  border: 1px solid #cbd5be;
+  border-radius: 6px;
+  background: white;
+  color: #394934;
+  width: 100%;
+}
+.profile details {
+  margin-top: 40px;
+  font-size: 12px;
+  border-top: 1px solid #cbd5be;
+  padding-top: 22px;
+}
+.profile summary {
+  cursor: pointer;
+}
+.profile details p {
+  margin: 16px 0;
+}
+.profile details button {
+  padding: 10px;
+  background: #e4e9da;
+  border: 1px solid #bdc9ad;
+  color: #4b5d3d;
+  border-radius: 4px;
+}
+@media (max-width: 900px) {
+  .intro {
+    display: none;
+  }
+  .appWrapper {
+    padding: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .appWrapper {
+    padding: 0;
+    display: block;
+  }
+  .deviceFrame {
+    border: 0;
+    border-radius: 0;
+    width: 100%;
+    height: calc(100dvh - 48px);
+    min-height: 600px;
+  }
 }
 
-.placeholderScreen h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #111;
+.export {
+  border: 1px solid #c9c4d9;
+  background: #eeeaf4;
+  color: #625379;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 16px 0;
 }

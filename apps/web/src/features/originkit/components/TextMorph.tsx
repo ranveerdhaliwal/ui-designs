@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
+const words = ['Create.', 'Animate.', 'Innovate.', 'Inspire.'];
 export function TextMorph() {
-  const words = ['Create.', 'Animate.', 'Innovate.', 'Inspire.'];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -11,7 +11,9 @@ export function TextMorph() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+    <div
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}
+    >
       <AnimatePresence mode="wait">
         <motion.h2
           key={words[index]}

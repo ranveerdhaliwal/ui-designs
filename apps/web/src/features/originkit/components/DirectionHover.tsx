@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
 
 export function DirectionHover() {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,7 +15,15 @@ export function DirectionHover() {
   };
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <motion.div
         ref={ref}
         onMouseEnter={handleMouseEnter}
@@ -32,15 +40,15 @@ export function DirectionHover() {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          border: '1px solid rgba(255,255,255,0.1)'
+          border: '1px solid rgba(255,255,255,0.1)',
         }}
       >
         <motion.div
           variants={{
             initial: { scale: 0, opacity: 0 },
-            hover: { scale: 20, opacity: 1 }
+            hover: { scale: 20, opacity: 1 },
           }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
           style={{
             position: 'absolute',
             left: origin.x,
@@ -51,10 +59,12 @@ export function DirectionHover() {
             borderRadius: '50%',
             transformOrigin: 'center center',
             marginLeft: '-10px',
-            marginTop: '-10px'
+            marginTop: '-10px',
           }}
         />
-        <span style={{ position: 'relative', zIndex: 1, fontWeight: 600, color: '#FFF' }}>Hover Me</span>
+        <span style={{ position: 'relative', zIndex: 1, fontWeight: 600, color: '#FFF' }}>
+          Hover Me
+        </span>
       </motion.div>
     </div>
   );

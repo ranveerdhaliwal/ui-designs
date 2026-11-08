@@ -4,17 +4,16 @@
  */
 export function getAssetUrl(path: string): string {
   if (!path) return '';
-  // @ts-ignore
   const basePath = import.meta.env?.BASE_URL || '/';
-  
+
   // If path is an absolute URL or data URI, return as-is
-  if (path.startsWith('http') || path.startsWith('data:')) {
+  if (/^(https?:|data:|blob:)/.test(path)) {
     return path;
   }
-  
+
   // Clean up slashes to avoid double slashes like /ui-designs//assets/img.png
   const cleanBase = basePath.endsWith('/') ? basePath : `${basePath}/`;
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
+
   return `${cleanBase}${cleanPath}`;
 }

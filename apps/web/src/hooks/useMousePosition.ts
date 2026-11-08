@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type RefObject } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 
 interface MousePosition {
   /** Absolute pixel X relative to container (or viewport) */
@@ -16,7 +16,7 @@ interface MousePosition {
  * Returns both absolute pixel coords and normalized 0→1 values.
  *
  * @param containerRef - Optional ref to scope tracking to a specific element
- * 
+ *
  * @example
  * ```tsx
  * const ref = useRef<HTMLDivElement>(null);

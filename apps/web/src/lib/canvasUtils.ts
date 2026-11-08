@@ -9,14 +9,22 @@ export function clampPixel(value: number): number {
 }
 
 /** Create an offscreen canvas with the specified dimensions and return both canvas and context */
-export function createOffscreenCanvas(width: number, height: number): {
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
+export function createOffscreenCanvas(
+  width: number,
+  height: number,
+): {
+  canvas: HTMLCanvasElement | OffscreenCanvas;
+  ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 } {
-  const canvas = document.createElement('canvas');
+  const canvas =
+    typeof document === 'undefined'
+      ? new OffscreenCanvas(width, height)
+      : document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true }) as
+    CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+  if (!ctx) throw new Error('2D canvas unavailable');
   return { canvas, ctx };
 }
 
@@ -24,7 +32,7 @@ export function createOffscreenCanvas(width: number, height: number): {
 export function drawImageToCanvas(
   targetCanvas: HTMLCanvasElement,
   img: HTMLImageElement,
-  maxDim: number = 1200
+  maxDim: number = 1200,
 ): { ctx: CanvasRenderingContext2D; width: number; height: number } {
   let w = img.width;
   let h = img.height;
@@ -37,6 +45,8 @@ export function drawImageToCanvas(
       h = maxDim;
     }
   }
+  w = Math.max(1, Math.round(w));
+  h = Math.max(1, Math.round(h));
   targetCanvas.width = w;
   targetCanvas.height = h;
   const ctx = targetCanvas.getContext('2d', { willReadFrequently: true })!;
@@ -47,7 +57,13 @@ export function drawImageToCanvas(
 /** Apply a per-pixel transformation to image data in place */
 export function mapPixels(
   imageData: ImageData,
-  fn: (r: number, g: number, b: number, a: number, index: number) => [number, number, number, number]
+  fn: (
+    r: number,
+    g: number,
+    b: number,
+    a: number,
+    index: number,
+  ) => [number, number, number, number],
 ): void {
   const data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {

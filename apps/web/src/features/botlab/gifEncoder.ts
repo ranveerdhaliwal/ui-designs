@@ -1,4 +1,4 @@
-import { Bot, BODIES, HEADS, PALETTES, IDLES, composeGrid, Part } from "./botlabData";
+import { BODIES, Bot, composeGrid, HEADS, IDLES, PALETTES, Part } from './botlabData';
 
 /* GIF-flavored LZW, uncompressed variant: emit literal 4-bit codes and a
    clear code every 6 pixels so the code table (8 colors) never grows */
@@ -40,20 +40,20 @@ export function exportGif(
     eyes?: Part;
     mouth?: Part;
     top?: Part;
-  }
+  },
 ) {
   const scale = 8;
   const w = 16 * scale;
-  const letters = ["o", "a", "b", "c", "d", "e"];
+  const letters = ['o', 'a', 'b', 'c', 'd', 'e'];
   const transp = 7;
   const colors: Record<string, string> = PALETTES[b.palette].colors;
   const bytes: number[] = [];
   const push = (...v: number[]) => bytes.push(...v);
   // header + logical screen descriptor (8-entry global color table)
-  push(...[..."GIF89a"].map((c) => c.charCodeAt(0)));
+  push(...[...'GIF89a'].map((c) => c.charCodeAt(0)));
   push(w & 255, w >> 8, w & 255, w >> 8, 0xf2, 0, 0);
   for (const L of letters) {
-    const hex = colors[L] ?? "#ffffff";
+    const hex = colors[L] ?? '#ffffff';
     push(
       parseInt(hex.slice(1, 3), 16),
       parseInt(hex.slice(3, 5), 16),
@@ -63,7 +63,7 @@ export function exportGif(
   push(0, 0, 0, 0, 0, 0); // pad table to 8 entries
   // netscape extension: loop forever
   push(0x21, 0xff, 11);
-  push(...[..."NETSCAPE2.0"].map((c) => c.charCodeAt(0)));
+  push(...[...'NETSCAPE2.0'].map((c) => c.charCodeAt(0)));
   push(3, 1, 0, 0, 0);
 
   const idleVariant = IDLES[b.idle] || IDLES[0];
@@ -94,16 +94,14 @@ export function exportGif(
     push(0);
   }
   push(0x3b);
-  const url = URL.createObjectURL(
-    new Blob([Uint8Array.from(bytes)], { type: "image/gif" }),
-  );
-  const a = document.createElement("a");
-  const bodyName = customParts?.body?.name ?? BODIES[b.body]?.name ?? "bot";
-  const headName = customParts?.head?.name ?? HEADS[b.head]?.name ?? "head";
+  const url = URL.createObjectURL(new Blob([Uint8Array.from(bytes)], { type: 'image/gif' }));
+  const a = document.createElement('a');
+  const bodyName = customParts?.body?.name ?? BODIES[b.body]?.name ?? 'bot';
+  const headName = customParts?.head?.name ?? HEADS[b.head]?.name ?? 'head';
   a.download = `bot-${bodyName}-${headName}-${PALETTES[b.palette].name}.gif`;
   a.href = url;
   a.click();
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 export function exportPng(
@@ -115,24 +113,24 @@ export function exportPng(
     mouth?: Part;
     top?: Part;
   },
-  scale = 16
+  scale = 16,
 ) {
-  const c = document.createElement("canvas");
+  const c = document.createElement('canvas');
   c.width = c.height = 16 * scale;
-  const ctx = c.getContext("2d")!;
+  const ctx = c.getContext('2d')!;
   const pal = PALETTES[b.palette] || PALETTES[0];
   const grid = composeGrid(b, {}, customParts);
   grid.forEach((row, y) => {
     row.forEach((ch, x) => {
       if (!ch) return;
-      ctx.fillStyle = pal.colors[ch as keyof typeof pal.colors] ?? "#ff00ff";
+      ctx.fillStyle = pal.colors[ch as keyof typeof pal.colors] ?? '#ff00ff';
       ctx.fillRect(x * scale, y * scale, scale, scale);
     });
   });
-  const a = document.createElement("a");
-  const bodyName = customParts?.body?.name ?? BODIES[b.body]?.name ?? "bot";
-  const headName = customParts?.head?.name ?? HEADS[b.head]?.name ?? "head";
+  const a = document.createElement('a');
+  const bodyName = customParts?.body?.name ?? BODIES[b.body]?.name ?? 'bot';
+  const headName = customParts?.head?.name ?? HEADS[b.head]?.name ?? 'head';
   a.download = `bot-${bodyName}-${headName}-${pal.name}.png`;
-  a.href = c.toDataURL("image/png");
+  a.href = c.toDataURL('image/png');
   a.click();
 }

@@ -1,0 +1,41 @@
+:root {
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-6: 24px;
+  --ui-space-8: 32px;
+  --ui-radius: 6px;
+  --ui-control-height: 38px;
+  --ui-motion-fast: 140ms;
+  --ui-motion-normal: 200ms;
+  --ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ui-bg: #f7f8f4;
+  --ui-panel: #fff;
+  --ui-ink: #263126;
+  --ui-muted: #65705f;
+  --ui-line: #d3d9cd;
+  --ui-accent: #36563b;
+  --ui-on-accent: #fff;
+  --ui-focus: #527746;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+@media (pointer: coarse) {
+  :root {
+    --ui-control-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-motion-fast: 0ms;
+    --ui-motion-normal: 0ms;
+  }
+}

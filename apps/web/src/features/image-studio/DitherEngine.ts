@@ -7,30 +7,52 @@ export const PALETTES: Record<string, DitherPalette> = {
   retroPC: {
     name: 'Retro PC (EGA)',
     colors: [
-      [0, 0, 0], [0, 0, 170], [0, 170, 0], [0, 170, 170],
-      [170, 0, 0], [170, 0, 170], [170, 85, 0], [170, 170, 170],
-      [85, 85, 85], [85, 85, 255], [85, 255, 85], [85, 255, 255],
-      [255, 85, 85], [255, 85, 255], [255, 255, 85], [255, 255, 255]
-    ]
+      [0, 0, 0],
+      [0, 0, 170],
+      [0, 170, 0],
+      [0, 170, 170],
+      [170, 0, 0],
+      [170, 0, 170],
+      [170, 85, 0],
+      [170, 170, 170],
+      [85, 85, 85],
+      [85, 85, 255],
+      [85, 255, 85],
+      [85, 255, 255],
+      [255, 85, 85],
+      [255, 85, 255],
+      [255, 255, 85],
+      [255, 255, 255],
+    ],
   },
   gameboy: {
     name: 'Gameboy Classic',
     colors: [
-      [15, 56, 15], [48, 98, 48], [139, 172, 15], [155, 188, 15]
-    ]
+      [15, 56, 15],
+      [48, 98, 48],
+      [139, 172, 15],
+      [155, 188, 15],
+    ],
   },
   macClassic: {
     name: 'Mac Classic (1-bit)',
     colors: [
-      [0, 0, 0], [255, 255, 255]
-    ]
+      [0, 0, 0],
+      [255, 255, 255],
+    ],
   },
   vaporwave: {
     name: 'Vaporwave',
     colors: [
-      [255, 113, 206], [1, 205, 254], [5, 255, 161], [185, 103, 255], [255, 251, 150], [0,0,0], [255,255,255]
-    ]
-  }
+      [255, 113, 206],
+      [1, 205, 254],
+      [5, 255, 161],
+      [185, 103, 255],
+      [255, 251, 150],
+      [0, 0, 0],
+      [255, 255, 255],
+    ],
+  },
 };
 
 function closestColor(r: number, g: number, b: number, palette: number[][]) {
@@ -52,11 +74,11 @@ function closestColor(r: number, g: number, b: number, palette: number[][]) {
 
 export class DitherEngine {
   public static applyFloydSteinberg(
-    ctx: CanvasRenderingContext2D,
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     width: number,
     height: number,
     paletteName: string,
-    contrast: number = 1.0
+    contrast: number = 1.0,
   ) {
     const imageData = ctx.getImageData(0, 0, width, height);
     const data = imageData.data;

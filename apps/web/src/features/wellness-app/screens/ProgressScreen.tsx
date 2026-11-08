@@ -1,66 +1,68 @@
-import React from 'react';
+import { CalendarDays, Check, Sprout } from 'lucide-react';
+import { type WellnessState, localDate } from '../wellnessState';
 import styles from './ProgressScreen.module.css';
-
-export function ProgressScreen() {
+export function ProgressScreen({ state }: { state: WellnessState }) {
+  const count = new Set(state.checkIns).size;
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - 6 + i);
+    return d;
+  });
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <span className={styles.headerTitle}>YOUR JOURNEY</span>
-        <h1 className={styles.title}>Your progress</h1>
-        <div className={styles.sparkleIcon}>&#10022;</div>
-      </header>
-
-      <div className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <span className={styles.statLabel}>Best Streak</span>
-          <div className={styles.statValue}>
-            7 <span className={styles.statUnit}>days</span>
-          </div>
-          <span className={styles.statSubtextRed}>&#128293; Personal best</span>
-        </div>
-        
-        <div className={styles.statCard}>
-          <span className={styles.statLabel}>Total Saved</span>
-          <div className={styles.statValue}>$982</div>
-          <span className={styles.statSubtextGreen}>&#8593; +12% vs last wk</span>
-        </div>
-
-        <div className={styles.statCard}>
-          <span className={styles.statLabel}>Check-in Rate</span>
-          <div className={styles.statValue}>75%</div>
-          <span className={styles.statSubtext}>6/8 days kept</span>
-        </div>
+    <section className={styles.container}>
+      <span className={styles.eyebrow}>YOUR OWN PACE</span>
+      <h1>
+        Small steps
+        <br />
+        add up.
+      </h1>
+      <div className={styles.total}>
+        <Sprout size={28} />
+        <strong>{count}</strong>
+        <span>{count === 1 ? 'moment' : 'moments'} recorded</span>
       </div>
-
-      <div className={styles.milestoneFeatured}>
-        <div className={styles.milestoneIconLarge}>&#127914;</div>
-        <div className={styles.milestoneText}>
-          <div className={styles.milestoneHeader}>
-            <span className={styles.milestoneTag}>UNLOCKED</span>
-            <span className={styles.milestoneDate}>Oct 24</span>
-          </div>
-          <h3>1 Week Milestone</h3>
-          <p>"Your energy levels are starting to stabilize. The morning fog has beautifully lifted."</p>
-        </div>
-      </div>
-
-      <div className={styles.milestonesSection}>
-        <div className={styles.sectionHeader}>
-          <h2>Milestones</h2>
-          <span className={styles.earnedCount}>3 of 8 earned</span>
-        </div>
-        
-        <div className={styles.milestoneGrid}>
-          {['24 Hours', '3 Days', '1 Week', '2 Weeks', '1 Month', '3 Months', '6 Months', '1 Year'].map((m, i) => (
-            <div key={i} className={`${styles.milestoneItem} ${i < 3 ? styles.unlocked : styles.locked} ${i === 2 ? styles.active : ''}`}>
-              <div className={styles.mIconWrapper}>
-                {i < 3 ? '🎉' : '🔒'}
-              </div>
-              <span className={styles.mLabel}>{m}</span>
+      <h2>This week</h2>
+      <div className={styles.week}>
+        {days.map((d) => (
+          <div key={localDate(d)}>
+            <span>{d.toLocaleDateString(undefined, { weekday: 'narrow' })}</span>
+            <div data-checked={state.checkIns.includes(localDate(d))}>
+              {state.checkIns.includes(localDate(d)) ? <Check size={16} /> : d.getDate()}
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
+      <div className={styles.beginning}>
+        <CalendarDays size={18} />
+        <div>
+          <h3>Your beginning</h3>
+          <p>
+            {new Date(state.startDate + 'T12:00:00').toLocaleDateString(undefined, {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </p>
         </div>
       </div>
-    </div>
+      <h2>Along the way</h2>
+      <div className={styles.milestones}>
+        {[1, 3, 7, 14, 30].map((n) => (
+          <div key={n} data-earned={count >= n}>
+            <span>{count >= n ? <Check size={16} /> : <Sprout size={16} />}</span>
+            <div>
+              <h3>
+                {n} {n === 1 ? 'moment' : 'moments'} of care
+              </h3>
+              <p>
+                {count >= n
+                  ? 'A little milestone, earned.'
+                  : `${n - count} more check-ins to get here.`}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

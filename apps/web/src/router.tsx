@@ -1,202 +1,125 @@
-import { createRootRoute, createRoute, createRouter, createHashHistory } from "@tanstack/react-router";
-import { HomePage } from "@/pages/HomePage/HomePage";
-import { EragonLanding } from "@/features/eragon/EragonLanding";
-import { ZapierLanding } from "@/features/zapier/ZapierLanding";
-import { NeueLanding } from "@/features/neue/NeueLanding";
-import { AlethiaLanding } from "@/features/alethia/AlethiaLanding";
-import { ShopifyLanding } from "@/features/shopify/ShopifyLanding";
-import { OriginKitLanding } from "@/features/originkit/OriginKitLanding";
-import { BigBoldHeroLanding } from "@/features/bigboldhero/BigBoldHeroLanding";
-import { ScrollWorldLanding } from "@/features/scrollworld/ScrollWorldLanding";
-import { QuasarLanding } from "@/features/quasar/QuasarLanding";
-import { ConversionLanding } from "@/features/conversion/ConversionLanding";
-import { AeternaLanding } from "@/features/aeterna/AeternaLanding";
-import { PresentationsLanding } from "@/features/presentations/PresentationsLanding";
-import { EffectsLabLanding } from "@/features/effects/EffectsLabLanding";
-import { ResponsiveLanding } from "@/features/responsive/ResponsiveLanding";
-import { ImageStudio } from "@/features/image-studio/ImageStudio";
-import { OriginsLabLanding } from "@/features/origins/OriginsLabLanding";
-import { FlyingPapersLanding } from "@/features/flying-papers/FlyingPapersLanding";
-import { PixelDreamsLanding } from "@/features/pixel-dreams/PixelDreamsLanding";
-import { WellnessApp } from "@/features/wellness-app/WellnessApp";
-import { ContentArchitectureLanding } from "@/features/content-architecture/ContentArchitectureLanding";
-import { VeloscopeLanding } from "@/features/veloscope/VeloscopeLanding";
-import { KycApp } from "@/features/kyc/KycApp";
-import { BotlabApp } from "@/features/botlab/BotlabApp";
-
-const rootRoute = createRootRoute();
-
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/",
-  component: HomePage,
+import { DemoShell, RouteError, RouteNotFound } from '@/components/gallery/DemoShell';
+import { demos } from '@/data/demos';
+import { HomePage } from '@/pages/HomePage/HomePage';
+import {
+  createHashHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  lazyRouteComponent,
+} from '@tanstack/react-router';
+const rootRoute = createRootRoute({
+  component: DemoShell,
+  errorComponent: RouteError,
+  notFoundComponent: RouteNotFound,
 });
-
-const eragonRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/eragon",
-  component: EragonLanding,
+const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: HomePage });
+const components = {
+  'paper-worlds': lazyRouteComponent(
+    () => import('@/features/motion-exhibits/PaperWorlds'),
+    'PaperWorlds',
+  ),
+  precision: lazyRouteComponent(() => import('@/features/motion-exhibits/Precision'), 'Precision'),
+  chromatic: lazyRouteComponent(() => import('@/features/motion-exhibits/Chromatic'), 'Chromatic'),
+  metamorphosis: lazyRouteComponent(
+    () => import('@/features/motion-exhibits/Metamorphosis'),
+    'Metamorphosis',
+  ),
+  orrery: lazyRouteComponent(() => import('@/features/orrery/OrreryLanding'), 'OrreryLanding'),
+  operations: lazyRouteComponent(
+    () => import('@/features/operations/OperationsWorkspace'),
+    'OperationsWorkspace',
+  ),
+  motionsites: lazyRouteComponent(
+    () => import('@/features/motionsites/MotionSitesShowcase'),
+    'MotionSitesShowcase',
+  ),
+  'big-bold-hero': lazyRouteComponent(
+    () => import('@/features/bigboldhero/BigBoldHeroLanding'),
+    'BigBoldHeroLanding',
+  ),
+  'wet-paint-flow': lazyRouteComponent(
+    () => import('@/features/wet-paint-flow/WetPaintFrame'),
+    'WetPaintFrame',
+  ),
+  neue: lazyRouteComponent(() => import('@/features/neue/NeueLanding'), 'NeueLanding'),
+  alethia: lazyRouteComponent(() => import('@/features/alethia/AlethiaLanding'), 'AlethiaLanding'),
+  eragon: lazyRouteComponent(() => import('@/features/eragon/EragonLanding'), 'EragonLanding'),
+  zapier: lazyRouteComponent(() => import('@/features/zapier/ZapierLanding'), 'ZapierLanding'),
+  shopify: lazyRouteComponent(() => import('@/features/shopify/ShopifyLanding'), 'ShopifyLanding'),
+  conversion: lazyRouteComponent(
+    () => import('@/features/conversion/ConversionLanding'),
+    'ConversionLanding',
+  ),
+  aeterna: lazyRouteComponent(() => import('@/features/aeterna/AeternaLanding'), 'AeternaLanding'),
+  veloscope: lazyRouteComponent(
+    () => import('@/features/veloscope/VeloscopeLanding'),
+    'VeloscopeLanding',
+  ),
+  'content-architecture': lazyRouteComponent(
+    () => import('@/features/content-architecture/ContentArchitectureLanding'),
+    'ContentArchitectureLanding',
+  ),
+  'flying-papers': lazyRouteComponent(
+    () => import('@/features/flying-papers/FlyingPapersLanding'),
+    'FlyingPapersLanding',
+  ),
+  quasar: lazyRouteComponent(() => import('@/features/quasar/QuasarLanding'), 'QuasarLanding'),
+  originkit: lazyRouteComponent(
+    () => import('@/features/originkit/OriginKitLanding'),
+    'OriginKitLanding',
+  ),
+  'origins-lab': lazyRouteComponent(
+    () => import('@/features/origins/OriginsLabLanding'),
+    'OriginsLabLanding',
+  ),
+  'effects-lab': lazyRouteComponent(
+    () => import('@/features/effects/EffectsLabLanding'),
+    'EffectsLabLanding',
+  ),
+  'scroll-world': lazyRouteComponent(
+    () => import('@/features/scrollworld/ScrollWorldLanding'),
+    'ScrollWorldLanding',
+  ),
+  'pixel-dreams': lazyRouteComponent(
+    () => import('@/features/pixel-dreams/PixelDreamsLanding'),
+    'PixelDreamsLanding',
+  ),
+  presentations: lazyRouteComponent(
+    () => import('@/features/presentations/PresentationsLanding'),
+    'PresentationsLanding',
+  ),
+  'responsive-showcase': lazyRouteComponent(
+    () => import('@/features/responsive/ResponsiveLanding'),
+    'ResponsiveLanding',
+  ),
+  'wellness-app': lazyRouteComponent(
+    () => import('@/features/wellness-app/WellnessApp'),
+    'WellnessApp',
+  ),
+  'image-studio': lazyRouteComponent(
+    () => import('@/features/image-studio/ImageStudio'),
+    'ImageStudio',
+  ),
+  kyc: lazyRouteComponent(() => import('@/features/kyc/KycApp'), 'KycApp'),
+  botlab: lazyRouteComponent(() => import('@/features/botlab/BotlabApp'), 'BotlabApp'),
+};
+const demoRoutes = demos.map((demo) =>
+  createRoute({ getParentRoute: () => rootRoute, path: demo.path, component: components[demo.id] }),
+);
+export const routeTree = rootRoute.addChildren([indexRoute, ...demoRoutes]);
+export const router = createRouter({
+  routeTree,
+  history: createHashHistory(),
+  defaultPendingComponent: () => (
+    <div className="route-message" role="status">
+      Opening the studio…
+    </div>
+  ),
+  defaultPendingMs: 150,
+  scrollRestoration: true,
 });
-
-const zapierRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/zapier",
-  component: ZapierLanding,
-});
-
-const neueRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/neue",
-  component: NeueLanding,
-});
-
-const alethiaRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/alethia",
-  component: AlethiaLanding,
-});
-
-const shopifyRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/shopify",
-  component: ShopifyLanding,
-});
-
-const originkitRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/originkit",
-  component: OriginKitLanding,
-});
-
-const bigBoldHeroRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/big-bold-hero",
-  component: BigBoldHeroLanding,
-});
-
-const scrollWorldRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/scroll-world",
-  component: ScrollWorldLanding,
-});
-
-const quasarRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/quasar",
-  component: QuasarLanding,
-});
-
-const conversionRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/conversion",
-  component: ConversionLanding,
-});
-
-const aeternaRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/aeterna",
-  component: AeternaLanding,
-});
-
-const presentationsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/presentations",
-  component: PresentationsLanding,
-});
-
-const effectsLabRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/effects-lab",
-  component: EffectsLabLanding,
-});
-
-const responsiveRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/responsive-showcase",
-  component: ResponsiveLanding,
-});
-
-const imageStudioRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/image-studio",
-  component: ImageStudio,
-});
-
-const originsLabRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/origins-lab",
-  component: OriginsLabLanding,
-});
-
-const flyingPapersRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/flying-papers",
-  component: FlyingPapersLanding,
-});
-
-const pixelDreamsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/pixel-dreams",
-  component: PixelDreamsLanding,
-});
-
-const wellnessAppRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/wellness-app",
-  component: WellnessApp,
-});
-
-const contentArchitectureRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/content-architecture",
-  component: ContentArchitectureLanding,
-});
-
-const veloscopeRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/veloscope",
-  component: VeloscopeLanding,
-});
-
-const kycRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/kyc",
-  component: KycApp,
-});
-
-const botlabRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/botlab",
-  component: BotlabApp,
-});
-
-const routeTree = rootRoute.addChildren([
-  indexRoute, 
-  eragonRoute, 
-  zapierRoute, 
-  neueRoute, 
-  alethiaRoute, 
-  shopifyRoute, 
-  originkitRoute, 
-  scrollWorldRoute,
-  bigBoldHeroRoute,
-  effectsLabRoute,
-  responsiveRoute,
-  imageStudioRoute,
-  originsLabRoute,
-  flyingPapersRoute,
-  pixelDreamsRoute,
-  wellnessAppRoute,
-  contentArchitectureRoute,
-  veloscopeRoute,
-  kycRoute,
-  botlabRoute
-]);
-
-const hashHistory = createHashHistory();
-export const router = createRouter({ routeTree, history: hashHistory });
-
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router;
   }

@@ -1,0 +1,342 @@
+/* FlorenHorizon.module.css — Self-contained, portable styles */
+.container {
+  width: 100%;
+  min-height: 580px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 20px 40px -15px rgba(0, 0, 0, 0.12),
+    0 0 1px rgba(0, 0, 0, 0.15);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Upper Sky Section */
+.skySection {
+  background: #3b82f6;
+  color: #ffffff;
+  padding: 3rem 3.5rem 1rem 3.5rem;
+  flex: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+.skyGrid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.brandBlock {
+  padding-right: 1.5rem;
+}
+
+.brandHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+
+.brandLogo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.brandIcon {
+  font-size: 1.4rem;
+  color: #fef08a;
+  display: flex;
+  align-items: center;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 1.5rem;
+  max-width: 260px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.socialBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.socialBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.navColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.columnList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.columnLink {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+  display: inline-block;
+}
+
+.columnLink:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+/* Horizon Divider & Village Strip */
+.horizonStrip {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 3;
+  margin-top: -10px;
+  margin-bottom: -4px;
+}
+
+/* Lower Golden Wheat Field Section */
+.wheatSection {
+  background: #f5ab27;
+  color: #ffffff;
+  padding: 2.5rem 3.5rem 2rem 3.5rem;
+  flex: 1.1;
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wheatContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.characterPeeker {
+  position: absolute;
+  left: 20%;
+  bottom: -15px;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.characterPeeker:hover {
+  transform: translateY(-8px);
+}
+
+.characterImg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+.newsletterWrapper {
+  margin-left: auto;
+  max-width: 440px;
+  width: 100%;
+}
+
+.newsletterTitle {
+  font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-size: 2.1rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.newsletterSubtitle {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1.5rem 0;
+}
+
+.newsletterForm {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+  padding: 0.4rem 0.5rem 0.4rem 1.4rem;
+  transition: all 0.2s ease;
+}
+
+.newsletterForm:focus-within {
+  background: rgba(255, 255, 255, 0.32);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.newsletterInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-family: inherit;
+}
+
+.newsletterInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.arrowBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.arrowBtn:hover {
+  transform: scale(1.08) rotate(5deg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.arrowBtn:active {
+  transform: scale(0.96);
+}
+
+.successMessage {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding: 0.8rem 1.4rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Bottom Bar */
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.825rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.legalLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.legalLink {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legalLink:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .skyGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .skySection,
+  .wheatSection {
+    padding: 2rem 1.5rem;
+  }
+
+  .characterPeeker {
+    display: none;
+  }
+
+  .wheatContent {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .newsletterWrapper {
+    max-width: 100%;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+}

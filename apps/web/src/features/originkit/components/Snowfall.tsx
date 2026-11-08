@@ -1,11 +1,18 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 export function Snowfall() {
   const flakes = Array.from({ length: 50 });
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: '#050505' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+        overflow: 'hidden',
+        background: '#050505',
+      }}
+    >
       {flakes.map((_, i) => {
         const startX = Math.random() * 100;
         const size = Math.random() * 4 + 2;
@@ -16,16 +23,16 @@ export function Snowfall() {
           <motion.div
             key={i}
             initial={{ y: -20, x: `${startX}%`, opacity: 0 }}
-            animate={{ 
-              y: '120%', 
+            animate={{
+              y: '120%',
               x: `${startX + (Math.random() * 10 - 5)}%`,
-              opacity: [0, 1, 1, 0]
+              opacity: [0, 1, 1, 0],
             }}
-            transition={{ 
-              duration, 
-              repeat: Infinity, 
+            transition={{
+              duration,
+              repeat: Infinity,
               delay,
-              ease: "linear"
+              ease: 'linear',
             }}
             style={{
               position: 'absolute',
@@ -34,7 +41,7 @@ export function Snowfall() {
               height: size,
               backgroundColor: '#FFF',
               borderRadius: '50%',
-              boxShadow: '0 0 10px rgba(255,255,255,0.8)'
+              boxShadow: '0 0 10px rgba(255,255,255,0.8)',
             }}
           />
         );

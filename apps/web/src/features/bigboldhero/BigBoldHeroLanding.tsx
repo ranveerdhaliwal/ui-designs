@@ -1,318 +1,236 @@
-import React, { useState } from 'react';
-import { Link } from '@tanstack/react-router';
+import { DemoAction } from '@/components/ui/DemoAction';
+import { getAssetUrl } from '@/lib/assetUtils';
+import { ArrowUpRight, MoveRight } from 'lucide-react';
+import { useState, type CSSProperties } from 'react';
 import styles from './BigBoldHeroLanding.module.css';
-
-type Theme = 'oasis' | 'haven' | 'harmoniq' | 'arive' | 'ostra' | 'lumen' | 'vanta';
-
+const themes = [
+  {
+    id: 'oasis',
+    name: 'Oasis.',
+    headline: (
+      <>
+        A calmer way
+        <br />
+        to create.
+      </>
+    ),
+    description:
+      'Space to think. Room to explore. A clearer path from your first idea to your next great thing.',
+    label: 'Make room for possibility',
+    color: '#233327',
+    light: true,
+    align: 'left',
+    serif: true,
+  },
+  {
+    id: 'haven',
+    name: 'Haven',
+    headline: (
+      <>
+        Good ideas
+        <br />
+        feel at home here.
+      </>
+    ),
+    description:
+      'An open canvas for the way your mind works. Gather your inspiration and see what grows.',
+    label: 'A place for your next idea',
+    color: '#272e3b',
+    light: true,
+    align: 'center',
+    serif: false,
+  },
+  {
+    id: 'harmoniq',
+    name: 'Harmoniq',
+    headline: (
+      <>
+        Find a little
+        <br />
+        more harmony.
+      </>
+    ),
+    description: 'Bring your people, projects, and possibilities into a rhythm that feels right.',
+    label: 'Work, in balance',
+    color: '#333e34',
+    light: true,
+    align: 'center',
+    serif: true,
+  },
+  {
+    id: 'arive',
+    name: 'arive',
+    headline: (
+      <>
+        Every message.
+        <br />A new beginning.
+      </>
+    ),
+    description: 'A considered home for the conversations that move your work forward.',
+    label: 'Communication, considered',
+    color: '#eff4ff',
+    light: false,
+    align: 'left',
+    serif: false,
+  },
+  {
+    id: 'ostra',
+    name: 'OSTRA',
+    headline: (
+      <>
+        A wider
+        <br />
+        point of view.
+      </>
+    ),
+    description: 'Follow your curiosity into an ever-expanding universe of ideas and connections.',
+    label: 'Go beyond the familiar',
+    color: '#f4e9ed',
+    light: false,
+    align: 'center',
+    serif: false,
+  },
+  {
+    id: 'lumen',
+    name: 'Lumen Gate',
+    headline: (
+      <>
+        Let the next
+        <br />
+        idea find you.
+      </>
+    ),
+    description:
+      'A brighter perspective on your daily work. Built for the moments when everything comes together.',
+    label: 'A new perspective',
+    color: '#f5eee2',
+    light: false,
+    align: 'left',
+    serif: true,
+  },
+  {
+    id: 'vanta',
+    name: 'vanta',
+    headline: (
+      <>
+        The future
+        <br />
+        takes shape here.
+      </>
+    ),
+    description:
+      'Tools for thoughtful teams. Turn an ambitious idea into something beautifully useful.',
+    label: 'Built for what comes next',
+    color: '#1e2a20',
+    light: true,
+    align: 'center',
+    serif: false,
+  },
+] as const;
 export function BigBoldHeroLanding() {
-  const [theme, setTheme] = useState<Theme>('oasis');
-
-  const renderOasis = () => (
-    <div className={`${styles.themeWrapper} ${styles.oasis}`}>
-      <header className={styles.headerOasis}>
-        <div className={styles.logoOasis}>Oasis.</div>
-        <nav className={styles.navLinks}>
-          <span>Product</span>
-          <span>Pricing</span>
-          <span>Careers</span>
-          <span>Contact</span>
-        </nav>
-        <button className={styles.btnOasisDark}>Schedule call</button>
-      </header>
-      <main className={styles.heroOasis}>
-        <h1 className={styles.titleSerifOasis}>
-          A calmer way to<br/>ship software.
-        </h1>
-        <p className={styles.subtitleOasis}>
-          A <strong>focused platform</strong> for teams that<br/>value clarity over chaos.
-        </p>
-        <button className={styles.btnOasisLight}>Explore</button>
-      </main>
-      <div className={styles.bottomScroll}>START YOUR JOURNEY &darr;</div>
-    </div>
-  );
-
-  const renderHaven = () => (
-    <div className={`${styles.themeWrapper} ${styles.haven}`}>
-      <header className={styles.headerFloatingCenter}>
-        <div className={styles.floatingNavContainer}>
-          <div className={styles.logoHaven}>
-            <span className={styles.havenIcon}>&#11042;</span> Haven
-          </div>
-          <nav className={styles.navLinksCenter}>
-            <span>Home</span>
-            <span>Usecases</span>
-            <span>Pricing</span>
-            <span>Careers</span>
-            <span>Contact</span>
-          </nav>
-          <button className={styles.btnHavenDark}>Login</button>
-        </div>
-      </header>
-      <main className={styles.heroCenter}>
-        <div className={styles.pillBadge}>We just raised 20M 🚀</div>
-        <h1 className={styles.titleSansLarge}>Design with ease.</h1>
-        <p className={styles.subtitleCenter}>
-          Design smarter with AI that understands you.<br/>So you can take a breath.
-        </p>
-        <div className={styles.actionRow}>
-          <button className={styles.btnHavenLight}>Get Started &rarr;</button>
-          <span className={styles.textLink}>Watch Demo</span>
-        </div>
-      </main>
-      <div className={styles.bottomScrollPill}>SCROLL &darr;</div>
-    </div>
-  );
-
-  const renderHarmoniq = () => (
-    <div className={`${styles.themeWrapper} ${styles.harmoniq}`}>
-      <header className={styles.headerOasis}>
-        <div className={styles.logoHarmoniq}>
-          <span className={styles.harmoniqIcon}>&#10033;</span> Harmoniq
-        </div>
-        <nav className={styles.navLinks}>
-          <span>Home</span>
-          <span>Pricing</span>
-          <span>About</span>
-          <span>Contact</span>
-        </nav>
-        <button className={styles.btnOasisDark}>Book a demo</button>
-      </header>
-      <main className={styles.heroCenterTop}>
-        <div className={styles.pillBadgeLight}>We just raised 20M 🚀</div>
-        <h1 className={styles.titleSerifElegant}>
-          Your Haven for<br/>Seamless AI Solutions
-        </h1>
-        <p className={styles.subtitleHarmoniq}>
-          Empowering you with intelligent, effortless tools to streamline your workflow, enhance<br/>collaboration, and achieve more—seamlessly.
-        </p>
-        <div className={styles.actionRowCenter}>
-          <button className={styles.btnOasisDark}>Book a demo</button>
-          <button className={styles.btnPlay}>&#9654;</button>
-        </div>
-      </main>
-    </div>
-  );
-
-  const renderArive = () => (
-    <div className={`${styles.themeWrapper} ${styles.arive}`}>
-      <header className={styles.headerFloatingCenter}>
-        <div className={styles.floatingNavDark}>
-          <div className={styles.logoArive}>&#10041;</div>
-          <nav className={styles.navLinksCenterDark}>
-            <span>Home</span>
-            <span>Features</span>
-            <span>Careers</span>
-          </nav>
-          <button className={styles.btnAriveBlue}>Login</button>
-        </div>
-      </header>
-      <main className={styles.heroArive}>
-        <div className={styles.pillBadgeLight}>We just raised 20M 🚀</div>
-        <h1 className={styles.titleArive}>
-          Email for modern<br/>tech companies
-        </h1>
-        <div className={styles.actionRowArive}>
-          <button className={styles.btnAriveWhite}>Get Started</button>
-          <span className={styles.textLinkArive}>Read Docs &rarr;</span>
-        </div>
-        
-        {/* Logos */}
-        <div className={styles.logosRow}>
-          <span>INTERCOM</span>
-          <span>Raycast</span>
-          <span>Linear</span>
-          <span>airbnb</span>
-          <span>loom</span>
-        </div>
-
-        {/* Glass Dashboard Mockup */}
-        <div className={styles.glassDashboard}>
-          <div className={styles.dashSidebar}>
-            <div className={styles.dashLogo}>arive</div>
-            <div className={styles.dashMenu}>
-              <div className={styles.dashActive}>Dashboard</div>
-              <div>Products</div>
-              <div>Orders</div>
-            </div>
-          </div>
-          <div className={styles.dashMain}>
-            <div className={styles.dashHeader}>
-              <div className={styles.dashSearch}>Search orders...</div>
-              <div className={styles.dashProfile}>Hussein Ahmed</div>
-            </div>
-            <h3 className={styles.dashTitle}>Dashboard</h3>
-            <div className={styles.dashWidgets}>
-              <div className={styles.widgetGreen}>95,800</div>
-              <div className={styles.widgetPurple}>95,800</div>
-              <div className={styles.widgetOrange}>95,800</div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-
-  const renderOstra = () => (
-    <div className={`${styles.themeWrapper} ${styles.ostra}`}>
-      <header className={styles.headerOstra}>
-        <div className={styles.logoOstra}>
-          <span className={styles.ostraIcon}>&#10022;</span> OSTRA
-        </div>
-        <nav className={styles.navLinksOstra}>
-          <span>Home</span>
-          <span>Platform</span>
-          <span>Technology</span>
-          <span>About</span>
-        </nav>
-        <button className={styles.btnOstraOutline}>Start Free</button>
-      </header>
-      <main className={styles.heroOstra}>
-        <div className={styles.badgeOstra}>
-          <span className={styles.badgeOstraNew}>New</span> AI Universe Visualization Platform
-        </div>
-        <h1 className={styles.titleOstra}>
-          See The Universe With<br/>Smart Visualization
-        </h1>
-        <p className={styles.subtitleOstra}>
-          OSTRA transforms space data into immersive AI-powered visuals. Explore<br/>galaxies and cosmic patterns like never before.
-        </p>
-        <div className={styles.actionRowOstra}>
-          <button className={styles.btnOstraPrimary}>Start Free &rarr;</button>
-          <button className={styles.btnOstraSecondary}>Watch Demo</button>
-        </div>
-      </main>
-    </div>
-  );
-
-  const renderLumen = () => (
-    <div className={`${styles.themeWrapper} ${styles.lumen}`}>
-      <header className={styles.headerLumen}>
-        <div className={styles.logoLumen}>
-          <span className={styles.lumenIcon}>&#11822;</span> Lumen Gate
-        </div>
-        <nav className={styles.navLinksLumen}>
-          <span>Product</span>
-          <span>Intelligence</span>
-          <span>Pricing</span>
-        </nav>
-        <button className={styles.btnLumenLight}>Enter Intelligence</button>
-      </header>
-      <main className={styles.heroLumen}>
-        <h1 className={styles.titleLumen}>
-          Work smarter. Move faster.<br/>Grow with AI.
-        </h1>
-        <p className={styles.subtitleLumen}>
-          Automate tasks and make smarter decisions with intelligent workflows.<br/>Lumen Gate helps you save time and focus on what matters.
-        </p>
-        <div className={styles.actionRowLumen}>
-          <button className={styles.btnLumenLightLg}>Enter Intelligence</button>
-          <button className={styles.btnLumenOutline}>See It In Action &gt;</button>
-        </div>
-        
-        <div className={styles.lumenLogosBox}>
-          <div className={styles.lumenLogosLabel}>Inspired by Teams at:</div>
-          <div className={styles.lumenLogos}>
-            <span>Google</span>
-            <span>Microsoft</span>
-            <span>Figma</span>
-            <span>Framer</span>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-
-  const renderVanta = () => (
-    <div className={`${styles.themeWrapper} ${styles.vanta}`}>
-      <header className={styles.headerVanta}>
-        <div className={styles.vantaBracketNav}>
-          <span className={styles.vantaBracket}>&#9487;</span>
-          <nav className={styles.navLinksVanta}>
-            <span>Home</span>
-            <span>Platform</span>
-            <span>Contact</span>
-          </nav>
-          <span className={styles.vantaBracket}>&#9491;</span>
-        </div>
-        <div className={styles.logoVanta}>
-          <span className={styles.vantaIcon}>&#11270;</span> vanta
-        </div>
-        <div className={styles.vantaBracketNavRight}>
-          <span className={styles.vantaBracket}>&#9487;</span>
-          <button className={styles.btnVantaOutline}>Get Access</button>
-          <span className={styles.vantaBracket}>&#9491;</span>
-        </div>
-      </header>
-      <main className={styles.heroVanta}>
-        <div className={styles.vantaBracketBadge}>
-          <span className={styles.vantaBracketSm}>&#9487;</span>
-          Future Business Systems
-          <span className={styles.vantaBracketSm}>&#9491;</span>
-        </div>
-        <h1 className={styles.titleVanta}>
-          <span className={styles.vantaSans}>Smart AI Systems For</span><br/>
-          <span className={styles.vantaSerif}>Modern Business Operations</span>
-        </h1>
-        <p className={styles.subtitleVanta}>
-          Automate Operations, Workflows, And Business Decisions With<br/>
-          Intelligent Systems Built For The Future.
-        </p>
-        <div className={styles.actionRowVanta}>
-          <div className={styles.vantaBracketBtnBox}>
-            <span className={styles.vantaBracketSm}>&#9487;</span>
-            <button className={styles.btnVantaDark}>Start Building &nearr;</button>
-            <span className={styles.vantaBracketSm}>&#9491;</span>
-          </div>
-          <div className={styles.vantaBracketBtnBox}>
-            <span className={styles.vantaBracketSm}>&#9487;</span>
-            <button className={styles.btnVantaGhost}>Learn More</button>
-            <span className={styles.vantaBracketSm}>&#9491;</span>
-          </div>
-        </div>
-        
-        <div className={styles.vantaTrusted}>
-          <div className={styles.vantaTrustedLabel}>Trusted By Teams</div>
-          <div className={styles.vantaBracketLogos}>
-            <span className={styles.vantaBracket}>&#9487;</span>
-            <div className={styles.vantaLogosInner}>
-              <span>stripe</span>
-              <span>Framer</span>
-              <span>Linear</span>
-              <span>OpenAI</span>
-            </div>
-            <span className={styles.vantaBracket}>&#9491;</span>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-
+  const [selected, setSelected] = useState(0);
+  const [colorNotice, setColorNotice] = useState('');
+  const theme = themes[selected]!;
   return (
     <div className={styles.container}>
-      <Link to="/" className={styles.backButton}>&larr; Hub</Link>
-      
-      {theme === 'oasis' && renderOasis()}
-      {theme === 'haven' && renderHaven()}
-      {theme === 'harmoniq' && renderHarmoniq()}
-      {theme === 'arive' && renderArive()}
-      {theme === 'ostra' && renderOstra()}
-      {theme === 'lumen' && renderLumen()}
-      {theme === 'vanta' && renderVanta()}
-
-      {/* Theme Switcher Controls */}
-      <div className={styles.themeControls}>
-        <div className={styles.controlsLabel}>Select Theme</div>
-        <div className={styles.controlsRow}>
-          <button className={theme === 'oasis' ? styles.btnActive : ''} onClick={() => setTheme('oasis')}>Oasis</button>
-          <button className={theme === 'haven' ? styles.btnActive : ''} onClick={() => setTheme('haven')}>Haven</button>
-          <button className={theme === 'harmoniq' ? styles.btnActive : ''} onClick={() => setTheme('harmoniq')}>Harmoniq</button>
-          <button className={theme === 'arive' ? styles.btnActive : ''} onClick={() => setTheme('arive')}>Arive</button>
-          <button className={theme === 'ostra' ? styles.btnActive : ''} onClick={() => setTheme('ostra')}>Ostra</button>
-          <button className={theme === 'lumen' ? styles.btnActive : ''} onClick={() => setTheme('lumen')}>Lumen</button>
-          <button className={theme === 'vanta' ? styles.btnActive : ''} onClick={() => setTheme('vanta')}>Vanta</button>
+      <nav className={styles.themeBar} aria-label="Choose a visual identity">
+        <span>Dreamscapes</span>
+        <div>
+          {themes.map((t, i) => (
+            <button key={t.id} aria-pressed={selected === i} onClick={() => setSelected(i)}>
+              {t.name}
+            </button>
+          ))}
         </div>
-      </div>
+        <span>07 identities</span>
+      </nav>
+      <section
+        key={theme.id}
+        className={styles.world}
+        data-align={theme.align}
+        data-light={theme.light}
+        style={
+          {
+            '--world-ink': theme.color,
+            '--world-font': theme.serif ? 'Georgia, serif' : 'Arial, sans-serif',
+            backgroundImage: `url(${getAssetUrl(`/assets/${theme.id}_bg.png`)})`,
+          } as CSSProperties
+        }
+      >
+        <div className={styles.scrim} />
+        <header className={styles.nav}>
+          <span className={styles.brand}>{theme.name}</span>
+          <span className={styles.navLabel}>{theme.label}</span>
+          <DemoAction className={styles.navButton} title={`Welcome to ${theme.name}`}>
+            Say hello <ArrowUpRight size={14} />
+          </DemoAction>
+        </header>
+        <main className={styles.hero}>
+          <p className={styles.eyebrow}>{theme.label}</p>
+          <h1>{theme.headline}</h1>
+          <p className={styles.description}>{theme.description}</p>
+          <DemoAction className={styles.cta} title={`Explore ${theme.name}`}>
+            Step inside <MoveRight size={18} />
+          </DemoAction>
+        </main>
+        <footer className={styles.footer}>
+          <span>{theme.name} / A visual identity study</span>
+          <button onClick={() => setSelected((selected + 1) % themes.length)}>
+            Next world <ArrowUpRight size={15} />
+          </button>
+        </footer>
+      </section>
+      <section className={styles.identityNotes} data-serif={theme.serif}>
+        <div>
+          <span>THE IDENTITY / 0{selected + 1}</span>
+          <h2>
+            {
+              [
+                'A little room to breathe.',
+                'Bring your ideas home.',
+                'Find a shared rhythm.',
+                'A thoughtful exchange.',
+                'Follow a wider orbit.',
+                'Make space for clarity.',
+                'From possibility to form.',
+              ][selected]
+            }
+          </h2>
+          <p>{theme.description}</p>
+        </div>
+        <div className={styles.specimens}>
+          <span>01 / THE VOICE</span>
+          <blockquote>{theme.label}.</blockquote>
+          <span>02 / THE PALETTE</span>
+          <div>
+            {[
+              theme.color,
+              theme.light ? '#e5e2d6' : '#3b3c4b',
+              theme.light ? '#b6c3ad' : '#d6b4a0',
+            ].map((c) => (
+              <button
+                key={c}
+                style={{
+                  background: c,
+                  color: c === theme.color ? (theme.light ? '#fff' : '#222') : theme.color,
+                }}
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(c);
+                    setColorNotice(`${c} copied.`);
+                  } catch {
+                    setColorNotice(`Color: ${c}`);
+                  }
+                }}
+                aria-label={`Copy color ${c}`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+          <small role="status">{colorNotice || 'Select a color to copy its value.'}</small>
+        </div>
+      </section>
     </div>
   );
 }

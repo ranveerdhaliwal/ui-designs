@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint src && tsc -b --noEmit",
+    "lint": "eslint src",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -25,16 +26,21 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@eslint/js": "9",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "@types/three": "0.185.0",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.0.4",
+    "eslint": "9",
+    "eslint-plugin-react-hooks": "5.2.0",
     "happy-dom": "^16.7.2",
     "playwright": "^1.49.1",
     "typescript": "~5.7.2",
+    "typescript-eslint": "8",
     "vite": "^6.0.11",
     "vitest": "^3.0.4"
   }

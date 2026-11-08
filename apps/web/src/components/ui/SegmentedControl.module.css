@@ -1,0 +1,30 @@
+.group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--ui-line);
+  border-radius: 8px;
+  background: var(--ui-bg);
+  overflow: auto;
+}
+.group button {
+  border: 0;
+  border-radius: 5px;
+  padding: 9px 13px;
+  min-height: 32px;
+  background: transparent;
+  color: var(--ui-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.group button[aria-pressed='true'] {
+  background: var(--ui-panel);
+  color: var(--ui-ink);
+  box-shadow: 0 1px 3px #0001;
+}
+.group button:focus-visible {
+  outline: 2px solid var(--ui-focus);
+  outline-offset: -2px;
+}

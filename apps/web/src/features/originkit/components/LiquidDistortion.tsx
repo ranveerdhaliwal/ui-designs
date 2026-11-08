@@ -1,4 +1,4 @@
-import React from 'react';
+import { getAssetUrl } from '@/lib/assetUtils';
 import { motion } from 'framer-motion';
 
 export function LiquidDistortion() {
@@ -7,7 +7,13 @@ export function LiquidDistortion() {
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <filter id="liquid">
           <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale="20"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
         </filter>
       </svg>
       <motion.div
@@ -16,10 +22,10 @@ export function LiquidDistortion() {
         style={{
           width: '100%',
           height: '100%',
-          backgroundImage: 'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop")',
+          backgroundImage: `url(${getAssetUrl('/assets/oasis_bg.png')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: 'url(#liquid)'
+          filter: 'url(#liquid)',
         }}
       />
     </div>

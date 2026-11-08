@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 export interface PrismGridProps {
   rows?: number;
@@ -11,7 +11,7 @@ export const PrismGrid: React.FC<PrismGridProps> = ({
   rows = 10,
   cols = 10,
   className = '',
-  gridColor = 'rgba(255,255,255,0.05)'
+  gridColor = 'rgba(255,255,255,0.05)',
 }) => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const gridRef = useRef<HTMLDivElement>(null);
@@ -26,7 +26,7 @@ export const PrismGrid: React.FC<PrismGridProps> = ({
   };
 
   return (
-    <div 
+    <div
       ref={gridRef}
       className={className}
       onMouseMove={handleMouseMove}
@@ -42,36 +42,40 @@ export const PrismGrid: React.FC<PrismGridProps> = ({
       }}
     >
       {Array.from({ length: rows * cols }).map((_, i) => (
-        <div 
+        <div
           key={i}
           style={{
             borderRight: `1px solid ${gridColor}`,
             borderBottom: `1px solid ${gridColor}`,
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
           }}
         />
       ))}
-      
+
       {/* Prism Hover Spotlight */}
-      <div 
+      <div
         style={{
           position: 'absolute',
-          top: 0, left: 0,
-          width: '100%', height: '100%',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
           pointerEvents: 'none',
           background: `radial-gradient(400px circle at ${mouse.x}px ${mouse.y}px, rgba(255, 255, 255, 0.1), transparent 40%)`,
           mixBlendMode: 'screen',
         }}
       />
       {/* Refraction layer */}
-      <div 
+      <div
         style={{
           position: 'absolute',
-          top: 0, left: 0,
-          width: '100%', height: '100%',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
           pointerEvents: 'none',
           backdropFilter: 'hue-rotate(90deg) blur(2px)',
-          WebkitMaskImage: `radial-gradient(300px circle at ${mouse.x}px ${mouse.y}px, black, transparent)`
+          WebkitMaskImage: `radial-gradient(300px circle at ${mouse.x}px ${mouse.y}px, black, transparent)`,
         }}
       />
     </div>

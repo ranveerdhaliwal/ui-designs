@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export function UserCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -14,19 +14,28 @@ export function UserCursor() {
   }, []);
 
   return (
-    <div 
-      style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'none' }}
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'none',
+      }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div style={{ padding: '2rem', border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '8px' }}>
+      <div
+        style={{ padding: '2rem', border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '8px' }}
+      >
         Hover inside to see custom cursor
       </div>
-      
+
       {isHovering && (
         <motion.div
           animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16 }}
-          transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 28, mass: 0.5 }}
           style={{
             position: 'fixed',
             top: 0,
@@ -39,10 +48,12 @@ export function UserCursor() {
             zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
         >
-          <div style={{ width: '4px', height: '4px', background: '#7C3AED', borderRadius: '50%' }} />
+          <div
+            style={{ width: '4px', height: '4px', background: '#7C3AED', borderRadius: '50%' }}
+          />
         </motion.div>
       )}
     </div>

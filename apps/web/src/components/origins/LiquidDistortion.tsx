@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 
 export interface LiquidDistortionProps {
   children: React.ReactNode;
@@ -16,8 +15,8 @@ export const LiquidDistortion: React.FC<LiquidDistortionProps> = ({
   const filterId = useRef(`liquid-filter-${Math.random().toString(36).substring(7)}`).current;
 
   return (
-    <div 
-      className={className} 
+    <div
+      className={className}
       style={{ filter: `url(#${filterId})` }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -27,13 +26,13 @@ export const LiquidDistortion: React.FC<LiquidDistortionProps> = ({
           <filter id={filterId}>
             <feTurbulence
               type="fractalNoise"
-              baseFrequency={isHovered ? "0.05 0.05" : "0.01 0.01"}
+              baseFrequency={isHovered ? '0.05 0.05' : '0.01 0.01'}
               numOctaves="2"
               result="noise"
             >
               <animate
                 attributeName="baseFrequency"
-                values={isHovered ? "0.01 0.01; 0.05 0.05" : "0.05 0.05; 0.01 0.01"}
+                values={isHovered ? '0.01 0.01; 0.05 0.05' : '0.05 0.05; 0.01 0.01'}
                 dur="0.5s"
                 fill="freeze"
               />

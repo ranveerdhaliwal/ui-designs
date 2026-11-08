@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { getAssetUrl } from '@/lib/assetUtils';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export function PixelUnfold() {
   const [isHovered, setIsHovered] = useState(false);
@@ -7,15 +8,21 @@ export function PixelUnfold() {
   const cols = 5;
 
   return (
-    <div 
+    <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ width: '200px', height: '200px', display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, cursor: 'pointer' }}
+      style={{
+        width: '200px',
+        height: '200px',
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        cursor: 'pointer',
+      }}
     >
       {Array.from({ length: rows * cols }).map((_, i) => {
         const x = (i % cols) * (100 / (cols - 1));
         const y = Math.floor(i / cols) * (100 / (rows - 1));
-        
+
         return (
           <motion.div
             key={i}
@@ -25,10 +32,10 @@ export function PixelUnfold() {
             style={{
               width: '100%',
               height: '100%',
-              backgroundImage: 'url("https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400&auto=format&fit=crop")',
+              backgroundImage: `url(${getAssetUrl('/assets/oasis_bg.png')})`,
               backgroundSize: '200px 200px',
               backgroundPosition: `${x}% ${y}%`,
-              transformOrigin: 'top center'
+              transformOrigin: 'top center',
             }}
           />
         );

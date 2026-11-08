@@ -12,7 +12,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   title,
   defaultOpen = true,
   children,
-  className = ''
+  className = '',
 }) => {
   return (
     <details className={`${styles.accordion} ${className}`} open={defaultOpen}>
@@ -20,9 +20,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         {title}
         <span className={styles.icon}>▼</span>
       </summary>
-      <div className={styles.content}>
-        {children}
-      </div>
+      <div className={styles.content}>{children}</div>
     </details>
   );
 };

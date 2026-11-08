@@ -2,12 +2,12 @@ import { createOffscreenCanvas, clampPixel } from '@/lib/canvasUtils';
 
 export class RisoEngine {
   static applyRisograph(
-    ctx: CanvasRenderingContext2D, 
-    width: number, 
-    height: number, 
-    offsetX: number, 
-    offsetY: number, 
-    grainLevel: number
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    width: number,
+    height: number,
+    offsetX: number,
+    offsetY: number,
+    grainLevel: number,
   ) {
     // Get the original image data
     const imgData = ctx.getImageData(0, 0, width, height);
@@ -26,21 +26,21 @@ export class RisoEngine {
     for (let i = 0; i < data.length; i += 4) {
       // Red channel
       rImgData.data[i] = data[i]!;
-      rImgData.data[i+1] = 0;
-      rImgData.data[i+2] = 0;
-      rImgData.data[i+3] = data[i+3]!;
+      rImgData.data[i + 1] = 255;
+      rImgData.data[i + 2] = 255;
+      rImgData.data[i + 3] = data[i + 3]!;
 
       // Green channel
-      gImgData.data[i] = 0;
-      gImgData.data[i+1] = data[i+1]!;
-      gImgData.data[i+2] = 0;
-      gImgData.data[i+3] = data[i+3]!;
+      gImgData.data[i] = 255;
+      gImgData.data[i + 1] = data[i + 1]!;
+      gImgData.data[i + 2] = 255;
+      gImgData.data[i + 3] = data[i + 3]!;
 
       // Blue channel
-      bImgData.data[i] = 0;
-      bImgData.data[i+1] = 0;
-      bImgData.data[i+2] = data[i+2]!;
-      bImgData.data[i+3] = data[i+3]!;
+      bImgData.data[i] = 255;
+      bImgData.data[i + 1] = 255;
+      bImgData.data[i + 2] = data[i + 2]!;
+      bImgData.data[i + 3] = data[i + 3]!;
     }
 
     rCtx.putImageData(rImgData, 0, 0);
@@ -67,16 +67,17 @@ export class RisoEngine {
     if (grainLevel > 0) {
       const finalImgData = ctx.getImageData(0, 0, width, height);
       const finalData = finalImgData.data;
-      
+
       for (let i = 0; i < finalData.length; i += 4) {
         // Random noise between -grainLevel/2 and +grainLevel/2
-        const noise = (Math.random() - 0.5) * (grainLevel * 255);
-        
+        const noise =
+          ((((i * 1664525 + 1013904223) >>> 0) % 65536) / 65535 - 0.5) * (grainLevel * 255);
+
         finalData[i] = clampPixel(finalData[i]! + noise);
-        finalData[i+1] = clampPixel(finalData[i+1]! + noise);
-        finalData[i+2] = clampPixel(finalData[i+2]! + noise);
+        finalData[i + 1] = clampPixel(finalData[i + 1]! + noise);
+        finalData[i + 2] = clampPixel(finalData[i + 2]! + noise);
       }
-      
+
       ctx.putImageData(finalImgData, 0, 0);
     }
   }

@@ -1,205 +1,101 @@
 .container {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
+  padding: 32px 28px;
 }
-
-.header {
-  margin-bottom: 2rem;
-  position: relative;
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #8b9c7d;
 }
-
-.headerTitle {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #D36C59;
-  display: block;
-  margin-bottom: 0.5rem;
+.container h1 {
+  font-family: Georgia, serif;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  font-weight: 400;
+  margin: 24px 0;
 }
-
-.title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #111;
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-}
-
-.sparkleIcon {
-  position: absolute;
-  right: 0;
-  top: 1rem;
-  font-size: 1.5rem;
-  color: #4CAF50;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-}
-
-.statCard {
-  background: white;
-  padding: 1rem 0.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+.total {
+  background: #e8efde;
+  border: 1px solid #d2dec3;
+  border-radius: 12px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 10px;
+  color: #627d4c;
 }
-
-.statLabel {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #888;
-  margin-bottom: 0.5rem;
+.total strong {
+  font-family: Georgia, serif;
+  font-size: 66px;
+  font-weight: 400;
+  line-height: 1;
 }
-
-.statValue {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 0.5rem;
+.total > span {
+  font-size: 11px;
 }
-
-.statUnit {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #888;
-}
-
-.statSubtext {
-  font-size: 0.6rem;
-  color: #888;
+.container h2 {
+  font-size: 14px;
   font-weight: 500;
+  margin: 28px 0 18px;
 }
-
-.statSubtextRed {
-  font-size: 0.6rem;
-  color: #D36C59;
-  font-weight: 600;
-}
-
-.statSubtextGreen {
-  font-size: 0.6rem;
-  color: #4CAF50;
-  font-weight: 600;
-}
-
-.milestoneFeatured {
-  background: white;
-  border-radius: 24px;
-  padding: 1.5rem;
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-  margin-bottom: 2rem;
-}
-
-.milestoneIconLarge {
-  font-size: 2.5rem;
-  background: #f8f0ff;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 16px;
-}
-
-.milestoneText h3 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-}
-
-.milestoneText p {
-  font-size: 0.85rem;
-  color: #666;
-  line-height: 1.4;
-}
-
-.milestoneHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.milestoneTag {
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: #D36C59;
-  letter-spacing: 1px;
-}
-
-.milestoneDate {
-  font-size: 0.7rem;
-  color: #888;
-}
-
-.sectionHeader {
+.week {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 1rem;
+  gap: 8px;
 }
-
-.sectionHeader h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
+.week > div {
+  text-align: center;
+  font-size: 10px;
+  color: #8b9c7d;
 }
-
-.earnedCount {
-  font-size: 0.8rem;
-  color: #888;
-}
-
-.milestoneGrid {
+.week > div > div {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem 0.5rem;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: 12px;
+  border-radius: 50%;
+  background: #edf1e7;
+  color: #8b9c7d;
 }
-
-.milestoneItem {
+.week [data-checked='true'] {
+  background: #5b7846;
+  color: white;
+}
+.beginning {
   display: flex;
-  flex-direction: column;
+  gap: 14px;
   align-items: center;
-  gap: 0.5rem;
+  padding: 20px 0;
+  margin-top: 20px;
+  border-bottom: 1px solid #dce4d1;
 }
-
-.mIconWrapper {
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  background: #f5f5f5;
+.beginning h3 {
+  font-size: 11px;
+  font-weight: 500;
+}
+.beginning p {
+  font-size: 10px;
+  color: #8b9c7d;
+  margin-top: 6px;
+}
+.milestones > div {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border: 2px solid transparent;
+  gap: 14px;
+  padding: 16px 0;
+  color: #a5af9b;
 }
-
-.unlocked .mIconWrapper {
-  background: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.milestones > div[data-earned='true'] {
+  color: #607c4b;
 }
-
-.active .mIconWrapper {
-  border-color: #6C5CE7; /* Purple active border from screenshot */
+.milestones h3 {
+  font-size: 12px;
+  font-weight: 400;
 }
-
-.mLabel {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #888;
-}
-
-.unlocked .mLabel {
-  color: #111;
+.milestones p {
+  font-size: 10px;
+  margin-top: 6px;
+  color: #9aa98b;
 }

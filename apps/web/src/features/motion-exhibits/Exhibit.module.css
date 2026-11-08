@@ -1,0 +1,479 @@
+.exhibit {
+  --bg: #eee8db;
+  --fg: #29382f;
+  --line: #29382f35;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+}
+.story {
+  height: 400svh;
+  position: relative;
+}
+.stage {
+  height: 100svh;
+  min-height: 480px;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--bg);
+}
+.masthead {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 80px;
+  padding: 0 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 3;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  font:
+    600 23px Georgia,
+    serif;
+  letter-spacing: -1px;
+  display: flex;
+  gap: 5px;
+}
+.brand span {
+  font: 9px monospace;
+  margin-top: 3px;
+}
+.edition,
+.number {
+  font: 9px monospace;
+  letter-spacing: 0.14em;
+}
+.scene {
+  position: absolute;
+  inset: 80px 0 70px;
+}
+.scene > svg,
+.scene > canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.copy {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 5%;
+  max-width: 440px;
+  pointer-events: none;
+}
+.kicker {
+  font: 10px monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.copy h1 {
+  font:
+    400 clamp(54px, 6.4vw, 104px)/0.97 Georgia,
+    serif;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+  margin: 0 0 22px;
+  white-space: pre-line;
+}
+.description {
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 265px;
+}
+.annotation {
+  position: absolute;
+  right: 4%;
+  bottom: 110px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font: 8px monospace;
+  letter-spacing: 0.15em;
+}
+.transport {
+  position: absolute;
+  inset: auto 4% 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  z-index: 4;
+  background: var(--bg);
+}
+.transport nav {
+  display: flex;
+  gap: 32px;
+}
+.transport button {
+  color: inherit;
+  background: none;
+  border: 0;
+  min-height: 44px;
+  font:
+    11px Arial,
+    sans-serif;
+}
+.transport nav button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.transport nav button span {
+  font: 9px monospace;
+}
+.transport nav button[aria-current]:after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+}
+.pause {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pause:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.progress {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--line);
+  z-index: 5;
+}
+.progress > div {
+  height: 100%;
+  background: var(--fg);
+}
+.controls {
+  position: absolute;
+  left: 5%;
+  bottom: 115px;
+  z-index: 3;
+}
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font: 10px monospace;
+}
+.controls input {
+  accent-color: var(--fg);
+  width: 180px;
+  cursor: pointer;
+}
+.afterword {
+  padding: 85px 8%;
+}
+.afterword > p,
+.afterword > span {
+  font: 9px monospace;
+  letter-spacing: 0.12em;
+}
+.afterword h2 {
+  font:
+    400 clamp(28px, 3.5vw, 52px)/1.22 Georgia,
+    serif;
+  max-width: 900px;
+  letter-spacing: -0.035em;
+  margin: 30px 0;
+}
+.afterword > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+  margin: 35px 0 65px;
+}
+.afterword a,
+.afterword button {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font:
+    12px Arial,
+    sans-serif;
+  color: inherit;
+  padding: 12px 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--fg);
+}
+.exhibit :is(button, a, input):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+.exhibit[data-exhibit='paper-worlds'] .copy {
+  top: 13%;
+  left: 8%;
+  max-width: 620px;
+}
+.exhibit[data-exhibit='paper-worlds'] .copy h1 {
+  font-style: italic;
+  font-size: clamp(54px, 5.2vw, 78px);
+}
+.exhibit[data-exhibit='paper-worlds'] .description {
+  background: #eee8db;
+  padding: 8px 12px;
+  margin-left: -12px;
+}
+.exhibit[data-exhibit='precision'] {
+  --bg: #102925;
+  --fg: #f1e7d3;
+  --line: #f1e7d340;
+}
+.exhibit[data-exhibit='precision'] .brand {
+  font:
+    500 19px Arial,
+    sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.exhibit[data-exhibit='precision'] .copy {
+  top: 28%;
+}
+.exhibit[data-exhibit='precision'] .copy h1 {
+  font-style: italic;
+}
+.exhibit[data-exhibit='chromatic'] {
+  --bg: #101216;
+  --fg: #f4f3e9;
+  --line: #f4f3e933;
+}
+.exhibit[data-exhibit='chromatic'] .brand {
+  font:
+    bold 23px Arial,
+    sans-serif;
+  letter-spacing: -1.2px;
+}
+.exhibit[data-exhibit='chromatic'] .copy h1 {
+  font:
+    600 clamp(60px, 7vw, 110px)/0.94 Arial,
+    sans-serif;
+  letter-spacing: -0.08em;
+}
+.exhibit[data-exhibit='chromatic'] .copy {
+  top: 14%;
+}
+.exhibit[data-exhibit='metamorphosis'] {
+  --bg: #f25c3d;
+  --fg: #251b24;
+  --line: #251b2440;
+}
+.exhibit[data-exhibit='metamorphosis'] .brand {
+  font:
+    bold 21px Arial,
+    sans-serif;
+  letter-spacing: -1px;
+}
+.exhibit[data-exhibit='metamorphosis'] .copy h1 {
+  font:
+    900 clamp(60px, 6vw, 92px)/0.9 Arial,
+    sans-serif;
+  letter-spacing: -0.085em;
+  text-transform: uppercase;
+}
+.exhibit[data-exhibit='metamorphosis'] .copy {
+  top: 16%;
+}
+@media (max-width: 850px) {
+  .edition {
+    display: none;
+  }
+  .copy {
+    max-width: 310px;
+  }
+  .transport nav {
+    gap: 20px;
+  }
+  .exhibit[data-exhibit='precision'] .copy {
+    top: 17%;
+  }
+}
+@media (max-width: 600px) {
+  .masthead {
+    height: 64px;
+    padding: 0 22px;
+  }
+  .brand {
+    font-size: 21px;
+  }
+  .number {
+    font-size: 8px;
+  }
+  .scene {
+    inset: 190px -28% 100px;
+  }
+  .copy,
+  .exhibit[data-exhibit] .copy {
+    left: 24px;
+    top: 88px;
+    max-width: calc(100% - 48px);
+  }
+  .copy h1,
+  .exhibit[data-exhibit] .copy h1 {
+    font-size: 51px;
+    line-height: 0.97;
+    margin-bottom: 12px;
+    white-space: normal;
+  }
+  .kicker {
+    font-size: 8px;
+    margin-bottom: 12px;
+  }
+  .description {
+    font-size: 11px;
+    max-width: 290px;
+    line-height: 1.6;
+  }
+  .exhibit[data-exhibit='paper-worlds'] .description {
+    padding: 0;
+    margin: 0;
+    background: none;
+  }
+  .exhibit[data-exhibit='precision'] .scene {
+    inset: 260px -25% 90px;
+  }
+  .exhibit[data-exhibit='chromatic'] .scene {
+    inset: 220px -20% 140px;
+  }
+  .exhibit[data-exhibit='metamorphosis'] .scene {
+    inset: 250px -20% 90px;
+  }
+  .transport {
+    inset: auto 22px 0;
+    height: 75px;
+    gap: 10px;
+  }
+  .transport nav {
+    gap: 13px;
+  }
+  .transport nav button {
+    font-size: 10px;
+    gap: 0;
+  }
+  .transport nav button span {
+    display: none;
+  }
+  .pause {
+    max-width: 90px;
+    text-align: left;
+  }
+  .pause span {
+    font-size: 9px;
+  }
+  .annotation {
+    bottom: 92px;
+    right: 24px;
+    font-size: 7px;
+  }
+  .controls {
+    bottom: 116px;
+    left: 24px;
+  }
+  .controls input {
+    width: 150px;
+  }
+  .afterword {
+    padding: 55px 24px;
+  }
+}
+@media (max-height: 650px) {
+  .copy h1,
+  .exhibit[data-exhibit] .copy h1 {
+    font-size: 50px;
+  }
+  .description {
+    font-size: 11px;
+  }
+  .annotation {
+    display: none;
+  }
+}
+@media (max-width: 600px) and (max-height: 700px) {
+  .copy,
+  .exhibit[data-exhibit] .copy {
+    top: 78px;
+  }
+  .copy h1,
+  .exhibit[data-exhibit] .copy h1 {
+    font-size: 37px;
+    margin-bottom: 8px;
+  }
+  .kicker {
+    margin-bottom: 8px;
+  }
+  .description {
+    font-size: 10px;
+    max-width: 310px;
+  }
+  .scene,
+  .exhibit[data-exhibit='precision'] .scene,
+  .exhibit[data-exhibit='metamorphosis'] .scene {
+    inset: 195px -22% 80px;
+  }
+  .exhibit[data-exhibit='chromatic'] .scene {
+    inset: 185px -20% 133px;
+  }
+  .controls {
+    bottom: 87px;
+  }
+  .controls label {
+    gap: 6px;
+    font-size: 9px;
+  }
+}
+@media (min-width: 601px) {
+  .exhibit[data-exhibit='precision'] .scene {
+    left: 28%;
+  }
+}
+@media (min-width: 601px) {
+  .exhibit[data-exhibit='metamorphosis'] .scene {
+    left: 34%;
+  }
+}
+
+@media (min-width: 601px) {
+  .exhibit[data-exhibit='paper-worlds'] .scene {
+    top: 210px;
+  }
+}
+.exhibit[data-exhibit='paper-worlds'] .annotation {
+  color: #fff0ce;
+}
+
+@media (max-width: 600px) {
+  .exhibit[data-exhibit='metamorphosis'] .scene {
+    left: 0;
+    right: 0;
+  }
+  .exhibit[data-exhibit='paper-worlds'] .annotation {
+    bottom: 110px;
+  }
+}
+@media (min-width: 601px) and (max-height: 650px) {
+  .exhibit[data-exhibit] .copy {
+    top: 106px;
+  }
+  .exhibit[data-exhibit] .copy h1 {
+    font-size: 40px;
+  }
+  .kicker {
+    margin-bottom: 12px;
+  }
+}

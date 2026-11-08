@@ -1,141 +1,182 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { AgeGate } from './AgeGate';
-import { ScrollRevealText } from './ScrollRevealText';
+import { Dialog } from '@/components/ui/Dialog';
+import { useStoredState } from '@/hooks/useStoredState';
+import { SectionLink } from '@/components/ui/SectionLink';
+import { ArrowDown, ArrowUpRight, Minus, Plus } from 'lucide-react';
+import { useState, type CSSProperties } from 'react';
 import styles from './FlyingPapersLanding.module.css';
-import { Link } from '@tanstack/react-router';
-
+const products = [
+  {
+    name: 'Original papers',
+    tag: 'The everyday original',
+    color: '#ed593f',
+    size: '32 leaves / natural fibre',
+  },
+  {
+    name: 'The long roll',
+    tag: 'Room for your imagination',
+    color: '#e5c85a',
+    size: 'One continuous paper roll',
+  },
+  {
+    name: 'Pocket edition',
+    tag: 'Good things. Small package.',
+    color: '#a5bd99',
+    size: 'Compact / unbleached paper',
+  },
+];
 export function FlyingPapersLanding() {
-  const [isAgeVerified, setIsAgeVerified] = useState(false);
-  const { scrollYProgress } = useScroll();
-  
-  // Parallax effects
-  const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const ghostY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-  const ghostScale = useTransform(scrollYProgress, [0, 0.2, 0.5, 1], [1, 1.1, 1, 1.2]);
-  
-  // Smoothly transition background color across 4 sections
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.66, 1],
-    ['#63618E', '#C74B46', '#9C7927', '#55637D']
+  const [bag, setBag] = useStoredState(
+    'flying-papers-bag-v1',
+    [0, 0, 0],
+    (v): v is number[] =>
+      Array.isArray(v) && v.length === 3 && v.every((n) => Number.isInteger(n) && n >= 0 && n <= 9),
   );
-
-  useEffect(() => {
-    if (!isAgeVerified) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isAgeVerified]);
-
+  const [bagOpen, setBagOpen] = useState(false);
+  const total = bag.reduce((a, b) => a + b, 0);
+  const change = (i: number, d: number) =>
+    setBag((prev) => prev.map((n, j) => (i === j ? Math.max(0, Math.min(9, n + d)) : n)));
   return (
-    <motion.div className={styles.container} style={{ backgroundColor }}>
-      {!isAgeVerified && <AgeGate onAccept={() => setIsAgeVerified(true)} />}
-
+    <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.navBlock}>
-          <span>MENU</span>
-          <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>FLYING PAPERS</Link>
-          <span>BAG</span>
-        </div>
+        <SectionLink target="collection">
+          THE GOODS <ArrowDown size={14} />
+        </SectionLink>
+        <strong>
+          FLYING
+          <br />
+          PAPERS®
+        </strong>
+        <button onClick={() => setBagOpen(true)}>BAG ({total})</button>
       </header>
-
-      <main>
-        <section className={styles.hero}>
-          <div style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1rem', fontWeight: 'bold' }}>
-            I'M FLY!
-          </div>
-          
-          <div className={styles.giantTextContainer}>
-            <ScrollRevealText text="Let me show" className={styles.giantText || ''} delay={0.1} />
-            <ScrollRevealText text="you where" className={styles.giantText || ''} delay={0.2} />
-            <ScrollRevealText text="we can go" className={styles.giantText || ''} delay={0.3} />
-          </div>
-
-          <motion.div 
-            className={styles.ghostCenter}
-            style={{ y: ghostY }}
-            initial={{ scale: 0 }}
-            animate={{ scale: isAgeVerified ? 1 : 0 }}
-            transition={{ type: 'spring', damping: 15, delay: 0.5 }}
-          >
-             <div className={styles.eye}></div>
-             <div className={styles.eye}></div>
-          </motion.div>
-        </section>
-
-        {/* Red Section */}
-        <section className={styles.hero}>
-           <div className={styles.giantTextContainer}>
-              <ScrollRevealText text="LET'S" className={styles.giantText || ''} />
-              <ScrollRevealText text="EXPLORE" className={styles.giantText || ''} />
-              <ScrollRevealText text="YOUR" className={styles.giantText || ''} />
-              <ScrollRevealText text="OPTIONS" className={styles.giantText || ''} />
-           </div>
-
-           <div className={styles.productsRow}>
-             {['ROLLS', 'GRINDERS', 'CONES', 'TIPS', 'PAPERS'].map((item, i) => (
-               <div key={i} className={styles.productCol}>
-                 <div className={styles.productCharPlaceholder}></div>
-                 <div className={styles.productLabel}>{item}</div>
-               </div>
-             ))}
-           </div>
-        </section>
-
-        {/* Mustard Section */}
-        <section className={`${styles.hero} ${styles.mustardBg}`}>
-           <div className={styles.splitLayout}>
-             <div className={styles.leftCol}>
-               <div className={styles.giantTextContainer} style={{ textAlign: 'left' }}>
-                  <ScrollRevealText text="HOW ABOUT" className={styles.giantText || ''} delay={0.1} />
-                  <ScrollRevealText text="A GOOD NIGHT" className={styles.giantText || ''} delay={0.2} />
-                  <ScrollRevealText text="WHILE" className={styles.giantText || ''} delay={0.3} />
-                  <ScrollRevealText text="SLEEPING?" className={styles.giantText || ''} delay={0.4} />
-               </div>
-               {/* Sleeping Ghost Placeholder */}
-               <motion.div style={{ scale: ghostScale }} className={styles.sleepingGhost}></motion.div>
-             </div>
-             
-             <div className={styles.rightCol}>
-               <div className={styles.shopPanel}>
-                 <div className={styles.shopGrid}>
-                   <div className={styles.shopItem}>
-                     <h4>FILTER TIPS</h4>
-                     <div className={styles.shopImg}></div>
-                     <a href="#">SHOP</a>
-                   </div>
-                   <div className={styles.shopItem}>
-                     <h4>PAPER ROLLS</h4>
-                     <div className={styles.shopImg}></div>
-                     <a href="#">SHOP</a>
-                   </div>
-                 </div>
-                 <button className={styles.shopAllBtn}>SHOP ALL</button>
-               </div>
-             </div>
-           </div>
-        </section>
-
-        {/* Blue Section */}
-        <section className={styles.hero}>
-           <div style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1rem', fontWeight: 'bold', color: '#E6D9A1' }}>
-             WHEREVER YOU WANT TO GO
-           </div>
-           
-           <div className={styles.giantTextContainer}>
-              <ScrollRevealText text="Flying papers is your" className={styles.giantText || ''} delay={0.1} />
-              <ScrollRevealText text="ticket to get there" className={styles.giantText || ''} delay={0.2} />
-           </div>
-           
-           {/* Ghost holding drink placeholder */}
-           <motion.div style={{ scale: ghostScale }} className={styles.drinkGhost}></motion.div>
-        </section>
-      </main>
-    </motion.div>
+      <section className={styles.hero}>
+        <p>SMALL PAPER. BIG PERSONALITY.</p>
+        <h1>
+          GOOD THINGS
+          <br />
+          <em>TAKE FLIGHT.</em>
+        </h1>
+        <div className={styles.mascot} aria-hidden="true">
+          <i />
+          <i />
+          <b />
+        </div>
+        <div className={styles.heroBottom}>
+          <p>
+            Made for the moments
+            <br />
+            that refuse to be ordinary.
+          </p>
+          <SectionLink target="collection">
+            MEET THE COLLECTION <ArrowDown size={20} />
+          </SectionLink>
+          <span>
+            INDEPENDENT SPIRIT.
+            <br />
+            SINCE THIS VERY MOMENT.
+          </span>
+        </div>
+      </section>
+      <div className={styles.ribbon} aria-hidden="true">
+        FEEL GOOD. FLY HIGH. &nbsp; ✳ &nbsp; FEEL GOOD. FLY HIGH. &nbsp; ✳ &nbsp; FEEL GOOD. FLY
+        HIGH.
+      </div>
+      <section id="collection" className={styles.collection}>
+        <div className={styles.sectionTop}>
+          <p>01 / PICK YOUR CO-PILOT</p>
+          <h2>
+            Little packages.
+            <br />
+            Loud personalities.
+          </h2>
+        </div>
+        <div className={styles.products}>
+          {products.map((product, i) => (
+            <article key={product.name} style={{ '--pack': product.color } as CSSProperties}>
+              <div className={styles.productStage}>
+                <div className={styles.package}>
+                  <span>FLYING PAPERS®</span>
+                  <strong>{['ORIGINAL', 'LONG ROLL', 'POCKET'][i]}</strong>
+                  <div className={styles.packFace}>
+                    ••
+                    <i />
+                  </div>
+                  <small>{product.size}</small>
+                </div>
+              </div>
+              <div className={styles.productInfo}>
+                <div>
+                  <h3>{product.name}</h3>
+                  <p>{product.tag}</p>
+                </div>
+                <button aria-label={`Add ${product.name} to bag`} onClick={() => change(i, 1)}>
+                  <Plus size={22} />
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className={styles.note} role="status">
+          {total
+            ? `${total} ${total === 1 ? 'item' : 'items'} in your sample bag.`
+            : 'A product design concept. Build a sample bag and make it your own.'}
+        </p>
+      </section>
+      <section className={styles.statement}>
+        <span>02 / STAY A LITTLE WEIRD</span>
+        <h2>
+          Not everything
+          <br />
+          needs to be
+          <br />
+          <em>so serious.</em>
+        </h2>
+        <p>
+          Thoughtful materials. Playful details.
+          <br />A little everyday escape.
+        </p>
+        <SectionLink target="collection">
+          FIND YOUR FAVOURITE <ArrowUpRight size={18} />
+        </SectionLink>
+      </section>
+      <footer>
+        FLYING PAPERS® <span>AN INDEPENDENT DESIGN STUDY / 2026</span>
+      </footer>
+      <Dialog
+        open={bagOpen}
+        onOpenChange={setBagOpen}
+        title={`Your bag (${total})`}
+        description="A sample collection, saved on this device."
+      >
+        {total === 0 ? (
+          <p>Your bag is waiting for a little personality.</p>
+        ) : (
+          products.map(
+            (product, i) =>
+              bag[i] > 0 && (
+                <div className={styles.bagRow} key={product.name}>
+                  <strong>{product.name}</strong>
+                  <div>
+                    <button aria-label={`Remove one ${product.name}`} onClick={() => change(i, -1)}>
+                      <Minus size={15} />
+                    </button>
+                    <output>{bag[i]}</output>
+                    <button
+                      aria-label={`Add one ${product.name}`}
+                      onClick={() => change(i, 1)}
+                      disabled={bag[i] >= 9}
+                    >
+                      <Plus size={15} />
+                    </button>
+                  </div>
+                </div>
+              ),
+          )
+        )}
+        <p className={styles.note}>This is a local preview. No orders or payments are taken.</p>
+        <button className={styles.keepExploring} onClick={() => setBagOpen(false)}>
+          KEEP EXPLORING <ArrowUpRight size={18} />
+        </button>
+      </Dialog>
+    </div>
   );
 }

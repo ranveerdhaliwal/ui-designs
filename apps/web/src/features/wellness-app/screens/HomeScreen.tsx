@@ -1,56 +1,73 @@
-import React from 'react';
 import { getAssetUrl } from '@/lib/assetUtils';
+import { ArrowRight, Check, Leaf } from 'lucide-react';
+import type { Dispatch, SetStateAction } from 'react';
+import { localDate, type WellnessState } from '../wellnessState';
 import styles from './HomeScreen.module.css';
-
-export function HomeScreen() {
+export function HomeScreen({
+  state,
+  onChange,
+}: {
+  state: WellnessState;
+  onChange: Dispatch<SetStateAction<WellnessState>>;
+}) {
+  const today = localDate();
+  const checked = state.checkIns.includes(today);
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backBtn}>&#8592;</button>
-        <span className={styles.headerTitle}>YOUR RESET</span>
-        <div style={{ width: 24 }}></div> {/* Spacer */}
+        <span>A LITTLE RESET</span>
+        <Leaf size={16} />
       </header>
-
-      <div className={styles.heroImageWrapper}>
-        <img src={getAssetUrl("/assets/wellness1.png")} alt="Zen stones by water" className={styles.heroImage} />
-      </div>
-
+      <img
+        src={getAssetUrl('/assets/wellness1.png')}
+        alt="Quiet stones beside still water"
+        className={styles.heroImage}
+      />
       <div className={styles.content}>
-        <h1 className={styles.title}>Let's mark your day one.</h1>
-        <p className={styles.subtitle}>This is the start of something kind to yourself.</p>
-
-        <div className={styles.dateSelector}>
-          <div className={styles.dateHeader}>
-            <span>CHOOSE START DATE</span>
-            <button className={styles.setTodayBtn}>&#10022; Set to Today</button>
-          </div>
-          
-          <div className={styles.dateOptions}>
-            <div className={styles.dateCard}>
-              <span className={styles.dayLabel}>YESTERDAY</span>
-              <span className={styles.dateLabel}>May 28</span>
-            </div>
-            <div className={`${styles.dateCard} ${styles.activeDate}`}>
-              <span className={styles.dayLabel}>TODAY</span>
-              <span className={styles.dateLabel}>May 29</span>
-            </div>
-            <div className={styles.dateCard}>
-              <span className={styles.dayLabel}>TOMORROW</span>
-              <span className={styles.dateLabel}>May 30</span>
-            </div>
-          </div>
-
-          <button className={styles.customDateBtn}>
-            <span className={styles.calendarIcon}>&#128197;</span> Pick a custom date...
-            <span className={styles.chevron}>&gt;</span>
-          </button>
-        </div>
-
-        <button className={styles.primaryBtn}>
-          I'm starting today &#8594;
+        <p className={styles.date}>
+          {new Date().toLocaleDateString(undefined, {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </p>
+        <h1>
+          {state.name ? `A moment for you, ${state.name}.` : 'A little kindness. A new beginning.'}
+        </h1>
+        <p className={styles.subtitle}>
+          You don’t have to do it all. Just make a little room for yourself today.
+        </p>
+        <label className={styles.start}>
+          Your beginning
+          <input
+            type="date"
+            value={state.startDate}
+            onChange={(e) => {
+              if (e.target.value) onChange({ ...state, startDate: e.target.value });
+            }}
+          />
+        </label>
+        <button
+          className={styles.primaryBtn}
+          aria-pressed={checked}
+          onClick={() =>
+            onChange((prev) => ({
+              ...prev,
+              checkIns: checked
+                ? prev.checkIns.filter((d) => d !== today)
+                : [...prev.checkIns, today],
+            }))
+          }
+        >
+          {checked ? <Check size={18} /> : <ArrowRight size={18} />}{' '}
+          {checked ? 'Today, I showed up.' : 'Take a moment. Check in.'}
         </button>
-        <p className={styles.privacyNote}>&#128274; Everything stays private on your device.</p>
+        <p className={styles.status} role="status">
+          {checked
+            ? 'A small step, recorded. Tap again to undo.'
+            : 'One simple check-in. At your own pace.'}
+        </p>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,85 +1,185 @@
-import React, { useState } from 'react';
-import { MobileContainer, BottomNav } from '@/components/ui/Responsive';
-import { AgenticSerif, AgenticSans } from '@/components/ui/Typography';
-import styles from './ResponsiveLanding.module.css';
+import { useStoredHistory } from '@/hooks/useStoredHistory';
+import { EditorToolbar } from '@/components/ui/EditorToolbar';
 import { getAssetUrl } from '@/lib/assetUtils';
-
-const ONBOARDING_DATA = [
+import { ArrowLeft, ArrowRight, Check, Plus, X } from 'lucide-react';
+import { useState } from 'react';
+import styles from './ResponsiveLanding.module.css';
+const steps = [
   {
-    image: getAssetUrl('/assets/time_onboarding_1.png'),
-    title: 'Plan with clarity',
-    description: 'Organize your day, capture priorities, and stay in control from morning to night.'
+    title: 'Make a little space.',
+    text: 'Gather your thoughts. Choose what matters. Let the rest wait.',
+    image: 'time_onboarding_1.png',
   },
   {
-    image: getAssetUrl('/assets/time_onboarding_2.png'),
-    title: 'Focus on what matters',
-    description: 'Manage tasks, reduce distractions, and build a workflow that keeps you moving forward.'
+    title: 'One thing at a time.',
+    text: 'A small, clear list. A little less noise. A more focused day.',
+    image: 'time_onboarding_2.png',
   },
   {
-    image: getAssetUrl('/assets/time_onboarding_3.png'),
-    title: 'Grow every day',
-    description: 'Track progress, celebrate small wins, and turn daily routines into meaningful results.'
-  }
+    title: 'Find your own rhythm.',
+    text: 'Every small step counts. Make a plan that feels like yours.',
+    image: 'time_onboarding_3.png',
+  },
 ];
-
+interface Task {
+  id: string;
+  text: string;
+  done: boolean;
+}
+const valid = (value: unknown): value is Task[] =>
+  Array.isArray(value) &&
+  value.every(
+    (t) =>
+      t && typeof t.id === 'string' && typeof t.text === 'string' && typeof t.done === 'boolean',
+  );
 export function ResponsiveLanding() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const data = ONBOARDING_DATA[currentStep]!;
-
+  const [step, setStep] = useState(0);
+  const [ready, setReady] = useState(false);
+  const [draft, setDraft] = useState('');
+  const history = useStoredHistory<Task[]>('browser-designs-time-v1', [], valid);
+  const { persisted } = history;
+  const tasks = history.value,
+    setTasks = history.set;
+  const data = steps[step]!;
   return (
-    <div className={styles.pageBackground}>
-      <MobileContainer>
-        <div className={styles.onboardingScreen}>
-          
-          <div className={styles.header}>
-            <div className={styles.logoIcon} />
-            <span>Time.</span>
-          </div>
-
-          <div className={styles.carousel}>
-            <img src={data.image} alt={data.title} className={styles.illustration} />
-            
-            <AgenticSerif className={styles.title}>
-              {data.title}
-            </AgenticSerif>
-            
-            <AgenticSans className={styles.description}>
-              {data.description}
-            </AgenticSans>
-            
-            <div className={styles.dots}>
-              {ONBOARDING_DATA.map((_, idx) => (
-                <div 
-                  key={idx} 
-                  className={`${styles.dot} ${idx === currentStep ? styles.active : ''}`}
-                  onClick={() => setCurrentStep(idx)}
-                />
+    <main className={styles.page}>
+      <div className={styles.intro}>
+        <span>TIME, WELL SPENT</span>
+        <h1>
+          Make room
+          <br />
+          for your day.
+        </h1>
+        <p>A simple beginning. A thoughtful little planner. Designed to move at your pace.</p>
+        <span>THREE STEPS TO A CLEARER START</span>
+      </div>
+      <section className={styles.phone}>
+        <header className={styles.header}>
+          <span>Time.</span>
+          <button
+            onClick={() => {
+              setReady(!ready);
+              setStep(0);
+            }}
+          >
+            {ready ? 'Start again' : 'Skip introduction'}
+          </button>
+        </header>
+        {ready ? (
+          <div className={styles.planner}>
+            <p>
+              {new Date().toLocaleDateString(undefined, {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+            <h2>
+              A little less.
+              <br />A little better.
+            </h2>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (draft.trim()) {
+                  setTasks([
+                    ...tasks,
+                    { id: crypto.randomUUID(), text: draft.trim(), done: false },
+                  ]);
+                  setDraft('');
+                }
+              }}
+            >
+              <label className="sr-only" htmlFor="new-task">
+                Add a priority
+              </label>
+              <input
+                id="new-task"
+                maxLength={100}
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="One thing for today…"
+              />
+              <button aria-label="Add priority" disabled={!draft.trim()}>
+                <Plus size={18} />
+              </button>
+            </form>
+            <EditorToolbar
+              undo={history.undo}
+              redo={history.redo}
+              canUndo={history.canUndo}
+              canRedo={history.canRedo}
+            />
+            <ul>
+              {tasks.map((task) => (
+                <li key={task.id}>
+                  <button
+                    aria-label={`Mark ${task.text} ${task.done ? 'incomplete' : 'complete'}`}
+                    aria-pressed={task.done}
+                    onClick={() =>
+                      setTasks(tasks.map((t) => (t.id === task.id ? { ...t, done: !t.done } : t)))
+                    }
+                  >
+                    {task.done ? <Check size={16} /> : <span />}
+                  </button>
+                  <span className={task.done ? styles.done : undefined}>{task.text}</span>
+                  <button
+                    aria-label={`Remove ${task.text}`}
+                    onClick={() => setTasks(tasks.filter((t) => t.id !== task.id))}
+                  >
+                    <X size={14} />
+                  </button>
+                </li>
               ))}
+            </ul>
+            {tasks.length === 0 && (
+              <p className={styles.empty}>An open page. Add your first priority.</p>
+            )}
+            <p className={styles.saved}>
+              {persisted
+                ? 'Saved in this browser.'
+                : 'Storage unavailable. Your list lasts for this visit.'}
+            </p>
+          </div>
+        ) : (
+          <div className={styles.onboarding}>
+            <img
+              key={data.image}
+              src={getAssetUrl(`/assets/${data.image}`)}
+              alt="Illustrated daily planning scene"
+            />
+            <span className={styles.step}>{String(step + 1).padStart(2, '0')} / 03</span>
+            <h2>{data.title}</h2>
+            <p>{data.text}</p>
+            <div className={styles.navigation}>
+              <button
+                aria-label="Previous introduction"
+                disabled={step === 0}
+                onClick={() => setStep(step - 1)}
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <div role="group" aria-label="Onboarding step">
+                {steps.map((_, i) => (
+                  <button
+                    key={i}
+                    aria-label={`Go to step ${i + 1}`}
+                    aria-pressed={i === step}
+                    onClick={() => setStep(i)}
+                  />
+                ))}
+              </div>
+              <button
+                className={styles.next}
+                onClick={() => (step < 2 ? setStep(step + 1) : setReady(true))}
+              >
+                {step === 2 ? 'Begin' : 'Continue'}
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
-
-          <div className={styles.buttonContainer}>
-            <button className={styles.primaryButton}>
-              Get started
-            </button>
-            <button className={styles.secondaryButton}>
-              Already have an account? Log in
-            </button>
-          </div>
-
-        </div>
-
-        {/* 
-          Example of how BottomNav would look if we navigated to a dashboard.
-          For the onboarding, we usually hide it, but we can show it here 
-          to demonstrate the Mobile-First responsive primitives we built.
-        */}
-        <div style={{ marginTop: 'auto' }}>
-          {/* We'll leave it out of the onboarding screen for aesthetic accuracy, 
-              but the component is ready for the main app view! */}
-        </div>
-
-      </MobileContainer>
-    </div>
+        )}
+      </section>
+    </main>
   );
 }

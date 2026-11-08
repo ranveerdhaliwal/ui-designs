@@ -1,146 +1,100 @@
-import React from 'react';
-import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 import styles from './OriginKitLanding.module.css';
 
+import { AxisCursor } from './components/AxisCursor';
+import { ClickEffects } from './components/ClickEffects';
 import { ComponentCard } from './components/ComponentCard';
-import { MeshHover } from './components/MeshHover';
+import { CoverflowCarousel } from './components/CoverflowCarousel';
+import { DirectionHover } from './components/DirectionHover';
+import { DotMatrix } from './components/DotMatrix';
+import { Globe } from './components/Globe';
+import { ImageRipple } from './components/ImageRipple';
 import { InfiniteGallery } from './components/InfiniteGallery';
 import { KineticGrid } from './components/KineticGrid';
-import { TextMorph } from './components/TextMorph';
-import { SpiralImages } from './components/SpiralImages';
-import { ParticleSphere } from './components/ParticleSphere';
-import { UserCursor } from './components/UserCursor';
-import { PixelDrift } from './components/PixelDrift';
-import { Globe } from './components/Globe';
-import { CoverflowCarousel } from './components/CoverflowCarousel';
-import { SpinImage } from './components/SpinImage';
-import { MagneticCarousel } from './components/MagneticCarousel';
-import { PixelCard } from './components/PixelCard';
-import { DirectionHover } from './components/DirectionHover';
-import { ClickEffects } from './components/ClickEffects';
-import { DotMatrix } from './components/DotMatrix';
-import { Snowfall } from './components/Snowfall';
-import { ReactiveGrid } from './components/ReactiveGrid';
-import { AxisCursor } from './components/AxisCursor';
-import { PrismGrid } from './components/PrismGrid';
 import { LiquidDistortion } from './components/LiquidDistortion';
+import { MagneticCarousel } from './components/MagneticCarousel';
+import { MeshHover } from './components/MeshHover';
+import { ParticleSphere } from './components/ParticleSphere';
+import { PixelCard } from './components/PixelCard';
+import { PixelDrift } from './components/PixelDrift';
 import { PixelUnfold } from './components/PixelUnfold';
-import { ImageRipple } from './components/ImageRipple';
+import { PrismGrid } from './components/PrismGrid';
+import { ReactiveGrid } from './components/ReactiveGrid';
+import { Snowfall } from './components/Snowfall';
+import { SpinImage } from './components/SpinImage';
+import { SpiralImages } from './components/SpiralImages';
+import { TextMorph } from './components/TextMorph';
+import { UserCursor } from './components/UserCursor';
 
+const experiments = [
+  { title: 'Mesh Hover', category: 'Interactive', Component: MeshHover },
+  { title: 'Infinite Gallery', category: 'Carousel', Component: InfiniteGallery },
+  { title: 'Kinetic Grid', category: 'Layout', Component: KineticGrid },
+  { title: 'Text Morph', category: 'Typography', Component: TextMorph },
+  { title: 'Spiral Images', category: '3D', Component: SpiralImages },
+  { title: 'Particle Sphere', category: 'WebGL', Component: ParticleSphere },
+  { title: 'User Cursor', category: 'Interaction', Component: UserCursor },
+  { title: 'Pixel Drift', category: 'Framer Motion', Component: PixelDrift },
+  { title: 'Globe', category: 'WebGL', Component: Globe },
+  { title: 'Coverflow Carousel', category: 'Carousel', Component: CoverflowCarousel },
+  { title: 'Spin Image', category: 'Hover', Component: SpinImage },
+  { title: 'Magnetic Carousel', category: 'Physics', Component: MagneticCarousel },
+  { title: 'Pixel Card', category: 'Reveal', Component: PixelCard },
+  { title: 'Direction Hover', category: 'Button', Component: DirectionHover },
+  { title: 'Click Effects', category: 'Interaction', Component: ClickEffects },
+  { title: 'Dot Matrix', category: 'Hover', Component: DotMatrix },
+  { title: 'Snowfall', category: 'Particles', Component: Snowfall },
+  { title: 'Reactive Grid', category: 'Layout', Component: ReactiveGrid },
+  { title: 'Axis Cursor', category: 'Interaction', Component: AxisCursor },
+  { title: 'Prism Grid', category: 'Glassmorphism', Component: PrismGrid },
+  { title: 'Liquid Distortion', category: 'SVG Filters', Component: LiquidDistortion },
+  { title: 'Pixel Unfold', category: 'Framer Motion', Component: PixelUnfold },
+  { title: 'Image Ripple', category: 'Interaction', Component: ImageRipple },
+];
 export function OriginKitLanding() {
+  const [query, setQuery] = useState('');
+  const filtered = experiments.filter((item) =>
+    `${item.title} ${item.category}`.toLowerCase().includes(query.toLowerCase()),
+  );
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <Link to="/" className={styles.backButton}>&larr; Hub</Link>
+          <p className={styles.kicker}>A COLLECTION IN MOTION</p>
           <div className={styles.titleWrapper}>
-            <h1 className={styles.title}>OriginKit</h1>
-            <span className={styles.badge}>23 Components</span>
+            <h1 className={styles.title}>
+              Small interactions.
+              <br />
+              Lasting impressions.
+            </h1>
+            <span className={styles.badge}>{experiments.length} experiments</span>
           </div>
           <p className={styles.subtitle}>
-            A definitive showcase of modern web animation. Recreating the interactive capabilities of OriginKit using Framer Motion, Three.js, and CSS.
+            Move, drag, click, and explore. A library of playful possibilities for the interfaces we
+            use every day.
           </p>
+          <label className={styles.search}>
+            <span className="sr-only">Search motion experiments</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Find an interaction…"
+            />
+            <span>{filtered.length} studies</span>
+          </label>
         </div>
       </header>
-
-      <main className={styles.main}>
+      <section className={styles.main}>
         <div className={styles.grid}>
-          {/* Component cards will go here */}
-          
-          <ComponentCard title="1. Mesh Hover" tag="Interactive">
-            <MeshHover />
-          </ComponentCard>
-          
-          <ComponentCard title="2. Infinite Gallery" tag="Carousel">
-            <InfiniteGallery />
-          </ComponentCard>
-
-          <ComponentCard title="3. Kinetic Grid" tag="Layout">
-            <KineticGrid />
-          </ComponentCard>
-
-          <ComponentCard title="4. Text Morph" tag="Typography">
-            <TextMorph />
-          </ComponentCard>
-
-          <ComponentCard title="5. Spiral Images" tag="3D">
-            <SpiralImages />
-          </ComponentCard>
-          
-          <ComponentCard title="6. Particle Sphere" tag="WebGL">
-            <ParticleSphere />
-          </ComponentCard>
-
-          <ComponentCard title="7. User Cursor" tag="Interaction">
-            <UserCursor />
-          </ComponentCard>
-
-          <ComponentCard title="8. Pixel Drift" tag="Framer Motion">
-            <PixelDrift />
-          </ComponentCard>
-
-          <ComponentCard title="9. Globe" tag="WebGL">
-            <Globe />
-          </ComponentCard>
-
-          <ComponentCard title="10. Coverflow Carousel" tag="Carousel">
-            <CoverflowCarousel />
-          </ComponentCard>
-          
-          <ComponentCard title="11. Spin Image" tag="Hover">
-            <SpinImage />
-          </ComponentCard>
-
-          <ComponentCard title="12. Magnetic Carousel" tag="Physics">
-            <MagneticCarousel />
-          </ComponentCard>
-
-          <ComponentCard title="13. Pixel Card" tag="Reveal">
-            <PixelCard />
-          </ComponentCard>
-
-          <ComponentCard title="14. Direction Hover" tag="Button">
-            <DirectionHover />
-          </ComponentCard>
-
-          <ComponentCard title="15. Click Effects" tag="Interaction">
-            <ClickEffects />
-          </ComponentCard>
-
-          <ComponentCard title="16. Dot Matrix" tag="Hover">
-            <DotMatrix />
-          </ComponentCard>
-
-          <ComponentCard title="17. Snowfall" tag="Particles">
-            <Snowfall />
-          </ComponentCard>
-
-          <ComponentCard title="18. Reactive Grid" tag="Layout">
-            <ReactiveGrid />
-          </ComponentCard>
-
-          <ComponentCard title="19. Axis Cursor" tag="Interaction">
-            <AxisCursor />
-          </ComponentCard>
-
-          <ComponentCard title="20. Prism Grid" tag="Glassmorphism">
-            <PrismGrid />
-          </ComponentCard>
-
-          <ComponentCard title="21. Liquid Distortion" tag="SVG Filters">
-            <LiquidDistortion />
-          </ComponentCard>
-
-          <ComponentCard title="22. Pixel Unfold" tag="Framer Motion">
-            <PixelUnfold />
-          </ComponentCard>
-
-          <ComponentCard title="23. Image Ripple" tag="Interaction">
-            <ImageRipple />
-          </ComponentCard>
-
+          {filtered.map(({ title, category, Component }) => (
+            <ComponentCard key={title} title={title} tag={category}>
+              <Component />
+            </ComponentCard>
+          ))}
         </div>
-      </main>
-    </div>
+        {filtered.length === 0 && <p role="status">No experiments match this search.</p>}
+      </section>
+    </main>
   );
 }

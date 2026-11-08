@@ -17,8 +17,12 @@
 }
 
 @keyframes orbFloat {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(20px, -20px) scale(1.1); }
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
 }
 
 /* Grainy Gradient */
@@ -44,21 +48,33 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #FF0055 0%, #0011FF 50%, #00FF88 100%);
+  background: linear-gradient(135deg, #ff0055 0%, #0011ff 50%, #00ff88 100%);
   background-size: 200% 200%;
   animation: surge 8s ease infinite;
 }
 
 .staticSurge::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.1) 10px,
+    rgba(255, 255, 255, 0.1) 20px
+  );
   mix-blend-mode: overlay;
 }
 
 @keyframes surge {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

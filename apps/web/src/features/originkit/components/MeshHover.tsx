@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
 
 export function MeshHover() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -10,13 +10,13 @@ export function MeshHover() {
       const rect = ref.current.getBoundingClientRect();
       setMouse({
         x: e.clientX - rect.left - rect.width / 2,
-        y: e.clientY - rect.top - rect.height / 2
+        y: e.clientY - rect.top - rect.height / 2,
       });
     }
   };
 
   return (
-    <div 
+    <div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMouse({ x: 0, y: 0 })}
@@ -28,7 +28,7 @@ export function MeshHover() {
         justifyContent: 'center',
         perspective: '1000px',
         background: '#050505',
-        overflow: 'hidden'
+        overflow: 'hidden',
       }}
     >
       <motion.div
@@ -36,7 +36,7 @@ export function MeshHover() {
           rotateX: -mouse.y * 0.1,
           rotateY: mouse.x * 0.1,
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         style={{
           width: '200px',
           height: '200px',
@@ -47,17 +47,17 @@ export function MeshHover() {
           gridTemplateColumns: 'repeat(10, 1fr)',
           gridTemplateRows: 'repeat(10, 1fr)',
           gap: '2px',
-          padding: '10px'
+          padding: '10px',
         }}
       >
         {Array.from({ length: 100 }).map((_, i) => (
           <motion.div
             key={i}
             whileHover={{ scale: 2, backgroundColor: '#FFF' }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             style={{
               background: 'rgba(255,255,255,0.2)',
-              borderRadius: '2px'
+              borderRadius: '2px',
             }}
           />
         ))}

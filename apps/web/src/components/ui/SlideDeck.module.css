@@ -1,89 +1,168 @@
 .deckContainer {
-  width: 100vw;
-  height: 100vh;
+  height: calc(100dvh - 48px);
+  min-height: 500px;
+  background: #242723;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: #000;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  color: #d5dacf;
 }
-
+.deckContainer:fullscreen {
+  height: 100dvh;
+}
 .controls {
-  position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 1rem;
   align-items: center;
-  z-index: 1000;
-  background: rgba(255,255,255,0.9);
-  padding: 0.5rem 1rem;
-  border-radius: 99px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 32px;
+  border-bottom: 1px solid #42493b;
+  background: #20241e;
 }
-
+.brand {
+  font-size: 13px;
+}
 .select {
-  padding: 0.25rem 0.5rem;
+  padding: 10px 12px;
+  border: 1px solid #56614b;
+  background: #2a3224;
+  color: #dce5ce;
   border-radius: 4px;
-  border: 1px solid #CCC;
-  font-size: 0.85rem;
-  outline: none;
+  font-size: 12px;
+  max-width: 100%;
 }
-
-.navButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.25rem;
-  padding: 0 0.5rem;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
 }
-.navButton:hover:not(:disabled) {
-  opacity: 1;
+.navigation button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #56614b;
+  background: transparent;
+  color: #dce5ce;
+  border-radius: 4px;
 }
-.navButton:disabled {
-  cursor: not-allowed;
-  opacity: 0.2;
+.navigation button:disabled {
+  opacity: 0.3;
 }
-
-.slideIndicator {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #333;
-}
-
 .slideViewport {
   flex: 1;
   position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #E5E7EB; /* Default grey background behind slides */
+  margin: 32px;
   overflow: hidden;
 }
-
 .slideWrapper {
-  /* Standard 16:9 Slide Aspect Ratio */
-  width: 100%;
-  max-width: 1440px;
-  aspect-ratio: 16 / 9;
-  background: #FFF;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  position: relative;
-  overflow: hidden;
+  width: 1440px;
+  height: 810px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+  background: white;
   display: flex;
+  color: #222;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 32px;
+  border-top: 1px solid #42493b;
+  font-size: 10px;
+  color: #96a38a;
+}
+.footer > div {
+  display: flex;
+  gap: 8px;
+}
+.footer button {
+  background: none;
+  border: 1px solid #4c5741;
+  color: #a4b592;
+  font-size: 10px;
+  width: 32px;
+  height: 28px;
+  border-radius: 3px;
+}
+.footer button[aria-pressed='true'] {
+  background: #c4d3ad;
+  color: #28331f;
+}
+@media (max-width: 700px) {
+  .controls {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand {
+    display: none;
+  }
+  .controls > label {
+    width: 100%;
+  }
+  .select {
+    width: 100%;
+  }
+  .navigation {
+    margin-left: auto;
+  }
+  .slideViewport {
+    margin: 16px;
+  }
+  .footer {
+    padding: 16px;
+    flex-direction: column;
+    align-items: start;
+  }
 }
 
-/* Animations */
-.slideEnter {
-  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.notes {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 28px;
+  background: #f0eee9;
+  color: #5a5b55;
 }
-
-@keyframes slideIn {
-  0% { opacity: 0; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1); }
+.notes label {
+  flex: 1;
+  min-width: 220px;
+  display: grid;
+  gap: 10px;
+  font-size: 12px;
+}
+.notes textarea {
+  min-height: 80px;
+  padding: 12px;
+  font: inherit;
+  border: 1px solid #cccac2;
+  background: white;
+  border-radius: 4px;
+  resize: vertical;
+}
+.notes button,
+.footer > button {
+  padding: 9px 12px;
+  border: 1px solid #cccac2;
+  background: #f8f7f3;
+  color: #555;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.notes small {
+  width: 100%;
+  font-size: 10px;
+  color: #797d73;
+}
+.deckContainer:fullscreen .notes {
+  display: none;
 }

@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import React, { useRef } from 'react';
 
 interface ScrollRevealTextProps {
   text: string;
@@ -7,11 +7,15 @@ interface ScrollRevealTextProps {
   delay?: number;
 }
 
-export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({ text, className = '', delay = 0 }) => {
+export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({
+  text,
+  className = '',
+  delay = 0,
+}) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
 
-  const words = text.split(" ");
+  const words = text.split(' ');
 
   const container = {
     hidden: { opacity: 0 },
@@ -27,7 +31,7 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({ text, classN
       y: 0,
       rotateX: 0,
       transition: {
-        type: "spring" as const,
+        type: 'spring' as const,
         damping: 12,
         stiffness: 100,
       },
@@ -37,7 +41,7 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({ text, classN
       y: 100,
       rotateX: 90,
       transition: {
-        type: "spring" as const,
+        type: 'spring' as const,
         damping: 12,
         stiffness: 100,
       },
@@ -47,16 +51,16 @@ export const ScrollRevealText: React.FC<ScrollRevealTextProps> = ({ text, classN
   return (
     <motion.div
       ref={ref}
-      style={{ overflow: "hidden", display: "flex", flexWrap: "wrap", perspective: 1000 }}
+      style={{ overflow: 'hidden', display: 'flex', flexWrap: 'wrap', perspective: 1000 }}
       variants={container}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={isInView ? 'visible' : 'hidden'}
       className={className}
     >
       {words.map((word, index) => (
         <motion.span
           variants={child}
-          style={{ marginRight: "0.25em", display: "inline-block", transformOrigin: "bottom" }}
+          style={{ marginRight: '0.25em', display: 'inline-block', transformOrigin: 'bottom' }}
           key={index}
         >
           {word}

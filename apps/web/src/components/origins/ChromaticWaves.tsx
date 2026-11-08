@@ -1,14 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import { startAnimationLoop } from '@/lib/animation';
+import React, { useEffect, useRef } from 'react';
 
 export interface ChromaticWavesProps {
   className?: string;
   speed?: number;
 }
 
-export const ChromaticWaves: React.FC<ChromaticWavesProps> = ({
-  className = '',
-  speed = 0.05
-}) => {
+export const ChromaticWaves: React.FC<ChromaticWavesProps> = ({ className = '', speed = 0.05 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,20 +19,22 @@ export const ChromaticWaves: React.FC<ChromaticWavesProps> = ({
     let height = canvas.height;
     let time = 0;
 
+    let invalidate = () => {};
     const resize = () => {
       const parent = canvas.parentElement;
       if (parent) {
         width = parent.clientWidth;
         height = parent.clientHeight;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        canvas.width = width * Math.min(window.devicePixelRatio || 1, 2);
+        canvas.height = height * Math.min(window.devicePixelRatio || 1, 2);
+        ctx.scale(
+          Math.min(window.devicePixelRatio || 1, 2),
+          Math.min(window.devicePixelRatio || 1, 2),
+        );
       }
     };
     window.addEventListener('resize', resize);
     resize();
-
-    let animationId: number;
 
     const render = () => {
       time += speed;
@@ -50,16 +50,19 @@ export const ChromaticWaves: React.FC<ChromaticWavesProps> = ({
         { color: '#0000FF', offset: 0.4 },
       ];
 
-      for (let j = 0; j < 5; j++) { // 5 sine waves
+      for (let j = 0; j < 5; j++) {
+        // 5 sine waves
         const waveY = (height / 6) * (j + 1);
-        
-        channels.forEach(channel => {
+
+        channels.forEach((channel) => {
           ctx.beginPath();
           ctx.strokeStyle = channel.color;
-          
+
           for (let x = 0; x <= width; x += 10) {
             // Complex sine wave using time and x position
-            const y = waveY + Math.sin(x * 0.01 + time + channel.offset + j) * 40 * Math.sin(time * 0.5 + j);
+            const y =
+              waveY +
+              Math.sin(x * 0.01 + time + channel.offset + j) * 40 * Math.sin(time * 0.5 + j);
             if (x === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
           }
@@ -68,14 +71,16 @@ export const ChromaticWaves: React.FC<ChromaticWavesProps> = ({
       }
 
       ctx.globalCompositeOperation = 'source-over';
-      animationId = requestAnimationFrame(render);
     };
 
-    render();
+    const animation = startAnimationLoop(render, { element: canvas });
+    invalidate = animation.invalidate;
+    window.addEventListener('resize', invalidate);
 
     return () => {
       window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', invalidate);
+      animation.dispose();
     };
   }, [speed]);
 

@@ -1,11 +1,19 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 export function DotMatrix() {
   const dots = Array.from({ length: 400 });
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(20, 1fr)', gap: '4px', padding: '20px', width: '200px', height: '200px' }}>
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(20, 1fr)',
+        gap: '4px',
+        padding: '20px',
+        width: '200px',
+        height: '200px',
+      }}
+    >
       {dots.map((_, i) => (
         <motion.div
           key={i}
@@ -15,7 +23,7 @@ export function DotMatrix() {
             width: '4px',
             height: '4px',
             backgroundColor: 'rgba(255,255,255,0.2)',
-            borderRadius: '50%'
+            borderRadius: '50%',
           }}
         />
       ))}

@@ -1,63 +1,83 @@
-import React from 'react';
+import { DetailDialog } from '@/components/ui/DemoAction';
 import { getAssetUrl } from '@/lib/assetUtils';
+import { ArrowUpRight, Search } from 'lucide-react';
+import { useState } from 'react';
 import styles from './LearnScreen.module.css';
-
+const reads = [
+  {
+    title: 'Make room for a small ritual',
+    category: 'Routine',
+    text: 'Choose a small moment that belongs to you: opening a window, writing a sentence, or sitting quietly with a cup of tea. Make the ritual easy to return to. It doesn’t need to be impressive to be meaningful.',
+  },
+  {
+    title: 'A page, just for you',
+    category: 'Reflection',
+    text: 'Start with one sentence about your day. Notice a moment you enjoyed, something that surprised you, or a question you want to come back to. There is no required length and no perfect way to begin.',
+  },
+  {
+    title: 'The art of beginning again',
+    category: 'Routine',
+    text: 'A routine can have gaps. If a day passes, you can return when you’re ready. Choose one small action that feels possible today and let that be enough.',
+  },
+];
 export function LearnScreen() {
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('All');
+  const filtered = reads.filter(
+    (r) =>
+      (category === 'All' || r.category === category) &&
+      r.title.toLowerCase().includes(query.toLowerCase()),
+  );
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Learn</h1>
-        <button className={styles.bookmarkBtn}>&#128278;</button>
-      </header>
-
-      <div className={styles.searchBar}>
-        <span className={styles.searchIcon}>&#128269;</span>
-        <input type="text" placeholder="Search reads and tips" className={styles.searchInput} />
+    <section className={styles.container}>
+      <span className={styles.eyebrow}>A LITTLE PERSPECTIVE</span>
+      <h1>
+        Something
+        <br />
+        to sit with.
+      </h1>
+      <label className={styles.search}>
+        <Search size={15} />
+        <span className="sr-only">Search reflections</span>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Find a little inspiration"
+        />
+      </label>
+      <img
+        src={getAssetUrl('/assets/wellness2.png')}
+        alt="A quiet moment with a book"
+        className={styles.image}
+      />
+      <div className={styles.filters}>
+        {['All', 'Routine', 'Reflection'].map((c) => (
+          <button key={c} aria-pressed={category === c} onClick={() => setCategory(c)}>
+            {c}
+          </button>
+        ))}
       </div>
-
-      <div className={styles.featuredCard}>
-        <div className={styles.featuredTag}>Featured</div>
-        <div className={styles.featuredImageWrapper}>
-          <img src={getAssetUrl("/assets/wellness2.png")} alt="Person reading" className={styles.featuredImage} />
-        </div>
-        <div className={styles.featuredContent}>
-          <div className={styles.startHereTag}>&#9679; START HERE</div>
-          <h2 className={styles.featuredTitle}>The first two weeks: what to expect</h2>
-          <p className={styles.featuredDesc}>Your body and mind are beginning a beautiful recalibration. Here is a gentle map of the early days, with kindness for every step...</p>
-          
-          <div className={styles.featuredFooter}>
-            <span className={styles.readTime}>&#128336; 4 min read</span>
-            <span className={styles.readLink}>Read Guide &gt;</span>
-          </div>
-        </div>
+      <div>
+        {filtered.map((read) => (
+          <article key={read.title}>
+            <DetailDialog
+              title={read.title}
+              trigger={
+                <>
+                  <span>{read.category} / 1 min read</span>
+                  <h2>
+                    {read.title}
+                    <ArrowUpRight size={17} />
+                  </h2>
+                </>
+              }
+            >
+              <p>{read.text}</p>
+            </DetailDialog>
+          </article>
+        ))}
+        {filtered.length === 0 && <p role="status">No reflections match. Try another search.</p>}
       </div>
-
-      <div className={styles.categories}>
-        <button className={`${styles.categoryChip} ${styles.activeChip}`}>All</button>
-        <button className={styles.categoryChip}>Cravings</button>
-        <button className={styles.categoryChip}>Sleep</button>
-        <button className={styles.categoryChip}>Mindset</button>
-      </div>
-
-      <div className={styles.listSection}>
-        <h3 className={styles.listTitle}>Daily Wisdom</h3>
-        
-        <div className={styles.listItem}>
-          <div className={styles.listItemIcon}>&#127811;</div>
-          <div className={styles.listItemContent}>
-            <span className={styles.itemTag}>Cravings &middot; 3 min read</span>
-            <h4>Ride the wave: the 20-minute rule</h4>
-          </div>
-        </div>
-        
-        <div className={styles.listItem}>
-          <div className={styles.listItemIcon}>&#127769;</div>
-          <div className={styles.listItemContent}>
-            <span className={styles.itemTag}>Sleep &middot; 5 min read</span>
-            <h4>Setting up a calming evening routine</h4>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }

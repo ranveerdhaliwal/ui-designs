@@ -6,9 +6,23 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "screenshot": "node scripts/screenshot.mjs"
+    "screenshot": "node scripts/screenshot.mjs",
+    "lint": "pnpm -r lint",
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "format": "prettier --write \"apps/web/src/**/*.{ts,tsx,css}\"",
+    "format:check": "prettier --check \"apps/web/src/**/*.{ts,tsx,css}\"",
+    "verify:demos": "node scripts/verify-demos.mjs",
+    "verify:interactions": "node scripts/verify-interactions.mjs",
+    "previews": "CAPTURE_PREVIEWS=1 node scripts/verify-demos.mjs",
+    "browser:check": "node scripts/verify-production.mjs",
+    "verify:refinements": "node scripts/verify-refinements.mjs",
+    "verify:orrery": "node scripts/verify-orrery.mjs",
+    "verify:motion": "node scripts/verify-motion-exhibits.mjs"
   },
   "devDependencies": {
-    "playwright": "^1.49.1"
-  }
+    "@axe-core/playwright": "4.10.2",
+    "playwright": "^1.49.1",
+    "prettier": "3"
+  },
+  "packageManager": "pnpm@9.15.0"
 }

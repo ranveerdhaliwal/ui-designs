@@ -8,9 +8,10 @@
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    background-color 160ms ease-out,
+    transform 160ms ease-out;
   border: 1px solid transparent;
-  outline: none;
 }
 
 .button:disabled {
@@ -57,4 +58,12 @@
 
 .fullWidth {
   width: 100%;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 3px;
+}
+.button:active:not(:disabled) {
+  transform: translateY(1px);
 }

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-// @ts-ignore
-import { mountScrollWorld } from './scrubEngine';
+import { useEffect, useRef } from 'react';
+import { mountScrollWorld, type ScrollWorldConfig } from './scrubEngine';
 
-export function ScrollWorldEngine({ config }: { config: any }) {
+export function ScrollWorldEngine({ config }: { config: ScrollWorldConfig }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -13,5 +12,5 @@ export function ScrollWorldEngine({ config }: { config: any }) {
     };
   }, [config]);
 
-  return <div ref={containerRef} style={{ width: '100vw' }} />;
+  return <div ref={containerRef} style={{ width: '100%' }} />;
 }

@@ -1,0 +1,165 @@
+.workflow {
+  --wf-bg: #fffdf8;
+  --wf-ink: #29271f;
+  --wf-border: #e7e3d9;
+  --wf-muted: #837d70;
+  --wf-card: white;
+  background: var(--wf-bg);
+  color: var(--wf-ink);
+  border: 1px solid var(--wf-border);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+.dark {
+  --wf-bg: #171b18;
+  --wf-ink: #f3f5ee;
+  --wf-border: #303930;
+  --wf-muted: #9ba994;
+  --wf-card: #1c241c;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+  color: var(--wf-muted);
+}
+.source {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+.source select {
+  padding: 12px;
+  background: var(--wf-card);
+  color: var(--wf-ink);
+  border: 1px solid var(--wf-border);
+  border-radius: 6px;
+}
+.step {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid var(--wf-border);
+  background: var(--wf-card);
+  border-radius: 8px;
+  padding: 18px;
+}
+.step h3 {
+  font-size: 14px;
+  font-weight: 500;
+}
+.step p {
+  font-size: 11px;
+  color: var(--wf-muted);
+  margin-top: 6px;
+}
+.icon {
+  color: #a76a26;
+  display: flex;
+}
+.dark .icon {
+  color: #c8e4a2;
+}
+.number {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--wf-muted);
+}
+.arrow {
+  display: block;
+  margin: 10px auto;
+  color: var(--wf-muted);
+}
+.run {
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border: 0;
+  background: #d9e8c6;
+  color: #29311f;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 12px;
+}
+.result {
+  min-height: 32px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--wf-muted);
+  margin-top: 14px;
+}
+@media (max-width: 500px) {
+  .workflow {
+    padding: 20px;
+  }
+  .step {
+    padding: 14px;
+  }
+}
+
+button.step {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+.step strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.step small {
+  display: block;
+  margin-top: 6px;
+  opacity: 0.65;
+  font-size: 11px;
+}
+.inspector {
+  padding: 16px;
+  border: 1px solid #8883;
+  border-radius: 5px;
+  margin: 8px 0;
+  font-size: 11px;
+}
+.inspector pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  margin: 0;
+}
+.inspector label {
+  display: grid;
+  gap: 10px;
+}
+.inspector textarea {
+  font: inherit;
+  min-height: 90px;
+  padding: 10px;
+  border: 1px solid #8885;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  resize: vertical;
+}
+.output {
+  margin: 16px 0 0;
+  padding: 16px;
+  border-left: 2px solid currentColor;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.output span {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}

@@ -8,14 +8,12 @@ export interface PanelProps {
   style?: React.CSSProperties | undefined;
 }
 
-export const Panel: React.FC<PanelProps> = ({
-  children,
-  side = 'left',
-  className = '',
-  style
-}) => {
+export const Panel: React.FC<PanelProps> = ({ children, side = 'left', className = '', style }) => {
   return (
-    <aside className={`${styles.panel} ${side === 'right' ? styles.right : ''} ${className}`} style={style}>
+    <aside
+      className={`${styles.panel} ${side === 'right' ? styles.right : ''} ${className}`}
+      style={style}
+    >
       {children}
     </aside>
   );

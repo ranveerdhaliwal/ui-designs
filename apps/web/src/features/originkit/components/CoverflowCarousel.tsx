@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export function CoverflowCarousel() {
   const [index, setIndex] = useState(0);
   const items = [0, 1, 2, 3, 4];
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', perspective: '1000px', overflow: 'hidden' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        perspective: '1000px',
+        overflow: 'hidden',
+      }}
+    >
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
         {items.map((i) => {
           const isActive = i === index;
           const offset = i - index;
           const absOffset = Math.abs(offset);
-          
+
           return (
             <motion.div
               key={i}
@@ -32,7 +42,7 @@ export function CoverflowCarousel() {
                 cursor: 'pointer',
                 boxShadow: isActive ? '0 20px 40px rgba(0,0,0,0.5)' : 'none',
                 flexShrink: 0,
-                transformStyle: 'preserve-3d'
+                transformStyle: 'preserve-3d',
               }}
             />
           );

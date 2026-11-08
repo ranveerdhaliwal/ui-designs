@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import React, { useRef, useState } from 'react';
 
 export function MagneticCarousel() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -14,27 +14,34 @@ export function MagneticCarousel() {
   };
 
   return (
-    <div 
+    <div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMouse({ x: 0, y: 0 })}
-      style={{ width: '100%', height: '100%', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
       <motion.div
         animate={{ x: mouse.x * -0.5 }}
-        transition={{ type: "spring", stiffness: 150, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 150, damping: 20 }}
         style={{ display: 'flex', gap: '15px' }}
       >
         {Array.from({ length: 5 }).map((_, i) => (
-          <div 
-            key={i} 
-            style={{ 
-              width: '100px', 
-              height: '140px', 
-              background: '#222', 
+          <div
+            key={i}
+            style={{
+              width: '100px',
+              height: '140px',
+              background: '#222',
               borderRadius: '8px',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }} 
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
           />
         ))}
       </motion.div>

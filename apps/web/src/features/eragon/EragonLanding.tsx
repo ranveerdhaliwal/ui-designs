@@ -1,90 +1,212 @@
-import React from 'react';
-import { Link } from '@tanstack/react-router';
+import { DemoAction } from '@/components/ui/DemoAction';
+import { SectionLink } from '@/components/ui/SectionLink';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Command,
+  FileText,
+  Layers,
+  Network,
+  Search,
+  Shield,
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Dialog } from '@/components/ui/Dialog';
 import styles from './EragonLanding.module.css';
-
+const answers = [
+  {
+    title: 'Product strategy',
+    text: 'Bring customer feedback, product decisions, and research into one searchable space.',
+    items: ['Customer interviews', 'Product roadmap', 'Research archive'],
+  },
+  {
+    title: 'Team knowledge',
+    text: 'Keep the context behind a decision close to the people who need it.',
+    items: ['Team handbook', 'Engineering notes', 'Meeting summaries'],
+  },
+  {
+    title: 'Connected work',
+    text: 'Start with a question. Find the source. Take the next step with the full picture.',
+    items: ['Source documents', 'Connected projects', 'Shared decisions'],
+  },
+];
 export function EragonLanding() {
+  const [active, setActive] = useState(0);
+  const [query, setQuery] = useState('');
+  const current = answers[active]!;
+  const [document, setDocument] = useState<string | null>(null);
+  const search = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        search.current?.focus();
+        search.current?.scrollIntoView({ block: 'center' });
+      }
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, []);
   return (
     <div className={styles.container}>
       <header className={styles.nav}>
-        <div className={styles.logo}>ERAGON</div>
-        <div className={styles.navLinks}>
-          <a href="#">Platform</a>
-          <a href="#">Use Cases</a>
-          <a href="#">Company</a>
-          <a href="#">Pricing</a>
-        </div>
-        <div className={styles.navActions}>
-          <a href="#" className={styles.navLogin}>Login</a>
-          <button className={styles.btnPrimary}>Get Started</button>
-        </div>
+        <a href="#/eragon" className={styles.logo}>
+          <Layers size={23} /> eragon
+        </a>
+        <nav>
+          <SectionLink target="eragon-workspace">Workspace</SectionLink>
+          <SectionLink target="eragon-principles">Approach</SectionLink>
+        </nav>
+        <DemoAction className={styles.smallButton} title="Meet your next workspace">
+          Get started <ArrowUpRight size={14} />
+        </DemoAction>
       </header>
-
-      <main className={styles.main}>
+      <main>
         <section className={styles.hero}>
-          <div className={styles.badge}>
-            <span className={styles.badgeDot}></span>
-            Eragon AI Operating System Version 1.0 is Live
-          </div>
-          <h1 className={styles.headline}>
-            AI Operating System<br/>For Your Company.
+          <p className={styles.eyebrow}>Clarity for the work ahead</p>
+          <h1>
+            Your company’s knowledge.
+            <br />
+            <em>Finally, connected.</em>
           </h1>
-          <p className={styles.subheadline}>
-            Eragon is a centralized AI workspace that powers org-wide business intelligence, persistent memory, and intelligent model routing.
+          <p className={styles.lead}>
+            A considered workspace for the questions, context, and decisions that move your team
+            forward.
           </p>
-          <div className={styles.heroActions}>
-            <button className={styles.btnPrimaryLg}>Start Building</button>
-            <button className={styles.btnSecondaryLg}>Request Demo</button>
+          <SectionLink target="eragon-workspace" className={styles.primary}>
+            Explore the workspace <ArrowRight size={16} />
+          </SectionLink>
+        </section>
+        <section id="eragon-workspace" className={styles.workspace}>
+          <aside>
+            <div className={styles.workspaceBrand}>
+              <Command size={19} /> Your workspace
+            </div>
+            {answers.map((a, i) => (
+              <button
+                key={a.title}
+                aria-pressed={active === i}
+                onClick={() => {
+                  setActive(i);
+                  setQuery('');
+                }}
+              >
+                <FileText size={15} />
+                {a.title}
+              </button>
+            ))}
+            <p>EXAMPLE WORKSPACE</p>
+          </aside>
+          <div className={styles.workspaceMain}>
+            <div className={styles.workspaceTop}>
+              <span>Knowledge / {current.title}</span>
+              <span>Personal space</span>
+            </div>
+            <h2>
+              A little context.
+              <br />A clearer next step.
+            </h2>
+            <label className={styles.search}>
+              <Search size={17} />
+              <input
+                ref={search}
+                aria-label="Search workspace documents"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Find a document in this space…"
+              />
+              <span>⌘ K</span>
+            </label>
+            <div className={styles.documents}>
+              {current.items
+                .filter((t) => t.toLowerCase().includes(query.toLowerCase()))
+                .map((t) => (
+                  <article key={t}>
+                    <FileText size={19} />
+                    <h3>
+                      <button className={styles.documentLink} onClick={() => setDocument(t)}>
+                        {t}
+                        <ArrowUpRight size={14} />
+                      </button>
+                    </h3>
+                    <p>{current.text}</p>
+                  </article>
+                ))}
+              {!current.items.some((t) => t.toLowerCase().includes(query.toLowerCase())) && (
+                <p>No documents match “{query}”.</p>
+              )}
+            </div>
           </div>
         </section>
-
-        <section className={styles.features}>
-          <div className={styles.featureGrid}>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>✦</div>
-              <h3>Persistent Memory</h3>
-              <p>Models that remember your enterprise context natively.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>✧</div>
-              <h3>Model Routing</h3>
-              <p>Intelligently dispatch tasks to the optimal LLM.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>✺</div>
-              <h3>Forward-Deployed</h3>
-              <p>Customized solutions engineered for your security constraints.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.hero} style={{ marginTop: '8rem', marginBottom: '4rem', textAlign: 'left', alignItems: 'flex-start' }}>
-          <div className={styles.badge}>
-            <span className={styles.badgeDot}></span>
-            Deep Dive
-          </div>
-          <h2 className={styles.headline} style={{ fontSize: '3.5rem' }}>
-            Built for scale.<br/>Designed for security.
-          </h2>
-          <p className={styles.subheadline}>
-            Eragon integrates directly with your existing data warehouses, providing an intelligence layer that is entirely within your VPC. No data leaves your network.
-          </p>
-          <div className={styles.featureGrid} style={{ marginTop: '2rem' }}>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>SOC2</div>
-              <h3>Enterprise Compliance</h3>
-              <p>Fully compliant with SOC2 Type II, HIPAA, and GDPR standards out of the box.</p>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureIcon}>VPC</div>
-              <h3>Private Deployment</h3>
-              <p>Deploy on AWS, GCP, or Azure within your own virtual private cloud.</p>
-            </div>
-          </div>
+        <section id="eragon-principles" className={styles.principles}>
+          {[
+            [
+              Network,
+              'Context that connects',
+              'A shared foundation for documents, projects, and the decisions between them.',
+            ],
+            [
+              Search,
+              'Answers with a source',
+              'Keep the original context visible, so every answer can be understood.',
+            ],
+            [
+              Shield,
+              'A space of your own',
+              'Thoughtful boundaries between personal work and shared team knowledge.',
+            ],
+          ].map(([Icon, t, d]) => {
+            const Glyph = Icon as typeof Network;
+            return (
+              <article key={t as string}>
+                <Glyph size={24} />
+                <h3>{t as string}</h3>
+                <p>{d as string}</p>
+              </article>
+            );
+          })}
         </section>
       </main>
-
-      {/* Floating back button to home */}
-      <Link to="/" className={styles.backButton}>&larr; Back to Hub</Link>
+      <Dialog
+        open={document !== null}
+        onOpenChange={(open) => {
+          if (!open) setDocument(null);
+        }}
+        title={document ?? 'Document'}
+        description={`${current.title} / Example source document`}
+      >
+        <article className={styles.documentBody}>
+          <p className={styles.eyebrow}>WORKING NOTES · OCTOBER 2026</p>
+          <h3>What we know</h3>
+          <p>{current.text}</p>
+          <p>
+            {active === 0
+              ? 'Interviews with the sample team point to a recurring need: fewer handoffs and clearer ownership. The next iteration focuses on getting from an initial question to a documented decision.'
+              : active === 1
+                ? 'Every decision should have an owner, the context that informed it, and a date to revisit it. Keep the source material linked from the working note.'
+                : 'A useful connection preserves context. Start with the original document, identify the project it informs, and record the decision that follows.'}
+          </p>
+          <h3>Next steps</h3>
+          <ul>
+            <li>Review the original context with the project owner.</li>
+            <li>Document assumptions separately from confirmed findings.</li>
+            <li>Agree on a small next step and a review date.</li>
+          </ul>
+          <p>Related in this space</p>
+          {current.items
+            .filter((t) => t !== document)
+            .map((t) => (
+              <button key={t} onClick={() => setDocument(t)}>
+                {t}
+                <ArrowRight size={14} />
+              </button>
+            ))}
+          <small>Authored sample content for this interface study.</small>
+        </article>
+      </Dialog>
+      <footer className={styles.footer}>
+        eragon <span>Knowledge, with perspective.</span>
+      </footer>
     </div>
   );
 }

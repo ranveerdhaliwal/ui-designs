@@ -1,30 +1,29 @@
-import React from 'react';
 import { SlideDeck } from '@/components/ui/SlideDeck';
-import { BrandGuideSlides } from './themes/BrandGuideTheme';
-import { AuroraSlides } from './themes/AuroraTheme';
 import { AtlasSlides } from './themes/AtlasTheme';
+import { AuroraSlides } from './themes/AuroraTheme';
+import { BrandGuideSlides } from './themes/BrandGuideTheme';
 
 export function PresentationsLanding() {
   const themes = [
     {
       id: 'brand-guide',
-      name: 'Brand Guide 2024 (Bauhaus)',
+      name: 'Form & Color / Brand Guide',
       slides: BrandGuideSlides,
     },
     {
       id: 'aurora',
-      name: 'Aurora Studio (Corporate Collage)',
+      name: 'Aurora / Studio Notes',
       slides: AuroraSlides,
     },
     {
       id: 'atlas',
-      name: 'Imaginary Atlas (Surrealist)',
+      name: 'Atlas / Imagined Places',
       slides: AtlasSlides,
-    }
+    },
   ];
 
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div style={{ width: '100%' }}>
       <SlideDeck themes={themes} />
     </div>
   );

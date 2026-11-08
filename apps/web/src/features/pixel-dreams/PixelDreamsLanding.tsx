@@ -1,64 +1,82 @@
-import React, { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import styles from './PixelDreamsLanding.module.css';
+import { ArtworkViewer } from '@/components/ui/ArtworkViewer';
+import { DetailDialog } from '@/components/ui/DemoAction';
 import { getAssetUrl } from '@/lib/assetUtils';
-
+import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import styles from './PixelDreamsLanding.module.css';
 const images = [
-  { src: getAssetUrl('/assets/dither1.png'), title: 'ANGEL GARDEN', desc: '16-bit RGB Error Diffusion' },
+  {
+    src: getAssetUrl('/assets/dither1.png'),
+    title: 'ANGEL GARDEN',
+    desc: '16-bit RGB Error Diffusion',
+  },
   { src: getAssetUrl('/assets/dither2.png'), title: 'THE PILLAR', desc: 'Sierra Adventure Style' },
-  { src: getAssetUrl('/assets/dither3.png'), title: 'CASTLE REFLECTION', desc: 'Vaporwave Palette' },
+  {
+    src: getAssetUrl('/assets/dither3.png'),
+    title: 'CASTLE REFLECTION',
+    desc: 'Vaporwave Palette',
+  },
   { src: getAssetUrl('/assets/dither4.png'), title: 'MOUNTAIN TREE', desc: 'EGA Palette Mapping' },
 ];
 
 export function PixelDreamsLanding() {
-  const controls = useAnimation();
-
-  useEffect(() => {
-    controls.start(i => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.2, duration: 0.5, ease: "easeOut" }
-    }));
-  }, [controls]);
-
+  const [crt, setCrt] = useState(true);
   return (
-    <div className={styles.container}>
-      <div className={styles.crtOverlay}></div>
-      <div className={styles.scanlines}></div>
-      
-      <main className={styles.main}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>PIXEL DREAMS</h1>
-          <p className={styles.subtitle}>// RETRO DITHERING GALLERY //</p>
-        </header>
-
-        <div className={styles.gallery}>
-          {images.map((img, index) => (
-            <motion.div 
-              key={index} 
-              className={styles.card}
-              custom={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={controls}
-              whileHover={{ scale: 1.05 }}
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <span>PD / DIGITAL COLLECTION</span>
+        <button aria-pressed={crt} onClick={() => setCrt(!crt)}>
+          CRT texture {crt ? 'on' : 'off'}
+        </button>
+      </header>
+      <section className={styles.intro}>
+        <h1>
+          PIXEL
+          <br />
+          <span>DREAMS</span>
+        </h1>
+        <p>
+          Small worlds.
+          <br />
+          Infinite possibility.
+          <br />
+          <span>A collection in four palettes.</span>
+        </p>
+      </section>
+      <section className={styles.gallery} data-crt={crt}>
+        {images.map((img, i) => (
+          <article className={styles.card} key={img.title}>
+            <DetailDialog
+              title={img.title}
+              trigger={
+                <>
+                  <div className={styles.imageWrapper}>
+                    <img src={img.src} alt={img.title} />
+                    <span>
+                      <ArrowUpRight size={20} />
+                    </span>
+                  </div>
+                  <div className={styles.cardInfo}>
+                    <span>0{i + 1}</span>
+                    <h2>{img.title}</h2>
+                    <p>{img.desc}</p>
+                  </div>
+                </>
+              }
             >
-              <div className={styles.cardInner}>
-                <div className={styles.imageWrapper}>
-                  <img src={img.src} alt={img.title} className={styles.pixelImage} />
-                </div>
-                <div className={styles.cardInfo}>
-                  <h3 className={styles.cardTitle}>&gt; {img.title}</h3>
-                  <p className={styles.cardDesc}>[{img.desc}]</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <footer className={styles.footer}>
-          <div className={styles.blinkingCursor}>&gt; SYSTEM IDLE_</div>
-        </footer>
-      </main>
-    </div>
+              <ArtworkViewer src={img.src} alt={img.title} pixelated />
+              <p>{img.desc}. Explore the details of this pixel-art study.</p>
+              <a href={img.src} download={`${img.title.toLowerCase().replaceAll(' ', '-')}.png`}>
+                Download artwork ↓
+              </a>
+            </DetailDialog>
+          </article>
+        ))}
+      </section>
+      <footer className={styles.footer}>
+        <span>FOUR WORLDS / ONE FRAME AT A TIME</span>
+        <span>END OF COLLECTION</span>
+      </footer>
+    </main>
   );
 }
